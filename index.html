@@ -742,7 +742,7 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
 })();
 
 (function(){var b=document.getElementById('paliatzis');if(!b)return;var v=document.getElementById('viewer');
-  var CALLS=["Ο παλιατζής!","Παλιά ψυγεία, πλυντήρια, κουζίνες!","Ακονίζω μαχαίρια, ψαλίδια!","Καρπούζια! Γλυκά καρπούζια!","Κουλούρια φρέσκα!","Ζεστά κάστανα!","Λαχεία! Κερδίζει απόψε!","Ντομάτες, πατάτες, κρεμμύδια!"];
+  var CALLS=["Ο παλιατζής!","Παλιά ψυγεία, κουζίνες, πλυντήρια… αγοράζω!","Ο ακονιστής! Μαχαίρια, ψαλίδια!","Καρπούζια! Κόκκινα και γλυκά!","Φρέσκα κουλούρια!","Ζεστά κάστανα, ψητά!","Το τυχερό! Σήμερα κληρώνει!","Ντομάτες, πατάτες, όλα φρέσκα!"];
   var span=b.querySelector('span'),order=[],last=null;
   function nextCall(){if(!order.length){order=CALLS.slice().sort(function(){return Math.random()-.5});if(order[0]===last)order.push(order.shift())}
     if(last===null){order.splice(order.indexOf(CALLS[0]),1);last=CALLS[0];return last}
