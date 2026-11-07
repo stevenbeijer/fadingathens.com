@@ -743,10 +743,15 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
 })();
 
 (function(){var b=document.getElementById('paliatzis');if(!b)return;var v=document.getElementById('viewer');
+  var CALLS=["Ο παλιατζής!","Παλιά ψυγεία, πλυντήρια, κουζίνες!","Ακονίζω μαχαίρια, ψαλίδια!","Καρπούζια! Γλυκά καρπούζια!","Κουλούρια φρέσκα!","Ζεστά κάστανα!","Λαχεία! Κερδίζει απόψε!","Ντομάτες, πατάτες, κρεμμύδια!"];
+  var span=b.querySelector('span'),order=[],last=null;
+  function nextCall(){if(!order.length){order=CALLS.slice().sort(function(){return Math.random()-.5});if(order[0]===last)order.push(order.shift())}
+    if(last===null){order.splice(order.indexOf(CALLS[0]),1);last=CALLS[0];return last}
+    last=order.shift();return last}
   function rnd(a,c){return a+Math.random()*(c-a)}
   function pop(){
     if(document.hidden||(v&&!v.hidden)){return schedule()}
-    var W=window.innerWidth,H=window.innerHeight;b.classList.remove('show');
+    var W=window.innerWidth,H=window.innerHeight;b.classList.remove('show');span.textContent=nextCall();
     var flip=Math.random()<.5;b.classList.toggle('flip',flip);
     var bw=b.offsetWidth||200,bh=b.offsetHeight||60,pad=16;
     var x=rnd(pad,Math.max(pad,W-bw-pad)),y=rnd(80,Math.max(90,H-bh-40));
