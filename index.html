@@ -15,7 +15,7 @@
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Fading Athens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@300;500;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@300;500;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&display=swap">
 <style>
 /* Layout: a walk down one street — sign + photo hero, a contact-sheet wall of photographs, the market at dusk, the streets, the photographer. */
 :root{
@@ -340,6 +340,15 @@ footer .logo .logo-mark{height:52px}
 .film-nav button:hover{background:var(--on-green);color:var(--green)}
 .market video{transition:opacity .25s}
 .market video.swap{opacity:.2}
+
+/* handwriting on the back of the postcard */
+.pc-back{position:relative;container-type:inline-size}
+.pc-back img{display:block}
+.hand{position:absolute;left:7%;top:33%;width:37%;margin:0;font-family:"Caveat","Bradley Hand","Segoe Print",cursive;font-weight:500;
+  font-size:6.4cqw;line-height:1.28;color:#24418f;transform:rotate(-4deg);transform-origin:left top;pointer-events:none}
+.hand .ch{opacity:1;transition:opacity .12s linear}
+.hand.armed .ch{opacity:0}
+.hand.armed .ch.on{opacity:1}
 </style>
 
 </head>
@@ -422,7 +431,7 @@ footer .logo .logo-mark{height:52px}
     <div class="side">
       <p>Old signs from around the city, drawn by hand and gathered onto two cards: one for the cinemas, one for the shops, bars and hotels. Each carries the Fading Athens mark on the back.</p>
       <p class="credit">The illustrations and postcards are a collaboration between <b>Steven A.J. Beijer</b> and filmmaker <b>Xany Mendez</b>.</p>
-      <figure><img src="img/postcard-back.jpg" width="1400" height="995" loading="lazy" alt="Postcard back with the Fading Athens triangle logo, the title Cinemas of Athens, address lines, a stamp box and a QR code"><figcaption><span class="en">The back of Cinemas of Athens</span></figcaption></figure>
+      <figure><div class="pc-back"><img src="img/postcard-back.jpg" width="1400" height="995" loading="lazy" alt="Postcard back with the Fading Athens triangle logo, the title Cinemas of Athens, address lines, a stamp box and a QR code"><p class="hand" id="handNote" aria-label="Handwritten on the card: I&#39;m loving Athens and wish you were here...">I&#39;m loving Athens and wish you were here...</p></div><figcaption><span class="en">The back of Cinemas of Athens</span></figcaption></figure>
     </div>
   </div>
 </div></section>
@@ -655,6 +664,18 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
   window.scrollTo({top:0,behavior:smooth?'smooth':'auto'});
   try{if(location.hash)history.replaceState(null,'',location.pathname+location.search)}catch(err){}
 })});
+
+(function(){var n=document.getElementById('handNote');if(!n)return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var t=n.textContent;n.textContent='';var chars=[];
+  t.split('').forEach(function(c){var sp=document.createElement('span');sp.className='ch';sp.setAttribute('aria-hidden','true');sp.textContent=c;n.appendChild(sp);chars.push(sp)});
+  if(reduce||!('IntersectionObserver' in window))return;
+  n.classList.add('armed');
+  function write(){var i=0;(function step(){if(i>=chars.length)return;chars[i].classList.add('on');var c=chars[i].textContent;i++;
+    setTimeout(step,c===' '?110:(c==='.'?260:55+Math.random()*45))})()}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();setTimeout(write,400)}})},{threshold:.6});
+  io.observe(n.parentNode);
+})();
 </script>
 
 </body>
