@@ -365,6 +365,11 @@ footer .logo .logo-mark{height:52px}
 .pc-postmark{position:absolute;left:73%;top:16%;width:22%;color:rgba(28,26,23,.62);transform:rotate(-12deg);pointer-events:none;mix-blend-mode:multiply}
 .pc-postmark.armed{opacity:0;transform:rotate(-12deg) scale(1.15)}
 .pc-postmark.on{opacity:1;transform:rotate(-12deg);transition:opacity .15s,transform .2s ease-out}
+
+.pc-doodle{position:absolute;left:25%;top:76%;width:15%;color:#24418f;transform:rotate(-3deg);pointer-events:none}
+.pc-doodle path{stroke-dasharray:1;stroke-dashoffset:0}
+.pc-doodle.armed path{stroke-dashoffset:1}
+.pc-doodle.on path{stroke-dashoffset:0;transition:stroke-dashoffset .35s ease-out;transition-delay:calc(var(--i,0) * .12s)}
 </style>
 
 </head>
@@ -447,7 +452,7 @@ footer .logo .logo-mark{height:52px}
     <div class="side">
       <p>Old signs from around the city, drawn by hand and gathered onto two cards: one for the cinemas, one for the shops, bars and hotels. Each carries the Fading Athens mark on the back.</p>
       <p class="credit">The illustrations and postcards are a collaboration between <b>Steven A.J. Beijer</b> and filmmaker <b>Xany Mendez</b>.</p>
-      <figure><div class="pc-back"><img src="img/postcard-back-v2.jpg" width="1400" height="993" loading="lazy" alt="Postcard back with the Fading Athens triangle logo, the title Signs of Athens, address lines, a stamp box and a QR code"><p class="hand" id="handNote" aria-label="Handwritten on the card: I&#39;m loving Athens and wish you were here...">I&#39;m loving Athens and wish you were here...</p><svg class="pc-heart" id="pcHeart" viewBox="0 0 100 92" aria-hidden="true"><path d="M50 84 C28 66 9 50 13 31 C17 15 37 11 47 26 L50 31 L53 26 C63 11 83 15 87 31 C91 50 72 66 50 84" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="hand pc-to" id="pcTo" aria-label="To: you, wherever you are"><span class="l1">To: you,</span><span class="l2">wherever you are</span></p><div class="pc-stamp" id="pcStamp" aria-hidden="true"><svg viewBox="0 0 100 120">
+      <figure><div class="pc-back"><img src="img/postcard-back-v2.jpg" width="1400" height="993" loading="lazy" alt="Postcard back with the Fading Athens triangle logo, the title Signs of Athens, address lines, a stamp box and a QR code"><p class="hand" id="handNote" aria-label="Handwritten on the card: I&#39;m loving Athens and wish you were here...">I&#39;m loving Athens and wish you were here...</p><svg class="pc-heart" id="pcHeart" viewBox="0 0 100 92" aria-hidden="true"><path d="M50 84 C28 66 9 50 13 31 C17 15 37 11 47 26 L50 31 L53 26 C63 11 83 15 87 31 C91 50 72 66 50 84" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="pc-doodle" id="pcDoodle" viewBox="0 0 100 92" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M14 31 C30 22 40 17 50 13 C61 18 72 24 87 31 C62 32 38 31 14 31"/><path pathLength="1" d="M12 35 C38 34 62 35 88 34.5 M13 40 C38 40.5 62 39.5 87 40"/><path pathLength="1" d="M22 45 C22.6 55 21.4 65 22.3 76"/><path pathLength="1" d="M33 45 C33.6 55 32.4 65 33.3 76"/><path pathLength="1" d="M44 45 C44.6 55 43.4 65 44.3 76"/><path pathLength="1" d="M56 45 C56.6 55 55.4 65 56.3 76"/><path pathLength="1" d="M67 45 C67.6 55 66.4 65 67.3 76"/><path pathLength="1" d="M78 45 C78.6 55 77.4 65 78.3 76"/><path pathLength="1" d="M15 78 C40 77 62 78.5 86 77.5 M11 83 C38 82 64 84 90 82.5 M7 88 C36 87.5 66 89 94 87.5"/><path pathLength="1" d="M47 25 C49 24 52 24 54 25.5"/></g></svg><p class="hand pc-to" id="pcTo" aria-label="To: you, wherever you are"><span class="l1">To: you,</span><span class="l2">wherever you are</span></p><div class="pc-stamp" id="pcStamp" aria-hidden="true"><svg viewBox="0 0 100 120">
 <defs><mask id="perf"><rect width="100" height="120" fill="#fff"/><g fill="#000"><circle cx="0" cy="0" r="3.2"/><circle cx="0" cy="120" r="3.2"/><circle cx="8" cy="0" r="3.2"/><circle cx="8" cy="120" r="3.2"/><circle cx="16" cy="0" r="3.2"/><circle cx="16" cy="120" r="3.2"/><circle cx="24" cy="0" r="3.2"/><circle cx="24" cy="120" r="3.2"/><circle cx="32" cy="0" r="3.2"/><circle cx="32" cy="120" r="3.2"/><circle cx="40" cy="0" r="3.2"/><circle cx="40" cy="120" r="3.2"/><circle cx="48" cy="0" r="3.2"/><circle cx="48" cy="120" r="3.2"/><circle cx="56" cy="0" r="3.2"/><circle cx="56" cy="120" r="3.2"/><circle cx="64" cy="0" r="3.2"/><circle cx="64" cy="120" r="3.2"/><circle cx="72" cy="0" r="3.2"/><circle cx="72" cy="120" r="3.2"/><circle cx="80" cy="0" r="3.2"/><circle cx="80" cy="120" r="3.2"/><circle cx="88" cy="0" r="3.2"/><circle cx="88" cy="120" r="3.2"/><circle cx="96" cy="0" r="3.2"/><circle cx="96" cy="120" r="3.2"/><circle cx="0" cy="4" r="3.2"/><circle cx="100" cy="4" r="3.2"/><circle cx="0" cy="12" r="3.2"/><circle cx="100" cy="12" r="3.2"/><circle cx="0" cy="20" r="3.2"/><circle cx="100" cy="20" r="3.2"/><circle cx="0" cy="28" r="3.2"/><circle cx="100" cy="28" r="3.2"/><circle cx="0" cy="36" r="3.2"/><circle cx="100" cy="36" r="3.2"/><circle cx="0" cy="44" r="3.2"/><circle cx="100" cy="44" r="3.2"/><circle cx="0" cy="52" r="3.2"/><circle cx="100" cy="52" r="3.2"/><circle cx="0" cy="60" r="3.2"/><circle cx="100" cy="60" r="3.2"/><circle cx="0" cy="68" r="3.2"/><circle cx="100" cy="68" r="3.2"/><circle cx="0" cy="76" r="3.2"/><circle cx="100" cy="76" r="3.2"/><circle cx="0" cy="84" r="3.2"/><circle cx="100" cy="84" r="3.2"/><circle cx="0" cy="92" r="3.2"/><circle cx="100" cy="92" r="3.2"/><circle cx="0" cy="100" r="3.2"/><circle cx="100" cy="100" r="3.2"/><circle cx="0" cy="108" r="3.2"/><circle cx="100" cy="108" r="3.2"/><circle cx="0" cy="116" r="3.2"/><circle cx="100" cy="116" r="3.2"/></g></mask></defs>
 <rect width="100" height="120" fill="#f6efdc" mask="url(#perf)"/>
 <rect x="9" y="9" width="82" height="102" fill="#2e5f93"/>
@@ -695,6 +700,7 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
 })});
 
 (function(){var note=document.getElementById('handNote');if(!note)return;
+  var doodle=document.getElementById('pcDoodle');if(doodle)Array.prototype.forEach.call(doodle.querySelectorAll('path'),function(pth,i){pth.style.setProperty('--i',i)});
   var to=document.getElementById('pcTo'),heart=document.getElementById('pcHeart'),stamp=document.getElementById('pcStamp'),mark=document.getElementById('pcPostmark');
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function split(el){var out=[];Array.prototype.slice.call(el.childNodes).forEach(function(node){
@@ -703,12 +709,13 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
   var c1=split(note),c2=split(to);
   var hp=heart.querySelector('path');try{heart.style.setProperty('--len',Math.ceil(hp.getTotalLength()))}catch(e){}
   if(reduce||!('IntersectionObserver' in window))return;
-  [note,to,heart,stamp,mark].forEach(function(e){e.classList.add('armed')});
+  [note,to,heart,doodle,stamp,mark].forEach(function(e){if(e)e.classList.add('armed')});
   function write(chars,done){var i=0;(function step(){if(i>=chars.length){done&&done();return}chars[i].classList.add('on');var c=chars[i].textContent;i++;
     setTimeout(step,c===' '?110:(c==='.'||c===','?240:55+Math.random()*45))})()}
   function run(){write(c1,function(){setTimeout(function(){heart.classList.add('on');
+      setTimeout(function(){if(doodle)doodle.classList.add('on');
       setTimeout(function(){write(c2,function(){setTimeout(function(){stamp.classList.add('on');
-        setTimeout(function(){mark.classList.add('on')},650)},350)})},1300)},250)})}
+        setTimeout(function(){mark.classList.add('on')},650)},350)})},1900)},1300)},250)})}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();setTimeout(run,400)}})},{threshold:.6});
   io.observe(note.parentNode);
 })();
