@@ -378,6 +378,19 @@ footer .logo .logo-mark{height:52px}
 .pc-doodle .dd-word{opacity:1}
 .pc-doodle.armed .dd-word{opacity:0}
 .pc-doodle.on .dd-word{opacity:1;transition:opacity .5s ease-out 1.8s}
+
+/* Ο παλιατζής! — a speech balloon that pops up now and then */
+.paliatzis{position:fixed;z-index:45;left:0;top:0;pointer-events:none;opacity:0;transform:scale(.6) rotate(var(--r,-4deg));transform-origin:var(--ox,left) bottom;
+  transition:opacity .25s ease,transform .35s cubic-bezier(.2,1.6,.4,1)}
+.paliatzis.show{opacity:1;transform:scale(1) rotate(var(--r,-4deg))}
+.paliatzis span{display:block;position:relative;padding:10px 18px 12px;background:#fffdf7;color:#1c1a17;border:2.5px solid #1c1a17;border-radius:50% / 46%;
+  font-family:"Caveat","Bradley Hand","Segoe Print",cursive;font-weight:500;font-size:clamp(22px,2.6vw,30px);line-height:1;white-space:nowrap;box-shadow:3px 4px 0 rgba(28,26,23,.18)}
+.paliatzis span::after,.paliatzis span::before{content:"";position:absolute;bottom:-15px;left:var(--tail,26px);border:solid transparent}
+.paliatzis span::before{border-width:16px 0 0 16px;border-top-color:#1c1a17;bottom:-17px;margin-left:-2px}
+.paliatzis span::after{border-width:12px 0 0 12px;border-top-color:#fffdf7;bottom:-11px;margin-left:1px}
+.paliatzis.flip span::before{border-width:16px 16px 0 0}
+.paliatzis.flip span::after{border-width:12px 12px 0 0;margin-left:1.5px}
+@media (prefers-reduced-motion:reduce){.paliatzis{transition:opacity .3s}}
 </style>
 
 </head>
@@ -612,6 +625,7 @@ footer .logo .logo-mark{height:52px}
 
 <footer><div class="wrap"><a class="logo" href="./" aria-label="Fading Athens, back to top"><svg class="logo-mark" viewBox="0 0 1197 1628" aria-hidden="true"><use href="#fa-logo"/></svg></a><span>Photographs © Steven A.J. Beijer</span><span>Athens, Greece</span></div></footer>
 
+<div class="paliatzis" id="paliatzis" aria-hidden="true"><span>Ο παλιατζής!</span></div>
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
@@ -726,6 +740,24 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
         setTimeout(function(){mark.classList.add('on')},650)},1100)})},1900)},1300)},250)})}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();setTimeout(run,400)}})},{threshold:.6});
   io.observe(note.parentNode);
+})();
+
+(function(){var b=document.getElementById('paliatzis');if(!b)return;var v=document.getElementById('viewer');
+  function rnd(a,c){return a+Math.random()*(c-a)}
+  function pop(){
+    if(document.hidden||(v&&!v.hidden)){return schedule()}
+    var W=window.innerWidth,H=window.innerHeight;b.classList.remove('show');
+    var flip=Math.random()<.5;b.classList.toggle('flip',flip);
+    var bw=b.offsetWidth||200,bh=b.offsetHeight||60,pad=16;
+    var x=rnd(pad,Math.max(pad,W-bw-pad)),y=rnd(80,Math.max(90,H-bh-40));
+    b.style.left=x+'px';b.style.top=y+'px';
+    b.style.setProperty('--r',(rnd(-7,7)).toFixed(1)+'deg');
+    b.style.setProperty('--tail',flip?(bw-44)+'px':'26px');b.style.setProperty('--ox',flip?'right':'left');
+    requestAnimationFrame(function(){b.classList.add('show')});
+    setTimeout(function(){b.classList.remove('show');schedule()},2600);
+  }
+  function schedule(){setTimeout(pop,rnd(18000,40000))}
+  setTimeout(pop,rnd(7000,12000));
 })();
 </script>
 
