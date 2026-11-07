@@ -379,16 +379,6 @@ footer .logo .logo-mark{height:52px}
 .pc-doodle.armed .dd-word{opacity:0}
 .pc-doodle.on .dd-word{opacity:1;transition:opacity .5s ease-out 1.8s}
 
-/* Ο παλιατζής! — a speech balloon that pops up now and then */
-.paliatzis{position:fixed;z-index:45;left:0;top:0;pointer-events:none;opacity:0;transform:scale(.6) rotate(var(--r,-4deg));transform-origin:var(--ox,left) bottom;
-  transition:opacity .25s ease,transform .35s cubic-bezier(.2,1.6,.4,1)}
-.paliatzis.show{opacity:1;transform:scale(1) rotate(var(--r,-4deg))}
-.paliatzis span{display:block;position:relative;max-width:min(78vw,440px);padding:12px 22px 13px;background:#fffdf7;color:#1c1a17;border:2.5px solid #1c1a17;border-radius:999px;
-  font-family:"Caveat","Bradley Hand","Segoe Print",cursive;font-weight:500;font-size:clamp(21px,2.5vw,29px);line-height:1.1;text-align:center;text-wrap:balance;box-shadow:3px 4px 0 rgba(28,26,23,.16)}
-.paliatzis span::after{content:"";position:absolute;bottom:-10px;left:var(--tail,30px);width:17px;height:17px;background:#fffdf7;
-  border-right:2.5px solid #1c1a17;border-bottom:2.5px solid #1c1a17;transform:skewX(-28deg) rotate(45deg);border-bottom-right-radius:3px}
-.paliatzis.flip span::after{transform:skewX(28deg) rotate(45deg)}
-@media (prefers-reduced-motion:reduce){.paliatzis{transition:opacity .3s}}
 
 .about .text a.decadence{color:var(--sign-red);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
 .about .text a.decadence:hover{color:var(--aegean)}
@@ -401,8 +391,6 @@ footer .logo .logo-mark{height:52px}
 .pc-arrow.on path+path{transition:stroke-dashoffset .4s ease-out .4s,opacity 0s linear .4s}
 
 
-.hero-since{margin:10px 0 0;width:clamp(190px,24vw,300px);display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.hero-since::before,.hero-since::after{content:"";flex:1;height:1px;background:currentColor;opacity:.5}
 </style>
 
 </head>
@@ -430,7 +418,6 @@ footer .logo .logo-mark{height:52px}
 <header class="hero"><div class="wrap">
   <div>
     <h1 class="lockup"><svg class="logo-mark hero-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
-    <p class="hero-since"><span>since 2019</span></p>
     <p class="greek">Η Αθήνα που σβήνει</p>
     <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
     <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
@@ -629,7 +616,6 @@ footer .logo .logo-mark{height:52px}
 
 <footer><div class="wrap"><a class="logo" href="./" aria-label="Fading Athens, back to top"><svg class="logo-mark" viewBox="0 0 1197 1628" aria-hidden="true"><use href="#fa-logo"/></svg></a><span>Photographs © Steven A.J. Beijer</span><span>Athens, Greece</span></div></footer>
 
-<div class="paliatzis" id="paliatzis" aria-hidden="true"><span>Ο παλιατζής!</span></div>
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
@@ -746,31 +732,7 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
   io.observe(note.parentNode);
 })();
 
-(function(){var b=document.getElementById('paliatzis');if(!b)return;var v=document.getElementById('viewer');
-  var CALLS=["Ο παλιατζής!","Παλιά ψυγεία, κουζίνες, πλυντήρια… αγοράζω!","Ο ακονιστής! Μαχαίρια, ψαλίδια!","Καρπούζια! Κόκκινα και γλυκά!","Φρέσκα κουλούρια!","Ζεστά κάστανα, ψητά!","Το τυχερό! Σήμερα κληρώνει!","Ντομάτες, πατάτες, όλα φρέσκα!"];
-  var span=b.querySelector('span'),order=[],last=null;
-  function nextCall(){if(!order.length){order=CALLS.slice().sort(function(){return Math.random()-.5});if(order[0]===last)order.push(order.shift())}
-    if(last===null){order.splice(order.indexOf(CALLS[0]),1);last=CALLS[0];return last}
-    last=order.shift();return last}
-  function rnd(a,c){return a+Math.random()*(c-a)}
-  function pop(){
-    if(document.hidden||(v&&!v.hidden)){return schedule()}
-    var W=window.innerWidth,H=window.innerHeight;b.classList.remove('show');span.textContent=nextCall();
-    var flip=Math.random()<.5;b.classList.toggle('flip',flip);
-    var bw=b.offsetWidth||200,bh=b.offsetHeight||60,pad=16;
-    var avoid=Array.prototype.map.call(document.querySelectorAll('.pc img,.pc-back'),function(e){return e.getBoundingClientRect()}).filter(function(r){return r.bottom>0&&r.top<H&&r.width>0});
-    function hits(x,y){var m=12;return avoid.some(function(r){return x<r.right+m&&x+bw>r.left-m&&y<r.bottom+m&&y+bh+18>r.top-m})}
-    var x,y,ok=false;for(var t=0;t<20&&!ok;t++){x=rnd(pad,Math.max(pad,W-bw-pad));y=rnd(80,Math.max(90,H-bh-40));ok=!hits(x,y)}
-    if(!ok){return schedule()}
-    b.style.left=x+'px';b.style.top=y+'px';
-    b.style.setProperty('--r',(rnd(-7,7)).toFixed(1)+'deg');
-    b.style.setProperty('--tail',flip?(bw-50)+'px':'30px');b.style.setProperty('--ox',flip?'right':'left');
-    requestAnimationFrame(function(){b.classList.add('show')});
-    setTimeout(function(){b.classList.remove('show');schedule()},2600);
-  }
-  function schedule(){setTimeout(pop,rnd(18000,40000))}
-  setTimeout(pop,rnd(7000,12000));
-})();
+
 </script>
 
 </body>
