@@ -483,6 +483,12 @@ footer .logo .logo-mark{height:52px}
 .stk.pop{transition:transform .25s cubic-bezier(.2,1.6,.4,1)}
 @media (max-width:820px){.stickers{grid-template-columns:1fr;gap:18px}}
 @media (hover:none){.stk-hint-mouse{display:none}}
+
+.follow .socials{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.follow .socials .cta{margin-top:0}
+.follow .soc{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:15px;text-decoration:none;color:var(--on-green,#f3ead2);border-bottom:2px solid currentColor;padding-bottom:2px}
+.follow .soc:hover{color:var(--sign-yellow)}
+@media (max-width:720px){.follow .socials{align-items:flex-start}}
 </style>
 
 </head>
@@ -736,7 +742,10 @@ footer .logo .logo-mark{height:52px}
     <h2>Follow<br>the walk</h2>
     <div class="copy"><span id="h">instagram.com/fadingathens</span><button id="copyBtn" type="button">Copy</button></div>
   </div>
-  <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">@fadingathens →</a>
+  <div class="socials">
+    <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Instagram @fadingathens →</a>
+    <a class="soc" href="https://x.com/FadingAthens" target="_blank" rel="noopener">X (Twitter) @FadingAthens →</a>
+  </div>
 </div></section>
 
 <footer><div class="wrap"><a class="logo" href="./" aria-label="Fading Athens, back to top"><svg class="logo-mark" viewBox="0 0 1197 1628" aria-hidden="true"><use href="#fa-logo"/></svg></a><span>Photographs © Steven A.J. Beijer</span><span>Athens, Greece</span></div></footer>
