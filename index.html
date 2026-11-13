@@ -397,6 +397,10 @@ footer .logo .logo-mark{height:52px}
 .stk-text{display:flex;flex-direction:column;gap:6px;max-width:30em}
 .stk-text p{margin:6px 0 0}
 .card .buy-sells{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:14px;color:var(--green-2);margin-top:6px!important}
+.stk-buy{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px!important}
+.stk-price{font-family:var(--brand);font-weight:700;font-size:24px;letter-spacing:-.01em}
+.stk-low{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--sign-red);border:1.5px solid var(--sign-red);padding:4px 10px 3px}
+.stk-low::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .stk-where{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:14px;color:var(--sign-red)}
 .stk-hint{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
 .stk-shake{align-self:flex-start;margin-top:14px;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:14px;
@@ -473,6 +477,7 @@ footer .logo .logo-mark{height:52px}
       <span class="pc-type">Stickers</span>
       <span class="pc-title">Signs of Athens sticker pack</span>
       <p>Every sign from the Signs of Athens poster, cut out as its own die-cut sticker: cinemas, kiosks, hotels, bars and a pastry shop that has been there since 1910.</p>
+      <p class="stk-buy"><span class="stk-price">€2 each</span><span class="stk-low">Low availability</span></p>
       <p class="stk-where">On sale at The Bleed, Kypseli.</p>
       <p class="stk-hint" id="stkHint">Drag the stickers around the pile.</p>
       <button type="button" class="stk-shake" id="stkShake">Shake the pile</button>
