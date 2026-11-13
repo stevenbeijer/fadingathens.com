@@ -496,7 +496,7 @@ footer .logo .logo-mark{height:52px}
 
 /* logo painted on the wall */
 @media (min-width:721px){
-  .hero-img .hero-logo{color:#211a14;mix-blend-mode:multiply;opacity:.9}
+  .hero-img .hero-logo{color:#211a14;mix-blend-mode:multiply;opacity:.93}
   .hero-img .hero-logo .logo-mark{filter:url(#wallpaint)}
 }
 </style>
@@ -525,9 +525,9 @@ footer .logo .logo-mark{height:52px}
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="wallpaint" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
 <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="grain"/>
-<feDisplacementMap in="SourceGraphic" in2="grain" scale="2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+<feDisplacementMap in="SourceGraphic" in2="grain" scale="1.4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
 <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="4" seed="11" result="wear"/>
-<feColorMatrix in="wear" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -16 11.2" result="wearmask"/>
+<feColorMatrix in="wear" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -22 16.4" result="wearmask"/>
 <feComposite in="rough" in2="wearmask" operator="in"/>
 </filter></svg>
 <header class="hero hero-photo">
