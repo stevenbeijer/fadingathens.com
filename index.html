@@ -462,7 +462,7 @@ footer .logo .logo-mark{height:52px}
     <h1 class="lockup"><svg class="logo-mark hero-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
     <p class="greek">Η Αθήνα που σβήνει</p>
     <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
-    <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Χειροποίητες ταμπέλες, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
+    <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Ταμπέλες ζωγραφισμένες στο χέρι, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
     <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
   </div>
   <figure>
@@ -485,7 +485,7 @@ footer .logo .logo-mark{height:52px}
     </figure>
     <figure class="pc front">
       <img src="img/postcard-signs-front.jpg" width="1400" height="999" loading="lazy" alt="Postcard front: hand-drawn Athens shop signs including Zacharoplasteion Ariston, Casa Romantica, Hotel Orion, Rocky Video, Kafe Bar, a video club and Viktoria">
-      <figcaption><span class="pc-type">Postcard</span><span class="stk-low avail-med">Medium availability</span><span class="pc-title">Signs of Athens</span><span class="names"><b>Αρίστον</b> · Casa Romantica · Hotel Orion · Rocky Video · Καφέ Μπαρ · Βιντεοδρομία · Βικτώρια · Πρό-Πο</span></figcaption>
+      <figcaption><span class="pc-type">Postcard</span><span class="stk-low avail-med">Medium availability</span><span class="pc-title">Signs of Athens</span><span class="names"><b>Αρίστον</b> · Casa Romantica · Hotel Orion · Rocky Video · Καφέ Μπαρ · Βιντεοδρόμιο · Βικτώρια · Προ-Πο</span></figcaption>
     </figure>
   </div>
   <div class="card">
@@ -586,7 +586,7 @@ footer .logo .logo-mark{height:52px}
     <h2>About</h2>
     <p>Fading Athens is a photo project founded in 2019 by Steven A.J. Beijer, a Dutch-American photographer and urban archaeologist.</p>
     <p>It looks at the parts of the city that rarely make it onto a postcard: the neighbourhood barber, the kiosk selling batteries and watches, the shop whose name is painted by hand above a shutter that may not open again. The project records them as they are, while they are still there.</p>
-    <p class="about-gr" lang="el">Το Fading Athens είναι ένα φωτογραφικό πρότζεκτ που ξεκίνησε το 2019 ο Steven A.J. Beijer, Ολλανδοαμερικανός φωτογράφος και αστικός αρχαιολόγος. Καταγράφει ό,τι σπάνια φτάνει σε καρτ ποστάλ: το κουρείο της γειτονιάς, το περίπτερο, το μαγαζί με τη ζωγραφισμένη στο χέρι ταμπέλα πάνω από ένα ρολό που ίσως δεν ξανανοίξει. Ένα ερωτικό γράμμα στην πόλη και ταυτόχρονα ένα αρχείο της.</p>
+    <p class="about-gr" lang="el">Το Fading Athens είναι ένα φωτογραφικό πρότζεκτ που ξεκίνησε το 2019 ο Steven A.J. Beijer, Ολλανδοαμερικανός φωτογράφος και αστικός αρχαιολόγος. Καταγράφει ό,τι σπάνια βλέπει κανείς σε καρτ ποστάλ: το κουρείο της γειτονιάς, το περίπτερο, το μαγαζί με τη ζωγραφισμένη στο χέρι ταμπέλα πάνω από ένα ρολό που ίσως δεν ξανανοίξει. Ένα ερωτικό γράμμα στην πόλη και, ταυτόχρονα, ένα αρχείο της.</p>
     <p>Steven was born in the Netherlands, grew up partly in California and has lived in six countries. He got his first camera at around ten. In 1996, after finishing school in a small Dutch town, he came to Athens to study at Deree. He planned to stay a year and stayed five, spending his first year as a DJ at <a class="decadence" href="https://open.spotify.com/playlist/2KLMrsBcosB9QbQNvTg5ol" target="_blank" rel="noopener" title="Listen to the Club Decadence playlist on Spotify">Club Decadence</a> and falling for the city straight away. He came back in 2005 and lived in Athens for another five years before moving to Barcelona in 2010. Athens remains his happy place and his muse: these days he is back almost every other month, staying in Kypseli, his favourite neighbourhood.</p>
     <p>Since 1996 he has watched Athens lose its signs, facades, old shops, arcades, buses and trolleys. He calls Fading Athens a love letter to the city and an archive at the same time.</p>
     <blockquote class="about-quote">
@@ -854,6 +854,14 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
   if(reduce||!('IntersectionObserver' in window)){started=true;dropAll();return}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!started){started=true;io.disconnect();dropAll()}})},{threshold:.35});
   io.observe(pile);
+})();
+
+// Greek in capitals drops its accents: mark capitalised Greek as Greek so browsers uppercase it correctly
+(function(){function fix(){document.querySelectorAll('body *').forEach(function(e){if(e.closest('[lang]')&&e.closest('[lang]')!==document.documentElement)return;
+  var t=e.textContent;if(!/[\u0370-\u03FF\u1F00-\u1FFF]/.test(t))return;
+  if(getComputedStyle(e).textTransform==='uppercase')e.setAttribute('lang','el')});
+  ['filmGr','vGr'].forEach(function(id){var e=document.getElementById(id);if(e)e.setAttribute('lang','el')})}
+  if(document.readyState!=='loading')fix();else document.addEventListener('DOMContentLoaded',fix);
 })();
 </script>
 
