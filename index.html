@@ -553,7 +553,7 @@ footer .logo .logo-mark{height:52px}
       <p class="stk-hint" id="stkHint">Drag the stickers around the pile.</p>
       <button type="button" class="stk-shake" id="stkShake">Shake the pile</button>
     </div>
-    <div class="stk-pile" id="stkPile" role="img" aria-label="A pile of 25 die-cut stickers of old Athens signs, including Rex, Riviera, Hotel Orion, Σινέ Φλερύ and Βικτώρια"></div>
+    <div class="stk-pile" id="stkPile" role="img" aria-label="A pile of 24 die-cut stickers of old Athens signs, including Rex, Riviera, Hotel Orion, Σινέ Φλερύ and Βικτώρια"></div>
   </div>
 </div></section>
 
@@ -811,7 +811,7 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
 
 
 (function(){var pile=document.getElementById('stkPile');if(!pile)return;
-  var STK=[["riviera", 380, 157, "Riviera"], ["ariston", 380, 132, "Ζαχαροπλαστείον Άριστον"], ["rocky-video", 124, 380, "Rocky Video"], ["bar", 196, 196, "Bar"], ["au-revoir", 380, 116, "Au revoir"], ["keranis", 380, 139, "Κεράνης"], ["titania", 110, 380, "Σινέ Τιτάνια"], ["hotel-orion", 380, 271, "Hotel Orion"], ["cd-zacharias", 187, 379, "CD Ζαχαρίας δίσκοι"], ["internet", 331, 216, "Internet"], ["rex", 380, 238, "Rex"], ["dexameni", 379, 101, "Cine Δεξαμενή"], ["kafe-bar", 380, 134, "Καφέ μπαρ"], ["palace", 380, 104, "Palace cinema"], ["victoria", 380, 179, "Βικτώρια"], ["flery", 106, 380, "Σινέ Φλερύ"], ["raptiki", 208, 240, "Υψηλή ραπτική"], ["alma", 154, 379, "Σινέ Άλμα"], ["athinaikon", 380, 129, "Cine Αθηναϊκόν"], ["cinemania", 380, 125, "Σινεμανία"], ["videodromio", 380, 168, "Βιντεοδρόμιο"], ["ekran", 380, 277, "Εκράν"], ["olympia", 380, 157, "Ολύμπια"], ["propo", 303, 180, "ΠΡΟ-ΠΟ"], ["casa-romantica", 380, 67, "Casa Romantica"]];
+  var STK=[["riviera", 380, 157, "Riviera"], ["ariston", 380, 132, "Ζαχαροπλαστείον Άριστον"], ["rocky-video", 124, 380, "Rocky Video"], ["bar-au-revoir", 420, 113, "Bar Au revoir"], ["keranis", 380, 139, "Κεράνης"], ["titania", 110, 380, "Σινέ Τιτάνια"], ["hotel-orion", 380, 271, "Hotel Orion"], ["cd-zacharias", 187, 379, "CD Ζαχαρίας δίσκοι"], ["internet", 331, 216, "Internet"], ["rex", 380, 238, "Rex"], ["dexameni", 379, 101, "Cine Δεξαμενή"], ["kafe-bar", 380, 134, "Καφέ μπαρ"], ["palace", 380, 104, "Palace cinema"], ["victoria", 380, 179, "Βικτώρια"], ["flery", 106, 380, "Σινέ Φλερύ"], ["raptiki", 208, 240, "Υψηλή ραπτική"], ["alma", 154, 379, "Σινέ Άλμα"], ["athinaikon", 380, 129, "Cine Αθηναϊκόν"], ["cinemania", 380, 125, "Σινεμανία"], ["videodromio", 380, 168, "Βιντεοδρόμιο"], ["ekran", 380, 277, "Εκράν"], ["olympia", 380, 157, "Ολύμπια"], ["propo", 303, 180, "ΠΡΟ-ΠΟ"], ["casa-romantica", 380, 67, "Casa Romantica"]];
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var touch=window.matchMedia&&matchMedia('(hover: none)').matches;
   var hint=document.getElementById('stkHint');if(touch&&hint)hint.textContent='Tap a sticker to bring it to the top.';
