@@ -8,7 +8,7 @@
 <meta property="og:description" content="Chipped paint and fading facades. Elaborate doorways and darkened arcades. A salute to an Athens fondly remembered yet rapidly fading.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fadingathens.com/">
-<meta property="og:image" content="https://fadingathens.com/img/travel-service.jpg">
+<meta property="og:image" content="https://fadingathens.com/img/hero-car-1200.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="google-site-verification" content="AWrVWR5-EWGNU5hCjDx-BOnNiao9pjZJGq0jXNQSs7U">
 <link rel="canonical" href="https://fadingathens.com/">
@@ -25,6 +25,56 @@
 .stk-low.sold-out{color:var(--muted);border-color:var(--muted)}
 .restock{font-family:var(--mono);font-size:13px;color:var(--muted)}
 @media (max-width:820px){.poster-item{grid-template-columns:1fr;gap:20px}.poster-fig{max-width:300px;justify-self:start}}
+
+/* ---- full-width photo hero ---- */
+.hero.hero-photo{padding:0;background:none}
+.hero-img{position:relative;width:100%;max-width:100%;overflow:hidden;background:#d8b27a;z-index:41}
+.hero-img img{display:block;width:100%;height:auto;aspect-ratio:2400/1346;max-height:88vh;object-fit:cover;object-position:center 62%}
+.hero-logo{position:absolute;left:8.4%;top:15%;width:11%;margin:0;font-size:0;line-height:0;color:#1c1a17}
+.hero-logo .logo-mark{width:100%;height:auto;display:block}
+.hero.hero-photo .wrap.hero-text{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px 56px;align-items:end;padding-block:40px 52px}
+.hero.hero-photo .greek{margin:0 0 14px}
+.hero.hero-photo .lede{margin:0}
+.hero.hero-photo .lede-gr{margin:0}
+@media (max-width:720px){
+  .hero-logo{position:static;width:96px;margin:22px 0 0 max(16px,env(safe-area-inset-left,0px));color:var(--ink)}
+  .hero-img{overflow:visible;background:none}
+  .hero.hero-photo .wrap.hero-text{grid-template-columns:1fr;padding-block:18px 40px}
+}
+
+/* ---- tighter merch ---- */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 32px;align-items:start}
+.prod{display:flex;flex-direction:column;gap:6px;min-width:0}
+.prod p{margin:0;font-size:16px;line-height:1.5}
+.prod .pc-title{margin:0;font-size:22px}
+.prod .stk-buy{margin-top:8px!important}
+.prod-where{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:13px!important;color:var(--sign-red);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prod-img{position:relative;width:100%;max-width:100%;aspect-ratio:1/1;margin-bottom:10px;z-index:41}
+.pc-fan img{position:absolute;width:80%;height:auto;box-shadow:0 1px 2px rgba(0,0,0,.12),0 12px 24px -12px rgba(30,40,45,.45);background:#fff;transition:transform .35s}
+.pc-fan .f1{left:2%;top:14%;transform:rotate(-7deg)}
+.pc-fan .f2{right:2%;top:40%;transform:rotate(5deg)}
+.pc-fan:hover .f1{transform:rotate(-9deg) translate(-4px,-6px)}
+.pc-fan:hover .f2{transform:rotate(7deg) translate(4px,6px)}
+.poster-img{display:grid;place-items:center}
+.poster-img img{height:92%;width:auto;max-width:100%;box-shadow:0 1px 2px rgba(0,0,0,.12),0 14px 28px -14px rgba(30,40,45,.45);background:#fff}
+.prod-img .stk-pile{position:absolute;inset:0;height:auto}
+.prod-where .stk-shake{margin:0;padding:5px 10px;font-size:12px;letter-spacing:.1em}
+.card.merch-bottom{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:32px;align-items:start;margin-top:52px;padding-top:32px;border-top:1px solid var(--line)}
+.merch-bottom .side{gap:14px}
+.card .buy{display:grid;grid-template-columns:1fr 1fr;gap:4px 28px;max-width:none;padding:16px 20px 18px}
+.card .buy .buy-label{grid-column:1/-1;margin-bottom:6px!important}
+.card .buy .shop{display:flex;flex-direction:column;gap:2px;min-width:0}
+.card .buy .buy-hours{font-size:12.5px}
+@media (max-width:900px){.products{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){.card.merch-bottom{grid-template-columns:1fr}}
+@media (max-width:600px){.products{grid-template-columns:1fr}.prod-img{max-width:420px}.card .buy{grid-template-columns:1fr;row-gap:18px}}
+.prod-img.poster-img{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
+.prod-img.poster-img img{position:static;display:block;height:94%;width:auto;max-width:100%;max-height:94%;object-fit:contain}
+.card.merch-bottom .buy{display:grid;grid-template-columns:1fr 1fr;gap:4px 28px;max-width:none;padding:16px 20px 18px;align-items:start}
+.card.merch-bottom .buy .buy-label{grid-column:1/-1}
+@media (max-width:600px){.card.merch-bottom .buy{grid-template-columns:1fr;row-gap:18px}}
+.hero .hero-logo{margin:0;font-size:0;line-height:0}
+@media (max-width:720px){.hero .hero-logo{margin:22px 0 0 max(16px,env(safe-area-inset-left,0px))}}
 </style>
 <title>Fading Athens | Chipped paint and fading facades of Athens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -457,19 +507,22 @@ footer .logo .logo-mark{height:52px}
   <a class="handle" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">@fadingathens</a></div>
 </div></nav>
 
-<header class="hero"><div class="wrap">
-  <div>
-    <h1 class="lockup"><svg class="logo-mark hero-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
-    <p class="greek">Η Αθήνα που σβήνει</p>
-    <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
-    <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Ταμπέλες ζωγραφισμένες στο χέρι, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
-    <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
+<header class="hero hero-photo">
+  <div class="hero-img">
+    <img src="img/hero-car.jpg" srcset="img/hero-car-1200.jpg 1200w, img/hero-car.jpg 2400w" sizes="100vw" width="2400" height="1346" fetchpriority="high" alt="A red vintage car parked in front of an ochre Athens apartment building with a green awning, a barred balcony and house number 60">
+    <h1 class="lockup hero-logo"><svg class="logo-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
   </div>
-  <figure>
-    <img src="img/travel-service.jpg" width="1120" height="1400" alt="A shuttered shopfront under a blue sign reading City of Athens Travel Service, the shutter covered in graffiti">
-    <figcaption><span class="gr">City of Athens Travel Service</span><span class="en">Shutter down</span></figcaption>
-  </figure>
-</div></header>
+  <div class="wrap hero-text">
+    <div>
+      <p class="greek">Η Αθήνα που σβήνει</p>
+      <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
+      <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
+    </div>
+    <div>
+      <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Ταμπέλες ζωγραφισμένες στο χέρι, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
+    </div>
+  </div>
+</header>
 
 <section id="photographs"><div class="wrap">
   <div class="section-head"><h2>Photographs</h2><p>Tap a photo to see it larger</p></div>
@@ -477,47 +530,35 @@ footer .logo .logo-mark{height:52px}
 </div></section>
 
 <section id="merch"><div class="wrap">
-  <div class="section-head"><h2>Merch</h2><p>On sale in Kypseli · postcards at The Bleed and Meteoritis, stickers at The Bleed</p></div>
-  <div class="cards">
-    <figure class="pc front">
-      <img src="img/postcard-front.jpg" width="1400" height="995" loading="lazy" alt="Postcard front: hand-drawn signs of Athens cinemas including Rex in red neon, Riviera, Cine Dexameni, Sine Flery, Sine Titania, Alma, Olympia, Ekran and Palace">
-      <figcaption><span class="pc-type">Postcard</span><span class="stk-low avail-med">Medium availability</span><span class="pc-title">Cinemas of Athens</span><span class="names"><b>Rex</b> · Riviera · Δεξαμενή · Φλερύ · Τιτάνια · Άλμα · Ολύμπια · Εκράν · Αθηναϊκόν · Palace</span></figcaption>
-    </figure>
-    <figure class="pc front">
-      <img src="img/postcard-signs-front.jpg" width="1400" height="999" loading="lazy" alt="Postcard front: hand-drawn Athens shop signs including Zacharoplasteion Ariston, Casa Romantica, Hotel Orion, Rocky Video, Kafe Bar, a video club and Viktoria">
-      <figcaption><span class="pc-type">Postcard</span><span class="stk-low avail-med">Medium availability</span><span class="pc-title">Signs of Athens</span><span class="names"><b>Αρίστον</b> · Casa Romantica · Hotel Orion · Rocky Video · Καφέ Μπαρ · Βιντεοδρόμιο · Βικτώρια · Προ-Πο</span></figcaption>
-    </figure>
+  <div class="section-head"><h2>Merch</h2><p>On sale in Kypseli, Athens</p></div>
+  <div class="products">
+    <article class="prod">
+      <div class="prod-img pc-fan"><img class="f1" src="img/postcard-front.jpg" width="1400" height="995" loading="lazy" alt="Postcard front: hand-drawn signs of Athens cinemas including Rex in red neon, Riviera, Cine Dexameni, Sine Flery, Sine Titania, Alma, Olympia, Ekran and Palace"><img class="f2" src="img/postcard-signs-front.jpg" width="1400" height="999" loading="lazy" alt="Postcard front: hand-drawn Athens shop signs including Zacharoplasteion Ariston, Casa Romantica, Hotel Orion, Rocky Video, Kafe Bar, a video club and Viktoria"></div>
+      <span class="pc-type">Postcards</span>
+      <h3 class="pc-title">Cinemas &amp; Signs of Athens</h3>
+      <p>Two cards of hand-drawn Athens signs: one for the old cinemas, one for the shops, bars and hotels.</p>
+      <p class="stk-buy"><span class="stk-low avail-med">Medium availability</span></p>
+      <p class="prod-where">At The Bleed and Meteoritis</p>
+    </article>
+    <article class="prod">
+      <div class="prod-img poster-img"><img src="img/poster-signs.jpg" width="1000" height="1400" loading="lazy" alt="The Signs of Athens poster: hand-drawn Athens signs including Rocky Video, Ζαχαροπλαστείον Άριστον, Riviera, Rex, Σινέ Τιτάνια, Hotel Orion, Βικτώρια, Σινέ Φλερύ, Άλμα, Εκράν and Ολύμπια, with the Fading Athens logo at the bottom"></div>
+      <span class="pc-type">Poster</span>
+      <h3 class="pc-title">Signs of Athens</h3>
+      <p>All the signs from the postcards and stickers together on one poster.</p>
+      <p class="stk-buy"><span class="stk-price">€20</span><span class="stk-low sold-out">Sold out</span><span class="restock">More on the way</span></p>
+    </article>
+    <article class="prod">
+      <div class="prod-img"><div class="stk-pile" id="stkPile" role="img" aria-label="A pile of 24 die-cut stickers of old Athens signs, including Rex, Riviera, Hotel Orion, Σινέ Φλερύ and Βικτώρια"></div></div>
+      <span class="pc-type">Stickers</span>
+      <h3 class="pc-title">Signs of Athens stickers</h3>
+      <p>Every sign from the poster as its own die-cut sticker. Sold individually, so pick your favourites.</p>
+      <p class="stk-buy"><span class="stk-price">€2 each</span><span class="stk-low">Low availability</span></p>
+      <p class="prod-where">At The Bleed · <button type="button" class="stk-shake" id="stkShake">Shake the pile ↻</button></p>
+    </article>
   </div>
-  <div class="card">
-    <div class="buy">
-      <p class="buy-label">Where to buy</p>
-      <p class="buy-place">The Bleed</p>
-      <p class="buy-where">Gallery · Kypseli, Athens <span>Κυψέλη</span></p>
-      <p class="buy-sells">Postcards and stickers</p>
-      <p class="buy-addr">Trias 13 · Τρίας 13<br>113 62 Athens</p>
-      <dl class="buy-hours">
-        <dt>Mon–Fri</dt><dd>17:00–20:00</dd>
-        <dt>Sat</dt><dd>11:00–17:00</dd>
-        <dt>Sun</dt><dd>Closed</dd>
-      </dl>
-      <a class="buy-map" href="https://maps.app.goo.gl/q9otrZePQMXYxZfw7" target="_blank" rel="noopener">Open in Google Maps →</a>
-      <hr class="buy-sep">
-      <p class="buy-place">Meteoritis</p>
-      <p class="buy-where">Bookshop · Kypseli, Athens <span>Μετεωρίτης</span></p>
-      <p class="buy-sells">Postcards</p>
-      <p class="buy-addr">Fokionos Negri 68 · Φωκίωνος Νέγρη 68<br>113 61 Athens</p>
-      <dl class="buy-hours">
-        <dt>Mon, Wed</dt><dd>10:00–15:00</dd>
-        <dt>Tue</dt><dd>10:00–15:00, 17:30–20:00</dd>
-        <dt>Thu–Fri</dt><dd>10:00–15:00, 17:30–20:30</dd>
-        <dt>Sat</dt><dd>10:00–20:30</dd>
-        <dt>Sun</dt><dd>Closed</dd>
-      </dl>
-      <a class="buy-map" href="https://www.google.com/maps/search/?api=1&amp;query=Meteoritis%2C%20Fokionos%20Negri%2068%2C%20Athens&amp;query_place_id=ChIJQ3h2ZomjoRQRNQgjI6F1Dbg" target="_blank" rel="noopener">Open in Google Maps →</a>
-    </div>
+
+  <div class="card merch-bottom">
     <div class="side">
-      <p>Old signs from around the city, drawn by hand and gathered onto two cards: one for the cinemas, one for the shops, bars and hotels. Each carries the Fading Athens mark on the back.</p>
-      <p class="credit">The illustrations and postcards are a collaboration between <b>Steven A.J. Beijer</b> and filmmaker <b>Xany Mendez</b>.</p>
       <figure><div class="pc-back"><img src="img/postcard-back-v2.jpg" width="1400" height="993" loading="lazy" alt="Postcard back with the Fading Athens triangle logo, the title Signs of Athens, address lines, a stamp box and a QR code"><p class="hand" id="handNote" aria-label="Handwritten on the card: I&#39;m loving Athens (especially all its amazing old signs) and wish you were here...">I&#39;m loving Athens (especially all its amazing old signs) and wish you were here...</p><svg class="pc-heart" id="pcHeart" viewBox="0 0 100 92" aria-hidden="true"><path d="M50 84 C28 66 9 50 13 31 C17 15 37 11 47 26 L50 31 L53 26 C63 11 83 15 87 31 C91 50 72 66 50 84" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="hand pc-scan" id="pcTo" aria-label="Scan me">scan me</p><svg class="pc-arrow" id="pcArrow" viewBox="0 0 60 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M52 6 C50 22 36 32 10 31"/><path pathLength="1" d="M18 24 L9 31 L18 37"/></g></svg><svg class="pc-doodle" id="pcDoodle" viewBox="0 0 100 92" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M42 28 C45 14 60 6 74 10 C82 13 86 22 84 32"/><path pathLength="1" d="M46 22 l-3 -4 M52 16 l-2 -5 M59 12 l-1 -5 M66 10 l0 -5 M73 11 l2 -5 M79 15 l3 -4 M83 22 l4 -3"/><path pathLength="1" d="M34 40 C36 30 48 25 58 27 C68 29 72 38 70 48 C69 54 64 56 60 55"/><path pathLength="1" d="M29 39.5 C37 36.5 47 36.3 56 38.5"/><path pathLength="1" d="M38 40 C36 44 34 47 31 51 C30 52.5 32 53.5 34 54 C33 56 34 57 35.5 57.5 C34.5 59 35 61 37 62 C37 65 39 67 42 67 C43 71 42 74 41 78"/><path pathLength="1" d="M38.5 47 C40 45.8 42 46 43 47.2 C41.5 48 40 48 38.5 47"/><path pathLength="1" d="M60 55 c-3 2 -1 6 2 5 c3 -1 1 -5 -1 -4 M62 62 c-3 2 -1 6 2 5 c3 -1 1 -5 -1 -4"/><path pathLength="1" d="M61 67 C59.5 71 59.5 75 60 78"/><path pathLength="1" d="M41 78 C34 80 28 83 24 87 M60 78 C67 80 73 83 78 87 M44 80 C48 83.5 54 83.5 58 80"/><path pathLength="1" d="M84 64 C79 64 78 70 78 75 C78 81 81 84 85 84 C89 84 92 81 92 75 C92 70 90 64 84 64"/><path pathLength="1" d="M80 66 l1 -4 l3 3 M89 66 l-1 -4 l-3 3"/><path pathLength="1" d="M80.30000000000001 70.5 a2.1 2.1 0 1 0 4.2 0 a2.1 2.1 0 1 0 -4.2 0 M85.5 70.5 a2.1 2.1 0 1 0 4.2 0 a2.1 2.1 0 1 0 -4.2 0"/><path pathLength="1" d="M85 72.5 l0 2.6 M81 78 c1.5 1 2.5 1 4 0 c1.5 1 2.5 1 4 0"/></g></svg><div class="pc-stamp" id="pcStamp" aria-hidden="true"><svg viewBox="0 0 100 150">
 <defs><mask id="perf"><rect width="100" height="150" fill="#fff"/><g fill="#000"><circle cx="2" cy="0" r="3.1"/><circle cx="2" cy="150" r="3.1"/><circle cx="10" cy="0" r="3.1"/><circle cx="10" cy="150" r="3.1"/><circle cx="18" cy="0" r="3.1"/><circle cx="18" cy="150" r="3.1"/><circle cx="26" cy="0" r="3.1"/><circle cx="26" cy="150" r="3.1"/><circle cx="34" cy="0" r="3.1"/><circle cx="34" cy="150" r="3.1"/><circle cx="42" cy="0" r="3.1"/><circle cx="42" cy="150" r="3.1"/><circle cx="50" cy="0" r="3.1"/><circle cx="50" cy="150" r="3.1"/><circle cx="58" cy="0" r="3.1"/><circle cx="58" cy="150" r="3.1"/><circle cx="66" cy="0" r="3.1"/><circle cx="66" cy="150" r="3.1"/><circle cx="74" cy="0" r="3.1"/><circle cx="74" cy="150" r="3.1"/><circle cx="82" cy="0" r="3.1"/><circle cx="82" cy="150" r="3.1"/><circle cx="90" cy="0" r="3.1"/><circle cx="90" cy="150" r="3.1"/><circle cx="98" cy="0" r="3.1"/><circle cx="98" cy="150" r="3.1"/><circle cx="0" cy="5" r="3.1"/><circle cx="100" cy="5" r="3.1"/><circle cx="0" cy="13" r="3.1"/><circle cx="100" cy="13" r="3.1"/><circle cx="0" cy="21" r="3.1"/><circle cx="100" cy="21" r="3.1"/><circle cx="0" cy="29" r="3.1"/><circle cx="100" cy="29" r="3.1"/><circle cx="0" cy="37" r="3.1"/><circle cx="100" cy="37" r="3.1"/><circle cx="0" cy="45" r="3.1"/><circle cx="100" cy="45" r="3.1"/><circle cx="0" cy="53" r="3.1"/><circle cx="100" cy="53" r="3.1"/><circle cx="0" cy="61" r="3.1"/><circle cx="100" cy="61" r="3.1"/><circle cx="0" cy="69" r="3.1"/><circle cx="100" cy="69" r="3.1"/><circle cx="0" cy="77" r="3.1"/><circle cx="100" cy="77" r="3.1"/><circle cx="0" cy="85" r="3.1"/><circle cx="100" cy="85" r="3.1"/><circle cx="0" cy="93" r="3.1"/><circle cx="100" cy="93" r="3.1"/><circle cx="0" cy="101" r="3.1"/><circle cx="100" cy="101" r="3.1"/><circle cx="0" cy="109" r="3.1"/><circle cx="100" cy="109" r="3.1"/><circle cx="0" cy="117" r="3.1"/><circle cx="100" cy="117" r="3.1"/><circle cx="0" cy="125" r="3.1"/><circle cx="100" cy="125" r="3.1"/><circle cx="0" cy="133" r="3.1"/><circle cx="100" cy="133" r="3.1"/><circle cx="0" cy="141" r="3.1"/><circle cx="100" cy="141" r="3.1"/><circle cx="0" cy="149" r="3.1"/><circle cx="100" cy="149" r="3.1"/></g></mask></defs>
 <rect width="100" height="150" fill="#f7f1e2" mask="url(#perf)"/>
@@ -531,29 +572,37 @@ footer .logo .logo-mark{height:52px}
 <path d="M88 34 q9 -7 18 0 t18 0 t18 0 t18 0"/><path d="M88 50 q9 -7 18 0 t18 0 t18 0 t18 0"/><path d="M88 66 q9 -7 18 0 t18 0 t18 0 t18 0"/></g>
 <text x="50" y="47" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="700" fill="currentColor" letter-spacing="1">ΑΘΗΝΑΙ</text>
 <text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="currentColor">7 · XI</text></svg></div><figcaption><span class="en">The back of both cards</span></figcaption></figure>
+      <p class="credit">The illustrations and postcards are a collaboration between <b>Steven A.J. Beijer</b> and filmmaker <b>Xany Mendez</b>.</p>
     </div>
-  </div>
-
-  <div class="poster-item">
-    <figure class="poster-fig"><img src="img/poster-signs.jpg" width="1000" height="1400" loading="lazy" alt="The Signs of Athens poster: hand-drawn Athens signs including Rocky Video, Ζαχαροπλαστείον Άριστον, Riviera, Rex, Σινέ Τιτάνια, Hotel Orion, Βικτώρια, Σινέ Φλερύ, Άλμα, Εκράν and Ολύμπια, with the Fading Athens logo at the bottom"></figure>
-    <div class="stk-text">
-      <span class="pc-type">Poster</span>
-      <span class="pc-title">Signs of Athens</span>
-      <p>All the signs from the postcards and stickers together on one poster: cinemas, kiosks, hotels and old shops of Athens, drawn by hand.</p>
-      <p class="stk-buy"><span class="stk-price">€20</span><span class="stk-low sold-out">Sold out</span><span class="restock">More on the way</span></p>
+    <div class="buy">
+      <p class="buy-label">Where to buy</p>
+      <div class="shop">
+        <p class="buy-place">The Bleed</p>
+        <p class="buy-where">Gallery · Kypseli <span>Κυψέλη</span></p>
+        <p class="buy-sells">Postcards and stickers</p>
+        <p class="buy-addr">Trias 13 · Τρίας 13<br>113 62 Athens</p>
+        <dl class="buy-hours">
+          <dt>Mon–Fri</dt><dd>17:00–20:00</dd>
+          <dt>Sat</dt><dd>11:00–17:00</dd>
+          <dt>Sun</dt><dd>Closed</dd>
+        </dl>
+        <a class="buy-map" href="https://maps.app.goo.gl/q9otrZePQMXYxZfw7" target="_blank" rel="noopener">Map →</a>
+      </div>
+      <div class="shop">
+        <p class="buy-place">Meteoritis</p>
+        <p class="buy-where">Bookshop · Kypseli <span>Μετεωρίτης</span></p>
+        <p class="buy-sells">Postcards</p>
+        <p class="buy-addr">Fokionos Negri 68 · Φωκίωνος Νέγρη 68<br>113 61 Athens</p>
+        <dl class="buy-hours">
+          <dt>Mon, Wed</dt><dd>10:00–15:00</dd>
+          <dt>Tue</dt><dd>10:00–15:00, 17:30–20:00</dd>
+          <dt>Thu–Fri</dt><dd>10:00–15:00, 17:30–20:30</dd>
+          <dt>Sat</dt><dd>10:00–20:30</dd>
+          <dt>Sun</dt><dd>Closed</dd>
+        </dl>
+        <a class="buy-map" href="https://www.google.com/maps/search/?api=1&amp;query=Meteoritis%2C%20Fokionos%20Negri%2068%2C%20Athens&amp;query_place_id=ChIJQ3h2ZomjoRQRNQgjI6F1Dbg" target="_blank" rel="noopener">Map →</a>
+      </div>
     </div>
-  </div>
-  <div class="stickers">
-    <div class="stk-text">
-      <span class="pc-type">Stickers</span>
-      <span class="pc-title">Signs of Athens stickers</span>
-      <p>Every sign from the Signs of Athens poster, cut out as its own die-cut sticker: cinemas, kiosks, hotels, bars and a pastry shop that has been there since 1910. Sold individually, so pick your favourites.</p>
-      <p class="stk-buy"><span class="stk-price">€2 each</span><span class="stk-low">Low availability</span></p>
-      <p class="stk-where">On sale at The Bleed, Kypseli.</p>
-      <p class="stk-hint" id="stkHint">Drag the stickers around the pile.</p>
-      <button type="button" class="stk-shake" id="stkShake">Shake the pile</button>
-    </div>
-    <div class="stk-pile" id="stkPile" role="img" aria-label="A pile of 24 die-cut stickers of old Athens signs, including Rex, Riviera, Hotel Orion, Σινέ Φλερύ and Βικτώρια"></div>
   </div>
 </div></section>
 
@@ -701,6 +750,7 @@ footer .logo .logo-mark{height:52px}
 
 <script>
 var PHOTOS=[
+ ["travel-service",1120,"City of Athens Travel Service","Shutter down","A shuttered shopfront under a blue sign reading City of Athens Travel Service, the shutter covered in graffiti"],
  ["splendid",784,"Σπλέντιτ","A rooftop sign among the TV aerials","A rusted rooftop sign in Greek script reading Σπλέντιτ on a wire mesh frame, surrounded by TV aerials against a pale blue sky"],
  ["alfaville",785,"ΑΛΦΑΒΙΛ","Alphaville cinema sign","A tall vertical cinema sign spelling ΑΛΦΑΒΙΛ in gold letters against a pink facade and blue sky full of TV aerials","https://www.google.com/maps/search/?api=1&query=Alphaville%2C%20Mavromichali%20168%2C%20Athens&query_place_id=ChIJ722y1iy9oRQRfKcMwtBjMFA","Mavromichali 168"],
  ["koureion",784,"Κουρείον Το Νέον","Barbershop “The New”, Δ. Δανόπουλος","An abandoned barbershop entrance under a sign reading ΚΟΥΡΕΙΟΝ ΤΟ ΝΕΟΝ, with green door frames and a dusty floor"],
@@ -818,7 +868,7 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
   var els=[],z=1,started=false;
   function rnd(a,b){return a+Math.random()*(b-a)}
   function gauss(){return (Math.random()+Math.random()+Math.random()-1.5)/1.5}
-  function scale(){var w=pile.clientWidth;return w<520?.33:(w<760?.38:.42)}
+  function scale(){var w=pile.clientWidth;return w<300?.34:(w<520?.42:(w<760?.38:.42))}
   STK.forEach(function(d){var im=new Image();im.src='img/stickers/'+d[0]+'.webp';im.alt='';im.draggable=false;im.className='stk away';
     im.dataset.w=d[1];im.dataset.h=d[2];im.title=d[3];pile.appendChild(im);els.push(im)});
   function size(im){var k=scale();im.style.width=Math.round(im.dataset.w*k)+'px'}
