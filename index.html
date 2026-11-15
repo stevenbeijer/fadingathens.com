@@ -628,6 +628,17 @@ footer .logo .logo-mark{height:52px}
 .feature.flip .clips:hover .c1{transform:rotate(-1deg) translateY(-6px)}
 .feature.flip .clips:hover .c2{transform:rotate(-9deg) translateX(-10px)}
 .feature.flip .clips:hover .c3{transform:rotate(8deg) translateX(10px)}
+
+/* About: photos from twenty years ago */
+.about-pics{display:flex;flex-direction:column;gap:30px;position:relative;z-index:41}
+.then{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:14px;align-items:start;padding-top:6px}
+.then-pic{margin:0;background:#fff;padding:7px 7px 9px;box-shadow:0 1px 2px rgba(30,25,20,.2),0 10px 22px -10px rgba(30,25,20,.4)}
+.then-pic img{display:block;width:100%;height:auto;aspect-ratio:auto!important;object-fit:contain}
+.then-pic figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.35;color:#555;margin-top:7px}
+.then-pic.t1{transform:rotate(-2.5deg);margin-top:18px}
+.then-pic.t2{transform:rotate(2deg)}
+.then-note{grid-column:1/-1;margin:2px 0 0;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--muted)}
+@media (max-width:760px){.then{max-width:520px}}
 </style>
 
 </head>
@@ -772,9 +783,22 @@ footer .logo .logo-mark{height:52px}
 </div></section>
 
 <section id="about"><div class="wrap about">
+  <div class="about-pics">
   <figure>
     <img src="img/steven.jpg" width="1048" height="1400" loading="lazy" alt="Steven A.J. Beijer with a camera round his neck, standing under a yellow ΕΞΟΔΟΣ – EXIT sign in an empty building">
   </figure>
+  <div class="then" aria-label="Steven in Athens, around twenty years ago">
+    <figure class="then-pic t1">
+      <img src="img/steven-decadence.jpg" width="1200" height="900" loading="lazy" alt="A young Steven in a black T-shirt at the DJ booth of Club Decadence, a red wooden booth with the club's sign, a penny-farthing bicycle hanging on the wall behind him">
+      <figcaption>Behind the decks at Club Decadence</figcaption>
+    </figure>
+    <figure class="then-pic t2">
+      <img src="img/steven-bus.jpg" width="800" height="1067" loading="lazy" alt="A young Steven in black standing on an Athens pavement next to an old white city bus and a bus-stop advertising board">
+      <figcaption>With one of the old city buses</figcaption>
+    </figure>
+    <p class="then-note">Athens, around 2005</p>
+  </div>
+  </div>
   <div class="text">
     <h2>About</h2>
     <p>Fading Athens is a photo project founded in 2019 by Steven A.J. Beijer, a Dutch-American photographer and urban archaeologist.</p>
