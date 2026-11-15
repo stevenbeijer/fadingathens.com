@@ -3,6 +3,8 @@
 
 Fetches @fadingathens from the Behold JSON feed and rewrites, in index.html:
   - the post grid           (IG:START / IG:END)        images in img/ig/
+    Behold's free plan gives 6 posts; earlier posts are remembered in
+    data/instagram-posts.json so the grid fills up to 9.
   - the profile picture     (IG-AVATAR:START / END)    img/ig-avatar.jpg
   - follower counts         (IG-STATS:START / END)
   - the bio and website     (IG-BIO:START / END)
@@ -25,6 +27,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = os.path.join(ROOT, "index.html")
 IG_DIR = os.path.join(ROOT, "img", "ig")
 START, END = "<!-- IG:START -->", "<!-- IG:END -->"
+ARCHIVE = os.path.join(ROOT, "data", "instagram-posts.json")  # posts remembered between runs
+GRID_SIZE = 9
 UA = {"User-Agent": "fadingathens.com instagram updater"}
 EXT = {"image/webp": "webp", "image/jpeg": "jpg", "image/png": "png", "image/avif": "avif"}
 
@@ -154,13 +158,15 @@ def update_profile(page, feed):
 def main():
     raw, _ = get(FEED_URL)
     feed = json.loads(raw)
-    posts = [p for p in feed.get("posts", []) if p.get("visibility", "visible") == "visible"][:9]
+    posts = [p for p in feed.get("posts", []) if p.get("visibility", "visible") == "visible"]
     if not posts:
         print("Feed returned no posts; leaving the page as it is.")
         return 0
 
     os.makedirs(IG_DIR, exist_ok=True)
-    keep, tiles = set(), []
+
+    # 1. turn the feed's posts into grid entries (downloading new images)
+    fresh = {}
     for p in posts:
         sizes = p.get("sizes") or {}
         size = sizes.get("medium") or sizes.get("large") or sizes.get("small") or {}
@@ -176,23 +182,55 @@ def main():
             name = f'{p["id"]}.{"jpg" if dims else EXT.get(ctype, "jpg")}'
             with open(os.path.join(IG_DIR, name), "wb") as f:
                 f.write(data)
-        keep.add(name)
+        w, h = size.get("width", 561), size.get("height", 700)
         try:
             from PIL import Image
             with Image.open(os.path.join(IG_DIR, name)) as im:
-                size = {"width": im.width, "height": im.height}
+                w, h = im.width, im.height
         except Exception:
             pass
-        alt = html.escape(alt_text(p), quote=True)
-        link = html.escape(p.get("permalink") or "https://www.instagram.com/fadingathens/", quote=True)
-        tiles.append(
-            f'      <a href="{link}" target="_blank" rel="noopener" aria-label="{alt}, on Instagram">'
-            f'<img src="img/ig/{name}" alt="{alt}" width="{size.get("width", 561)}" height="{size.get("height", 700)}" loading="lazy"></a>'
-        )
-
-    if not tiles:
+        fresh[p["id"]] = {
+            "id": p["id"],
+            "permalink": p.get("permalink") or "https://www.instagram.com/fadingathens/",
+            "timestamp": p.get("timestamp", ""),
+            "alt": alt_text(p),
+            "image": name,
+            "width": w,
+            "height": h,
+        }
+    if not fresh:
         print("No usable images in feed; leaving the page as it is.")
         return 0
+
+    # 2. merge with posts remembered from earlier runs, so the grid can show more
+    #    than the feed's limit. Remembered posts newer than the oldest feed post but
+    #    missing from the feed were deleted or archived on Instagram: drop them.
+    try:
+        archive = json.load(open(ARCHIVE, encoding="utf-8"))
+    except Exception:
+        archive = []
+    oldest = min(e["timestamp"] for e in fresh.values())
+    merged = dict(fresh)
+    for e in archive:
+        if e["id"] in merged:
+            continue
+        if e["timestamp"] >= oldest:
+            continue  # inside the feed's window but not in it: gone from Instagram
+        if not os.path.exists(os.path.join(IG_DIR, e["image"])):
+            continue
+        merged[e["id"]] = e
+    shown = sorted(merged.values(), key=lambda e: e["timestamp"], reverse=True)[:GRID_SIZE]
+
+    # show whole rows of three only (6 or 9), so the grid never has a gap
+    rows = len(shown) // 3 * 3 or len(shown)
+    tiles = []
+    for e in shown[:rows]:
+        alt = html.escape(e["alt"], quote=True)
+        link = html.escape(e["permalink"], quote=True)
+        tiles.append(
+            f'      <a href="{link}" target="_blank" rel="noopener" aria-label="{alt}, on Instagram">'
+            f'<img src="img/ig/{e["image"]}" alt="{alt}" width="{e["width"]}" height="{e["height"]}" loading="lazy"></a>'
+        )
 
     page = open(INDEX, encoding="utf-8").read()
     a, b = page.find(START), page.find(END)
@@ -204,10 +242,16 @@ def main():
     if new != page:
         open(INDEX, "w", encoding="utf-8").write(new)
 
+    os.makedirs(os.path.dirname(ARCHIVE), exist_ok=True)
+    with open(ARCHIVE, "w", encoding="utf-8") as f:
+        json.dump(shown, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+
+    keep = {e["image"] for e in shown}
     for f in os.listdir(IG_DIR):
         if f not in keep:
             os.remove(os.path.join(IG_DIR, f))
-    print(f"Grid now shows {len(tiles)} posts.")
+    print(f"Grid now shows {len(tiles)} posts ({len(fresh)} from the feed).")
     return 0
 
 
