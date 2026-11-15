@@ -99,6 +99,12 @@ def main():
             with open(os.path.join(IG_DIR, name), "wb") as f:
                 f.write(data)
         keep.add(name)
+        try:
+            from PIL import Image
+            with Image.open(os.path.join(IG_DIR, name)) as im:
+                size = {"width": im.width, "height": im.height}
+        except Exception:
+            pass
         alt = html.escape(alt_text(p), quote=True)
         link = html.escape(p.get("permalink") or "https://www.instagram.com/fadingathens/", quote=True)
         tiles.append(
