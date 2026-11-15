@@ -561,6 +561,26 @@ footer .logo .logo-mark{height:52px}
 .photo-break.single{display:block;background:none}
 .photo-break.single .shot img{aspect-ratio:auto;height:min(82vh,56.25vw);width:100%;object-fit:cover;object-position:center}
 @media (max-width:520px){.photo-break.single .shot img{height:62vw}}
+
+/* photographs in series: one sideways strip per type of place */
+.series{margin-top:44px;position:relative;z-index:41}
+.series:first-child{margin-top:8px}
+.series-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:14px}
+.series-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.series-title .gr{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:13px;color:var(--muted)}
+.series-title h3{margin:0;font-family:var(--brand);font-weight:700;letter-spacing:-.01em;font-size:clamp(22px,2.4vw,30px);color:var(--sign-red)}
+.series-title .count{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.series-nav{display:flex;gap:8px;flex:none}
+.series-nav button{width:40px;height:40px;border:1.5px solid var(--ink);background:none;color:var(--ink);font:500 18px/1 var(--brand);cursor:pointer}
+.series-nav button:hover:not(:disabled){background:var(--ink);color:var(--plaster)}
+.series-nav button:disabled{opacity:.25;cursor:default}
+.strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:0;
+  margin-right:calc(50% - 50vw);padding-right:max(16px,calc(50vw - 50%));padding-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;overscroll-behavior-x:contain}
+.strip .shot{flex:none;margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}
+.strip .shot img{height:clamp(300px,36vw,500px);width:auto;max-width:none;aspect-ratio:auto;object-fit:cover;display:block}
+.strip .shot figcaption{display:block!important;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--ink);min-height:1em;max-width:100%}
+.strip .shot figcaption:empty::after{content:"\00a0"}
+@media (max-width:600px){.strip .shot img{height:min(116vw,460px)}.series-nav{display:none}.strip{gap:10px}}
 </style>
 
 </head>
@@ -610,8 +630,8 @@ footer .logo .logo-mark{height:52px}
 </header>
 
 <section id="photographs"><div class="wrap">
-  <div class="section-head"><h2>Photographs</h2><p>Tap a photo to see it larger</p></div>
-  <div class="wall" id="wall"></div>
+  <div class="section-head"><h2>Photographs</h2><p>In series · tap a photo to see it larger</p></div>
+  <div id="series"></div>
 </div></section>
 
 <section class="photo-break single" id="breakCarina" aria-label="Photograph" style="padding-block:0"></section>
@@ -723,8 +743,6 @@ footer .logo .logo-mark{height:52px}
     <p class="about-src">Quotes from Steven’s interview with Athens Voice, 2020.</p>
   </div>
 </div></section>
-
-<section class="photo-break single" id="breakErechthion" aria-label="Photograph" style="padding-block:0"></section>
 
 <section id="walk"><div class="wrap">
   <div class="section-head"><h2>Join the walk</h2><p>Book through Airbnb Experiences</p></div>
@@ -876,51 +894,52 @@ var PHOTOS=[
  ["carina", 2400, "Ζαχαροπλαστείον Carina", "An old patisserie sign over what is now a corner mini-market on Kefallinias Street, Kypseli.", "A corner shop with a sign reading ΖΑΧΑΡΟΠΛΑΣΤΕΙΟΝ Carina, a striped awning and green window bars, a green car parked in front", "https://www.google.com/maps/search/?api=1&query=Kefallinias%2064%2C%20Athens", "Kefallinias St"],
  ["hotel-erechthion", 2400, "Hotel Erechthion", "Hotel Erechthion's rooftop letters, one O worn through, against a clear sky.", "Rooftop signs reading HOTEL and ERECHTHION on a low concrete building against a blue sky, with grasses in the foreground"]
 ];
-/* editorial order: big feature photos land in the large slots; three photos form the full-width break */
-var GALLERY_ORDER=[
- /* shown first */
- 'alfaville','travel-service','splendid','koureion','fridge-repairs','stereo-shop','mediterranee','cafe-avissynia','giouras','pyramides','cinema-seats','hotel','arcade-plants','kipseli-mercedes','empty-shop',
- /* behind "More photographs" */
- 'blue-door','hotel-sra','film-posters','exodos-panepistimiou','curved-balcony','ruin-cat','golden-street','acropolis-road','shuttered-block','poleitai','dry-cleaner','choris-esena','warehouse','hotel-delfini','abandoned-room','crumbling-corner'];
-var FIRST=15;
+/* photographs shown as series: one sideways strip per type of place */
+var SERIES=[
+ {gr:'Ταμπέλες',en:'Signs',ids:['alfaville','splendid','travel-service','pyramides','film-posters']},
+ {gr:'Μαγαζιά',en:'Shopfronts',ids:['koureion','fridge-repairs','stereo-shop','giouras','cafe-avissynia']},
+ {gr:'Ξενοδοχεία',en:'Hotels',ids:['mediterranee','hotel-delfini','hotel-erechthion','hotel-sra','hotel']},
+ {gr:'Πίσω από κλειστές πόρτες',en:'Behind closed doors',ids:['cinema-seats','dry-cleaner','empty-shop','warehouse','ruin-cat','abandoned-room']},
+ {gr:'Σπίτια και προσόψεις',en:'Houses and facades',ids:['blue-door','curved-balcony','shuttered-block','poleitai','choris-esena']},
+ {gr:'Δρόμοι και στοές',en:'Streets and arcades',ids:['golden-street','crumbling-corner','kipseli-mercedes','acropolis-road','exodos-panepistimiou','arcade-plants']}
+];
 /* photos shown full width between sections, by container id */
-var BREAKS={breakCarina:['carina'],photoBreak:['pink-house','stairwell','kypseli-1993'],breakErechthion:['hotel-erechthion']};
-var BREAK=[];Object.keys(BREAKS).forEach(function(k){BREAK=BREAK.concat(BREAKS[k])});
+var BREAKS={breakCarina:['carina'],photoBreak:['pink-house','stairwell','kypseli-1993']};
 (function(){var by={};PHOTOS.forEach(function(p){by[p[0]]=p});var out=[];
-  GALLERY_ORDER.forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}});
-  Object.keys(by).forEach(function(n){if(BREAK.indexOf(n)<0){out.push(by[n]);delete by[n]}});
-  BREAK.forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}});
+  SERIES.forEach(function(se){se.ids.forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}})});
+  Object.keys(BREAKS).forEach(function(k){BREAKS[k].forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}})});
+  Object.keys(by).forEach(function(n){out.push(by[n])});
   PHOTOS.length=0;out.forEach(function(p){PHOTOS.push(p)});})();
-var NGAL=PHOTOS.length-BREAK.filter(function(n){return PHOTOS.some(function(p){return p[0]===n})}).length;
-/* row patterns: A = big + small (offset), B = three equal, C = small (offset) + big, D = small + big + small, E = four equal */
-var ROWS=[['a-big','a-small'],['b1','b2','b3'],['c-small','c-big'],['b1','b2','b3'],['a-big','a-small'],['d1','d-big','d3']];
-function buildSlots(n){var out=[],r=0;while(out.length<n){var left=n-out.length,row=ROWS[r%ROWS.length];
-  if(left===4&&row.length!==4&&r%ROWS.length!==1&&r%ROWS.length!==3){row=['e1','e2','e3','e4']}
-  if(row.length>left)row=(left===4?['e1','e2','e3','e4']:['b1','b2','b3'].slice(0,left));out=out.concat(row);r++}return out}
-var SLOT=buildSlots(FIRST).concat(buildSlots(NGAL-FIRST));
-var wall=document.getElementById('wall');wall.classList.add('editorial');
-PHOTOS.forEach(function(p,i){
+var idxOf={};PHOTOS.forEach(function(p,i){idxOf[p[0]]=i});
+function shot(i){var p=PHOTOS[i];
   var f=document.createElement('figure');f.className='shot';
   var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3]));
-  var im=document.createElement('img');im.src='img/'+p[0]+'.jpg';im.width=p[1];im.height=1400;im.alt=p[4];if(i>5)im.loading='lazy';
-  b.appendChild(im);b.addEventListener('click',function(){openV(i)});
-  var c=document.createElement('figcaption');
-  if(p[2]){var g=document.createElement('span');g.className='gr';g.textContent=p[2];c.appendChild(g)}
-  var e=document.createElement('span');e.className='en';e.textContent=p[3];c.appendChild(e);
-  if(p[5]){var m=document.createElement('a');m.className='maplink';m.href=p[5];m.target='_blank';m.rel='noopener';m.textContent=p[6]+' · Map →';c.appendChild(m);}
-  f.appendChild(b);f.appendChild(c);
-  if(i<NGAL){f.classList.add('s-'+SLOT[i]);if(/big/.test(SLOT[i]))f.classList.add('big');if(i>=FIRST)f.classList.add('more');wall.appendChild(f)}
-  else{Object.keys(BREAKS).forEach(function(k){var box=document.getElementById(k);if(box&&BREAKS[k].indexOf(p[0])>=0){
-    if(BREAKS[k].length===1){im.srcset='img/'+p[0]+'-1200.jpg 1200w, img/'+p[0]+'.jpg 2400w';im.sizes='100vw'}box.appendChild(f)}})}
+  var im=document.createElement('img');im.src='img/'+p[0]+'.jpg';im.alt=p[4];im.loading='lazy';
+  if(p[1]>1400){im.width=p[1];im.height=Math.round(p[1]*(p[0]==='hotel-erechthion'?1324:1346)/2400)}else{im.width=p[1];im.height=1400}
+  b.appendChild(im);b.addEventListener('click',function(){openV(i)});f.appendChild(b);
+  var c=document.createElement('figcaption');if(p[2]){c.lang=/[Α-Ωα-ω]/.test(p[2])?'el':'en';c.textContent=p[2]}f.appendChild(c);
+  return f}
+var holder=document.getElementById('series');
+SERIES.forEach(function(se,k){
+  var sec=document.createElement('div');sec.className='series';
+  var head=document.createElement('div');head.className='series-head';
+  head.innerHTML='<div class="series-title"><span class="gr" lang="el"></span><h3></h3><span class="count"></span></div><div class="series-nav"><button type="button" class="prev" aria-label="Scroll back">←</button><button type="button" class="next" aria-label="Scroll on">→</button></div>';
+  head.querySelector('.gr').textContent=se.gr;head.querySelector('h3').textContent=se.en;
+  var n=se.ids.filter(function(x){return x in idxOf}).length;head.querySelector('.count').textContent=n+' photographs';
+  var strip=document.createElement('div');strip.className='strip';strip.setAttribute('role','list');strip.setAttribute('aria-label',se.en);
+  se.ids.forEach(function(x){if(x in idxOf){var f=shot(idxOf[x]);f.setAttribute('role','listitem');strip.appendChild(f)}});
+  if(k===0)[].forEach.call(strip.querySelectorAll('img'),function(im,j){if(j<3)im.loading='eager'});
+  sec.appendChild(head);sec.appendChild(strip);holder.appendChild(sec);
+  var prev=head.querySelector('.prev'),next=head.querySelector('.next');
+  function step(d){strip.scrollBy({left:d*strip.clientWidth*.8,behavior:'smooth'})}
+  prev.onclick=function(){step(-1)};next.onclick=function(){step(1)};
+  function upd(){prev.disabled=strip.scrollLeft<4;next.disabled=strip.scrollLeft+strip.clientWidth>=strip.scrollWidth-4}
+  strip.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);setTimeout(upd,300);window.addEventListener('load',upd);
 });
-/* tablet: keep the two-column grid free of gaps */
-function fillGaps(){var vis=[].filter.call(wall.children,function(f){return !f.classList.contains('more')||wall.classList.contains('show-all')});
-  [].forEach.call(wall.children,function(f){f.classList.remove('tfill')});
-  var singles=vis.filter(function(f){return !f.classList.contains('big')});if(singles.length%2)singles[singles.length-1].classList.add('tfill')}
-fillGaps();
-(function(){var n=NGAL-FIRST;if(n<1)return;var b=document.createElement('button');b.type='button';b.className='more-btn';
-  b.textContent='More photographs ('+n+')';wall.parentNode.appendChild(b);
-  b.onclick=function(){wall.classList.add('show-all');fillGaps();b.remove();var f=wall.querySelector('.more button');if(f)f.focus({preventScroll:true})}})();
+/* full-width breaks */
+Object.keys(BREAKS).forEach(function(k){var box=document.getElementById(k);if(!box)return;
+  BREAKS[k].forEach(function(n){if(!(n in idxOf))return;var f=shot(idxOf[n]),im=f.querySelector('img');
+    if(BREAKS[k].length===1){im.srcset='img/'+n+'-1200.jpg 1200w, img/'+n+'.jpg 2400w';im.sizes='100vw'}box.appendChild(f)})});
 var V=document.getElementById('viewer'),cur=0,lastFocus=null;
 function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   var im=document.getElementById('vImg');im.src='img/'+p[0]+'.jpg';im.alt=p[4];
