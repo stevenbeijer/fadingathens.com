@@ -604,6 +604,10 @@ footer .logo .logo-mark{height:52px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:820px){.feature{grid-template-columns:1fr;gap:28px}.clips{height:72vw;max-height:420px}}
 @media (max-width:720px){.press .p-row{grid-template-columns:minmax(0,1fr) 24px;gap:4px 12px}.press .p-row>span{grid-column:1}}
+
+.feature.flip .clips{order:2}
+.quotes{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){.feature.flip .clips{order:0}.quotes{grid-template-columns:1fr}}
 </style>
 
 </head>
@@ -796,6 +800,23 @@ footer .logo .logo-mark{height:52px}
     </div>
     <span class="sr-only">Photos of the magazine: the cover of K issue 1.028, the article's opening spread and the two Fading Athens pages, with Steven's portrait, his interview and six of his photographs.</span>
   </div>
+  <div class="feature flip">
+    <div class="clips" aria-hidden="true">
+      <img class="clip c1" src="img/press/dl-cover.jpg" alt="" width="720" height="1075" loading="lazy">
+      <img class="clip c2" src="img/press/dl-grid.jpg" alt="" width="720" height="927" loading="lazy">
+      <img class="clip c3" src="img/press/dl-text.jpg" alt="" width="720" height="1245" loading="lazy">
+    </div>
+    <div class="feature-text">
+      <p class="f-outlet">Desired Landscapes · A magazine reading into cities</p>
+      <h3>Fading Athens</h3>
+      <p class="f-sub">A fold-out of twelve Athens and Piraeus shopfronts photographed between 2019 and 2023, in the magazine's City's Image section, with an essay on the city's disappearing shop signs.</p>
+      <blockquote>
+        <p>“…an undocumented timeline of anonymous Greek typography”</p>
+      </blockquote>
+      <p class="f-date">Issue 07 · City's Image · p. 107 · print</p>
+    </div>
+    <span class="sr-only">Photos of the magazine: the cover of Desired Landscapes issue 07, the fold-out grid of twelve shopfront photographs by Steven A.J. Beijer, and the essay page.</span>
+  </div>
   <div class="quotes">
     <blockquote>
       <p lang="el">«Μία Αθήνα που χάνεται και ξεθωριάζει, αλλά υπάρχουν άνθρωποι σαν τον Beijer που απαθανατίζουν αυτά τα μοναδικά ντοκουμέντα.»</p>
@@ -807,10 +828,6 @@ footer .logo .logo-mark{height:52px}
       <p class="q-en">A love letter to Athens in photographs.</p>
       <footer>Athens Voice · 2020</footer>
     </blockquote>
-    <blockquote>
-      <p>“Disappearing vernacular facades of family-owned businesses.”</p>
-      <footer>Desired Landscapes · Issue 07</footer>
-    </blockquote>
   </div>
   <ul class="press">
     <li><div class="p-row">
@@ -821,7 +838,7 @@ footer .logo .logo-mark{height:52px}
     <li><a href="https://desired-landscapes.com/products/issue-07" target="_blank" rel="noopener">
       <span class="p-date">Issue 07</span>
       <span class="p-outlet">Desired Landscapes</span>
-      <span class="p-title">Fading Athens<small>Disappearing vernacular facades of family-owned businesses · print magazine</small></span>
+      <span class="p-title">Fading Athens<small>City's Image · fold-out of twelve shopfronts, p. 107 · print magazine</small></span>
       <span class="p-go" aria-hidden="true">→</span></a></li>
     <li><a href="https://www.athensvoice.gr/life/life-in-athens/716146/7-instagram-profil-gia-tin-athina-kai-tin-street-fotografia/" target="_blank" rel="noopener">
       <span class="p-date">2 Jun 2021</span>
@@ -904,13 +921,13 @@ footer .logo .logo-mark{height:52px}
 
 <script>
 var PHOTOS=[
- ["travel-service",1120,"City of Athens Travel Service","A graffitied shutter under the old City of Athens Travel Service sign.","A shuttered shopfront under a blue sign reading City of Athens Travel Service, the shutter covered in graffiti"],
+ ["travel-service", 1120, "City of Athens Travel Service", "A graffitied shutter under the old City of Athens Travel Service sign.", "A shuttered shopfront under a blue sign reading City of Athens Travel Service, the shutter covered in graffiti", "https://www.google.com/maps/search/?api=1&query=93%20Aiolou%20St%2C%20Athens", "Aiolou St"],
  ["splendid",784,"Σπλέντιτ","A rusted script sign on a rooftop, surrounded by TV aerials.","A rusted rooftop sign in Greek script reading Σπλέντιτ on a wire mesh frame, surrounded by TV aerials against a pale blue sky"],
  ["alfaville",785,"ΑΛΦΑΒΙΛ","The vertical sign of the Alphaville cinema against a blue sky.","A tall vertical cinema sign spelling ΑΛΦΑΒΙΛ in gold letters against a pink facade and blue sky full of TV aerials","https://www.google.com/maps/search/?api=1&query=Alphaville%2C%20Mavromichali%20168%2C%20Athens&query_place_id=ChIJ722y1iy9oRQRfKcMwtBjMFA","Mavromichali 168"],
  ["koureion",784,"Κουρείον Το Νέον","The entrance of an abandoned barbershop, with green door frames.","An abandoned barbershop entrance under a sign reading ΚΟΥΡΕΙΟΝ ΤΟ ΝΕΟΝ, with green door frames and a dusty floor"],
  ["fridge-repairs",788,"Επισκευές Ψυγεία Πλυντήρια","A closed repair shop with its hand-painted sign for fridges and washing machines.","A closed repair shop with a hand-painted red and blue sign advertising fridge and washing machine repairs"],
  ["golden-street",1049,"","Two women with shopping bags crossing the street in late-afternoon light.","Two women carrying shopping bags cross a street in golden evening light below an apartment block with curved balconies"],
- ["stereo-shop",910,"Stereo Shop","A small kiosk selling appliances, batteries and watches.","A small street kiosk with a pink and white sign listing appliances, photo goods, batteries and watches, against a grey marble building"],
+ ["stereo-shop", 910, "Stereo Shop", "A small kiosk on Filonos Street in Piraeus selling appliances, batteries and watches.", "A small street kiosk with a pink and white sign listing appliances, photo goods, batteries and watches, against a grey marble building", "https://www.google.com/maps/search/?api=1&query=33%20Filonos%20St%2C%20Piraeus", "Piraeus"],
  ["blue-door",842,"Αριθμός 71","A weathered turquoise double door with iron grilles, number 71.","A weathered turquoise double door with ornate iron grilles, set in a peeling pink wall with graffiti"],
  ["cafe-avissynia",785,"Cafe Avissynia · Ουζερί","Red chairs on green artificial grass outside Cafe Avissynia.","An empty café terrace with red-seated chairs on green artificial grass under a yellow CAFE AVISSYNIA sign","https://www.google.com/maps/search/?api=1&query=Cafe%20Avissinia%2C%20Kinetou%207%2C%20Athens&query_place_id=ChIJT-gtUCK9oRQRqQwGjzezP0Y","Kinetou 7, Monastiraki"],
  ["hotel",1063,"Hotel Μεγάλη Ελλάς","A crumbling neoclassical hotel with its sign on the balcony.","A crumbling neoclassical building with a HOTEL ΜΕΓΑΛΗ ΕΛΛΑΣ sign on its balcony and graffiti on the shutters below"],
