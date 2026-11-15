@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install image tools
+        run: python3 -m pip install --quiet pillow
+
       - name: Fetch latest posts
         run: python3 scripts/update_instagram.py
 

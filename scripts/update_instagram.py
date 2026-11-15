@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import urllib.request
+from io import BytesIO
 from datetime import datetime
 
 FEED_URL = os.environ.get("BEHOLD_FEED_URL", "https://feeds.behold.so/CmqoCA1Y8TwNuQvf8MLW")
@@ -29,6 +30,29 @@ def get(url):
     req = urllib.request.Request(url, headers=UA)
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read(), r.headers.get_content_type()
+
+
+def trim_white_frame(data):
+    """Many posts have a white frame baked in; crop it off so tiles fill edge to edge."""
+    try:
+        from PIL import Image, ImageChops
+    except ImportError:
+        return data, None
+    im = Image.open(BytesIO(data)).convert("RGB")
+    bg = Image.new("RGB", im.size, (255, 255, 255))
+    # pixels that differ clearly from white
+    diff = ImageChops.difference(im, bg).convert("L").point(lambda v: 255 if v > 22 else 0)
+    box = diff.getbbox()
+    if box:
+        w, h = im.size
+        l, t, r, b = box
+        # only crop a real frame (at least 2% on some side), keep a hair of margin inside
+        if max(l, t, w - r, h - b) > 0.02 * min(w, h):
+            pad = 2
+            im = im.crop((min(l + pad, w), min(t + pad, h), max(r - pad, 0), max(b - pad, 0)))
+    out = BytesIO()
+    im.save(out, "JPEG", quality=86, optimize=True, progressive=True)
+    return out.getvalue(), im.size
 
 
 def alt_text(post):
@@ -70,7 +94,8 @@ def main():
             name = existing[0]
         else:
             data, ctype = get(url)
-            name = f'{p["id"]}.{EXT.get(ctype, "jpg")}'
+            data, dims = trim_white_frame(data)
+            name = f'{p["id"]}.{"jpg" if dims else EXT.get(ctype, "jpg")}'
             with open(os.path.join(IG_DIR, name), "wb") as f:
                 f.write(data)
         keep.add(name)
