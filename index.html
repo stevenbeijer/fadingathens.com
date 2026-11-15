@@ -1066,7 +1066,7 @@ function shot(i){var p=PHOTOS[i];
   var f=document.createElement('figure');f.className='shot';
   var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3]));
   var im=document.createElement('img');im.src='img/'+p[0]+'.jpg';im.alt=p[4];im.loading='lazy';
-  if(p[1]>1400){im.width=p[1];im.height=Math.round(p[1]*(p[0]==='hotel-erechthion'?1324:p[0]==='arcade-descent'?1800:1346)/2400)}else{im.width=p[1];im.height=1400}
+  var HH={'hotel-erechthion':1324,'arcade-descent':1800,'travel-service':480};if(HH[p[0]]){im.width=p[1];im.height=HH[p[0]]}else if(p[1]>1400){im.width=p[1];im.height=Math.round(p[1]*1346/2400)}else{im.width=p[1];im.height=1400}
   b.appendChild(im);b.addEventListener('click',function(){openV(i)});f.appendChild(b);
   var c=document.createElement('figcaption');if(p[2]){c.lang=/[Α-Ωα-ω]/.test(p[2])?'el':'en';c.textContent=p[2]}f.appendChild(c);
   return f}
