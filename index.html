@@ -525,6 +525,42 @@ footer .logo .logo-mark{height:52px}
 .ig-stats:empty{display:none}
 .ig-stats strong{color:var(--ink);font-weight:600}
 .ig-web{margin-top:4px!important;font-size:14px}
+
+/* editorial gallery: mixed sizes and offsets instead of a uniform grid */
+@media (min-width:900px){
+  .wall.editorial{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:22px;row-gap:56px;align-items:start}
+  .wall.editorial .shot{grid-column:span 4}
+  .wall.editorial .s-a-big{grid-column:1/span 7}
+  .wall.editorial .s-a-small{grid-column:9/span 4;margin-top:clamp(60px,9vw,150px)}
+  .wall.editorial .s-c-small{grid-column:1/span 4;margin-top:clamp(60px,9vw,150px)}
+  .wall.editorial .s-c-big{grid-column:6/span 7}
+  .wall.editorial .s-b1{grid-column:1/span 4}.wall.editorial .s-b2{grid-column:5/span 4}.wall.editorial .s-b3{grid-column:9/span 4}
+  .wall.editorial .s-d1{grid-column:1/span 3;align-self:center}
+  .wall.editorial .s-d-big{grid-column:4/span 6}
+  .wall.editorial .s-d3{grid-column:10/span 3;align-self:center}
+}
+@media (min-width:521px) and (max-width:899px){
+  .wall.editorial{grid-auto-flow:dense}
+  .wall.editorial .big,.wall.editorial .tfill{grid-column:span 2}
+}
+/* full-width photo break */
+.photo-break{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:0 0 0;position:relative;z-index:41;background:var(--night);padding:0}
+.photo-break .shot{margin:0}
+.photo-break .shot img{aspect-ratio:4/5;width:100%;height:auto;object-fit:cover;display:block}
+.photo-break figcaption{display:none}
+@media (max-width:520px){.photo-break{grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}}
+
+.wall.editorial .shot.more{display:none}
+.wall.editorial.show-all .shot.more{display:flex}
+@media (min-width:900px){
+  .wall.editorial .s-e1{grid-column:1/span 3}.wall.editorial .s-e2{grid-column:4/span 3}.wall.editorial .s-e3{grid-column:7/span 3}.wall.editorial .s-e4{grid-column:10/span 3}
+}
+.more-btn{display:block;margin:48px auto 0;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.12em;font-size:15px;
+  background:none;color:var(--sign-red);border:1.5px solid currentColor;padding:12px 26px;cursor:pointer;position:relative;z-index:41}
+.more-btn:hover{background:var(--sign-red);color:#fbf3e4}
+.photo-break.single{display:block;background:none}
+.photo-break.single .shot img{aspect-ratio:auto;height:min(82vh,56.25vw);width:100%;object-fit:cover;object-position:center}
+@media (max-width:520px){.photo-break.single .shot img{height:62vw}}
 </style>
 
 </head>
@@ -577,6 +613,8 @@ footer .logo .logo-mark{height:52px}
   <div class="section-head"><h2>Photographs</h2><p>Tap a photo to see it larger</p></div>
   <div class="wall" id="wall"></div>
 </div></section>
+
+<section class="photo-break single" id="breakCarina" aria-label="Photograph" style="padding-block:0"></section>
 
 <section id="merch"><div class="wrap">
   <div class="section-head"><h2>Merch</h2><p>On sale in Kypseli, Athens</p></div>
@@ -655,6 +693,8 @@ footer .logo .logo-mark{height:52px}
   </div>
 </div></section>
 
+<section class="photo-break" id="photoBreak" aria-label="Photographs" style="padding-block:0"></section>
+
 <section class="market reel" id="market" style="padding-block:0"><div class="wrap">
   <div class="reel-head">
     <p class="gr" lang="el">Από το αρχείο</p>
@@ -683,6 +723,8 @@ footer .logo .logo-mark{height:52px}
     <p class="about-src">Quotes from Steven’s interview with Athens Voice, 2020.</p>
   </div>
 </div></section>
+
+<section class="photo-break single" id="breakErechthion" aria-label="Photograph" style="padding-block:0"></section>
 
 <section id="walk"><div class="wrap">
   <div class="section-head"><h2>Join the walk</h2><p>Book through Airbnb Experiences</p></div>
@@ -814,9 +856,49 @@ var PHOTOS=[
  ["empty-shop",1014,"","An emptied grocery shop with bare shelves, an old scale and a display fridge.","An emptied grocery shop with bare metal shelves, an old scale and a red and cream refrigerated display case"],
  ["kypseli-1993",1050,"Κυψέλη 1993 · Θύρα 7","Football graffiti on a ground-floor wall, with laundry drying above.","Graffiti reading ΚΥΨΕΛΗ 1993 ΘΥΡΑ 7 on a ground-floor wall, with laundry drying from the window above"],
  ["pink-house",1120,"","An old two-storey house with a curved balcony and blue shutters.","The facade of an old two-storey house with a curved balcony, peeling pink and ochre walls and blue shutters"],
- ["stairwell",1050,"","An old entrance hall with worn marble stairs and a wooden noticeboard.","An old building's entrance hall with worn marble stairs, a wooden noticeboard and an old painted shop sign in the courtyard beyond"]
+ ["stairwell",1050,"","An old entrance hall with worn marble stairs and a wooden noticeboard.","An old building's entrance hall with worn marble stairs, a wooden noticeboard and an old painted shop sign in the courtyard beyond"],
+ ["crumbling-corner", 785, "", "A crumbling corner block above graffiti-covered walls, a woman in an apron crossing the street.", "A corner of old apartment blocks with peeling plaster and graffiti, a red car parked and a woman in a blue apron walking past"],
+ ["film-posters", 785, "Η Ταξιτζού", "Old Greek film posters clipped to a board outside a shop.", "Vintage Greek film posters, Η Ταξιτζού on top, held by clips on a wooden board against a pink wall"],
+ ["curved-balcony", 785, "", "A curved modernist balcony against a neoclassical facade with plaster garlands.", "A curved concrete balcony with a looping iron railing in front of a weathered neoclassical facade decorated with garlands"],
+ ["pyramides", 784, "Εστιατόριο «Πυραμίδες»", "A taverna's lightbox sign and a hand-painted list of the day's dishes.", "A lightbox sign reading ΕΣΤΙΑΤΟΡΙΟ ΠΥΡΑΜΙΔΕΣ over a yellow and green taverna front with a hand-painted menu board"],
+ ["hotel-sra", 785, "Hotel S·RA", "A vertical hotel sign with most of its letters gone, only empty frames left between them.", "A tall hotel sign down a peeling facade with only the letters S, R and A left and empty frames in between"],
+ ["acropolis-road", 785, "", "A dirt road along a wall topped with barbed wire, the Acropolis in the distance.", "A muddy dirt road beside a long wall with barbed wire and a small church, the Acropolis and Mount Hymettus in the background"],
+ ["poleitai", 2496, "Πωλείται", "A single-storey house on Efkalypton Street with «for sale» sprayed across its walls.", "A small whitewashed house with shuttered windows and ΠΩΛΕΙΤΑΙ and a phone number sprayed in red across the walls"],
+ ["shuttered-block", 868, "", "A shuttered apartment block with a bay window and iron balconies, two cars parked in front.", "A grey apartment block with all its roller shutters down, a projecting bay window, graffiti at street level and two parked cars"],
+ ["warehouse", 785, "", "An abandoned warehouse floor covered in torn sheeting, numbered pillars receding into the distance.", "The inside of an abandoned warehouse with numbered yellow and grey pillars and a floor covered in crumpled sheeting"],
+ ["cinema-seats", 784, "", "Rows of empty seats in a dark, abandoned cinema below a red balcony.", "Rows of empty purple cinema seats in a dark auditorium with a red balcony at the back"],
+ ["ruin-cat", 784, "", "A ginger cat in the debris of a roofless, abandoned house.", "A ginger and white cat sitting among rubbish and broken furniture in a ruined house with exposed brick walls"],
+ ["kipseli-mercedes", 946, "Kipseli", "An old blue Mercedes with a flat tyre under KIPSELI graffiti.", "An old blue Mercedes saloon with a flat tyre parked in front of a peeling house with KIPSELI sprayed in yellow"],
+ ["choris-esena", 858, "Χωρίς Εσένα Δεν υπάρχω", "«Without you I don't exist» sprayed below the shutters of an old single-storey house.", "An old white single-storey house with shuttered windows and the words Χωρίς Εσένα Δεν υπάρχω and a heart sprayed in red"],
+ ["abandoned-room", 784, "", "Inside an abandoned flat: a glass-fronted cabinet, net curtains and a cane lampshade.", "An abandoned room with an open wooden cabinet with patterned glass, net curtains over a shuttered window and clutter on the floor"],
+ ["mediterranee", 784, "Hotel Méditerranée", "The tall neon letters of Hotel Méditerranée against dark blue shutters.", "A tall vertical neon sign reading HOTEL MÉDITERRANÉE on a pale facade with dark blue shutters"],
+ ["hotel-delfini", 785, "Hotel Delfini", "Hotel Delfini's signs on a rooftop and down a facade, the Acropolis behind.", "Rooftops with HOTEL DELFINI signs on a roof and down a building, with the Acropolis and hills in the distance"],
+ ["carina", 2400, "Ζαχαροπλαστείον Carina", "An old patisserie sign over what is now a corner mini-market on Kefallinias Street, Kypseli.", "A corner shop with a sign reading ΖΑΧΑΡΟΠΛΑΣΤΕΙΟΝ Carina, a striped awning and green window bars, a green car parked in front", "https://www.google.com/maps/search/?api=1&query=Kefallinias%2064%2C%20Athens", "Kefallinias St"],
+ ["hotel-erechthion", 2400, "Hotel Erechthion", "Hotel Erechthion's rooftop letters, one O worn through, against a clear sky.", "Rooftop signs reading HOTEL and ERECHTHION on a low concrete building against a blue sky, with grasses in the foreground"]
 ];
-var wall=document.getElementById('wall');
+/* editorial order: big feature photos land in the large slots; three photos form the full-width break */
+var GALLERY_ORDER=[
+ /* shown first */
+ 'alfaville','travel-service','splendid','koureion','fridge-repairs','stereo-shop','mediterranee','cafe-avissynia','giouras','pyramides','cinema-seats','hotel','arcade-plants','kipseli-mercedes','empty-shop',
+ /* behind "More photographs" */
+ 'blue-door','hotel-sra','film-posters','exodos-panepistimiou','curved-balcony','ruin-cat','golden-street','acropolis-road','shuttered-block','poleitai','dry-cleaner','choris-esena','warehouse','hotel-delfini','abandoned-room','crumbling-corner'];
+var FIRST=15;
+/* photos shown full width between sections, by container id */
+var BREAKS={breakCarina:['carina'],photoBreak:['pink-house','stairwell','kypseli-1993'],breakErechthion:['hotel-erechthion']};
+var BREAK=[];Object.keys(BREAKS).forEach(function(k){BREAK=BREAK.concat(BREAKS[k])});
+(function(){var by={};PHOTOS.forEach(function(p){by[p[0]]=p});var out=[];
+  GALLERY_ORDER.forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}});
+  Object.keys(by).forEach(function(n){if(BREAK.indexOf(n)<0){out.push(by[n]);delete by[n]}});
+  BREAK.forEach(function(n){if(by[n]){out.push(by[n]);delete by[n]}});
+  PHOTOS.length=0;out.forEach(function(p){PHOTOS.push(p)});})();
+var NGAL=PHOTOS.length-BREAK.filter(function(n){return PHOTOS.some(function(p){return p[0]===n})}).length;
+/* row patterns: A = big + small (offset), B = three equal, C = small (offset) + big, D = small + big + small, E = four equal */
+var ROWS=[['a-big','a-small'],['b1','b2','b3'],['c-small','c-big'],['b1','b2','b3'],['a-big','a-small'],['d1','d-big','d3']];
+function buildSlots(n){var out=[],r=0;while(out.length<n){var left=n-out.length,row=ROWS[r%ROWS.length];
+  if(left===4&&row.length!==4&&r%ROWS.length!==1&&r%ROWS.length!==3){row=['e1','e2','e3','e4']}
+  if(row.length>left)row=(left===4?['e1','e2','e3','e4']:['b1','b2','b3'].slice(0,left));out=out.concat(row);r++}return out}
+var SLOT=buildSlots(FIRST).concat(buildSlots(NGAL-FIRST));
+var wall=document.getElementById('wall');wall.classList.add('editorial');
 PHOTOS.forEach(function(p,i){
   var f=document.createElement('figure');f.className='shot';
   var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3]));
@@ -826,8 +908,19 @@ PHOTOS.forEach(function(p,i){
   if(p[2]){var g=document.createElement('span');g.className='gr';g.textContent=p[2];c.appendChild(g)}
   var e=document.createElement('span');e.className='en';e.textContent=p[3];c.appendChild(e);
   if(p[5]){var m=document.createElement('a');m.className='maplink';m.href=p[5];m.target='_blank';m.rel='noopener';m.textContent=p[6]+' · Map →';c.appendChild(m);}
-  f.appendChild(b);f.appendChild(c);wall.appendChild(f);
+  f.appendChild(b);f.appendChild(c);
+  if(i<NGAL){f.classList.add('s-'+SLOT[i]);if(/big/.test(SLOT[i]))f.classList.add('big');if(i>=FIRST)f.classList.add('more');wall.appendChild(f)}
+  else{Object.keys(BREAKS).forEach(function(k){var box=document.getElementById(k);if(box&&BREAKS[k].indexOf(p[0])>=0){
+    if(BREAKS[k].length===1){im.srcset='img/'+p[0]+'-1200.jpg 1200w, img/'+p[0]+'.jpg 2400w';im.sizes='100vw'}box.appendChild(f)}})}
 });
+/* tablet: keep the two-column grid free of gaps */
+function fillGaps(){var vis=[].filter.call(wall.children,function(f){return !f.classList.contains('more')||wall.classList.contains('show-all')});
+  [].forEach.call(wall.children,function(f){f.classList.remove('tfill')});
+  var singles=vis.filter(function(f){return !f.classList.contains('big')});if(singles.length%2)singles[singles.length-1].classList.add('tfill')}
+fillGaps();
+(function(){var n=NGAL-FIRST;if(n<1)return;var b=document.createElement('button');b.type='button';b.className='more-btn';
+  b.textContent='More photographs ('+n+')';wall.parentNode.appendChild(b);
+  b.onclick=function(){wall.classList.add('show-all');fillGaps();b.remove();var f=wall.querySelector('.more button');if(f)f.focus({preventScroll:true})}})();
 var V=document.getElementById('viewer'),cur=0,lastFocus=null;
 function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   var im=document.getElementById('vImg');im.src='img/'+p[0]+'.jpg';im.alt=p[4];
