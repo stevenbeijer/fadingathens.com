@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Refresh the "On Instagram" grid on fadingathens.com.
+"""Refresh the "On Instagram" section on fadingathens.com.
 
-Fetches the latest @fadingathens posts from the Behold JSON feed,
-saves the images into img/ig/, and rewrites the grid in index.html
-between the IG:START / IG:END markers. Old images are removed.
+Fetches @fadingathens from the Behold JSON feed and rewrites, in index.html:
+  - the post grid           (IG:START / IG:END)        images in img/ig/
+  - the profile picture     (IG-AVATAR:START / END)    img/ig-avatar.jpg
+  - follower counts         (IG-STATS:START / END)
+  - the bio and website     (IG-BIO:START / END)
+Old post images are removed.
 
 Run by .github/workflows/instagram.yml once a day. Can also be run by hand:
     python3 scripts/update_instagram.py
@@ -73,6 +76,81 @@ def alt_text(post):
         return "Fading Athens Instagram post"
 
 
+def replace_between(page, tag, content):
+    a, b = page.find(f"<!-- {tag}:START -->"), page.find(f"<!-- {tag}:END -->")
+    if a < 0 or b < 0:
+        print(f"{tag} markers not found; skipped", file=sys.stderr)
+        return page
+    return page[: a + len(f"<!-- {tag}:START -->")] + content + page[b:]
+
+
+def linkify_bio(text):
+    out = []
+    for part in re.split(r"(https?://\S+|@[A-Za-z0-9._]+|#\w+)", text):
+        if not part:
+            continue
+        if part.startswith("http"):
+            out.append(f'<a href="{html.escape(part, quote=True)}" target="_blank" rel="noopener">{html.escape(part)}</a>')
+        elif part.startswith("@"):
+            h = part[1:].rstrip(".")
+            out.append(f'<a href="https://www.instagram.com/{html.escape(h, quote=True)}/" target="_blank" rel="noopener">@{html.escape(h)}</a>' + part[1 + len(h):])
+        elif part.startswith("#"):
+            out.append(f'<a href="https://www.instagram.com/explore/tags/{html.escape(part[1:], quote=True)}/" target="_blank" rel="noopener">{html.escape(part)}</a>')
+        else:
+            out.append(html.escape(part))
+    return "".join(out).replace("\n", "<br>")
+
+
+def short_url(url):
+    s = re.sub(r"^https?://(www\.)?", "", url).rstrip("/")
+    return s if len(s) <= 34 else s[:33] + "…"
+
+
+def save_avatar(url):
+    """Download the profile picture as a small square JPEG. Returns True if it changed."""
+    path = os.path.join(ROOT, "img", "ig-avatar.jpg")
+    data, _ = get(url)
+    try:
+        from PIL import Image
+        im = Image.open(BytesIO(data)).convert("RGB")
+        side = min(im.size)
+        im = im.crop(((im.width - side) // 2, (im.height - side) // 2, (im.width + side) // 2, (im.height + side) // 2)).resize((168, 168), Image.LANCZOS)
+        out = BytesIO()
+        im.save(out, "JPEG", quality=88)
+        data = out.getvalue()
+    except Exception:
+        pass
+    if os.path.exists(path) and open(path, "rb").read() == data:
+        return False
+    with open(path, "wb") as f:
+        f.write(data)
+    return True
+
+
+def update_profile(page, feed):
+    user = feed.get("username") or "fadingathens"
+    if feed.get("profilePictureUrl"):
+        try:
+            save_avatar(feed["profilePictureUrl"])
+            page = replace_between(page, "IG-AVATAR", f'<img src="img/ig-avatar.jpg" alt="" width="168" height="168">')
+        except Exception as e:
+            print(f"avatar skipped: {e}", file=sys.stderr)
+    fo, fg = feed.get("followersCount"), feed.get("followsCount")
+    if fo is not None:
+        stats = f"<strong>{fo:,}</strong> followers"
+        if fg is not None:
+            stats += f" · <strong>{fg:,}</strong> following"
+        page = replace_between(page, "IG-STATS", stats)
+    bio = (feed.get("biography") or "").strip()
+    if bio:
+        block = f"<p>{linkify_bio(bio)}</p>"
+        web = (feed.get("website") or "").strip()
+        if web:
+            block += f'<p class="ig-web"><a href="{html.escape(web, quote=True)}" target="_blank" rel="noopener">{html.escape(short_url(web))}</a></p>'
+        page = replace_between(page, "IG-BIO", block)
+    return page
+
+
 def main():
     raw, _ = get(FEED_URL)
     feed = json.loads(raw)
@@ -122,6 +200,7 @@ def main():
         print("IG markers not found in index.html", file=sys.stderr)
         return 1
     new = page[: a + len(START)] + "\n" + "\n".join(tiles) + "\n      " + page[b:]
+    new = update_profile(new, feed)
     if new != page:
         open(INDEX, "w", encoding="utf-8").write(new)
 
