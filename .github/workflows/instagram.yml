@@ -1,0 +1,39 @@
+name: Update Instagram grid
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # every day at 05:17 UTC
+  workflow_dispatch:        # "Run workflow" button on GitHub
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest posts
+        run: python3 scripts/update_instagram.py
+
+      - name: Commit if anything changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A index.html img/ig
+          if git diff --cached --quiet; then
+            echo "No new posts."
+          else
+            git config user.name "Steven A.J. Beijer"
+            git config user.email "${{ github.repository_owner }}@users.noreply.github.com"
+            git commit -m "Update Instagram grid"
+            git push
+            # pushes made by the workflow do not always start a Pages build, so ask for one
+            gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+          fi
