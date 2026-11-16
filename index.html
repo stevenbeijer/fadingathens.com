@@ -614,12 +614,13 @@ footer .logo .logo-mark{height:52px}
 .clips:has(.zoomable){pointer-events:auto}
 .fold-btn{margin-top:16px}
 .foldview .fold-body{flex:1;min-height:0;overflow:auto;display:flex;gap:28px;align-items:flex-start;justify-content:center;padding-block:14px}
-.foldview .fold-body img{max-height:100%;width:auto;max-width:min(100%,680px);height:auto;display:block;background:#fff}
+.foldview .fold-body img{max-height:100%;width:auto;max-width:min(calc(100% - 360px),1100px);height:auto;display:block;align-self:center;min-width:0}
+.foldview .fold-list{flex:none;width:300px}
 .fold-list{margin:0;padding:0 0 0 1.4em;font-family:var(--mono);font-size:12.5px;line-height:1.5;max-width:320px;color:#d8d5cc}
 .fold-list li{margin-bottom:8px}
 .fold-list b{display:block;font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:15px;color:#f3ead2}
 .foldview{background:#121619}
-@media (max-width:820px){.foldview .fold-body{flex-direction:column;align-items:center;justify-content:flex-start}.foldview .fold-body img{max-height:none;max-width:100%}}
+@media (max-width:820px){.foldview .fold-body{flex-direction:column;align-items:center;justify-content:flex-start}.foldview .fold-body img{max-height:none;max-width:100%}.foldview .fold-list{width:auto}}
 
 /* Desired Landscapes: cover in front and larger */
 .feature.flip .clips{height:clamp(440px,46vw,580px)}
@@ -872,10 +873,10 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   <div class="section-head"><h2>In the press</h2><p>Print and online</p></div>
   <div class="feature">
     <div class="clips" aria-hidden="true">
-      <img class="clip c4" src="img/press/k-spread.jpg" alt="" width="1200" height="789" loading="lazy">
-      <img class="clip c1" src="img/press/k-cover.jpg" alt="" width="720" height="908" loading="lazy">
-      <img class="clip c2" src="img/press/k-page18.jpg" alt="" width="720" height="931" loading="lazy">
-      <img class="clip c3" src="img/press/k-page19.jpg" alt="" width="720" height="905" loading="lazy">
+      <img class="clip c4" src="img/press/k-spread.jpg" alt="" width="1174" height="762" loading="lazy">
+      <img class="clip c1" src="img/press/k-cover.jpg" alt="" width="692" height="878" loading="lazy">
+      <img class="clip c2" src="img/press/k-page18.jpg" alt="" width="696" height="918" loading="lazy">
+      <img class="clip c3" src="img/press/k-page19.jpg" alt="" width="708" height="908" loading="lazy">
     </div>
     <div class="feature-text">
       <p class="f-outlet">K · Η Καθημερινή</p>
@@ -999,7 +1000,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 <div class="viewer foldview" id="foldout" hidden role="dialog" aria-modal="true" aria-label="Desired Landscapes fold-out">
   <div class="bar"><span>Desired Landscapes 07 · fold-out</span><button type="button" class="fold-close">Close</button></div>
   <div class="fold-body">
-    <img src="img/press/dl-foldout.jpg" width="1200" height="1600" alt="The Desired Landscapes fold-out: a grid of twelve shopfront photographs by Steven A.J. Beijer, from Stock Market and N. Basilakos to City of Athens, Κομμώσεις Νίτσα and Τρόφιμα" loading="lazy">
+    <img src="img/press/dl-foldout.jpg" width="1860" height="1220" alt="Desired Landscapes issue 07 open at the Fading Athens essay, with the fold-out grid of twelve shopfront photographs by Steven A.J. Beijer, from N. Basilakos and Antigoni Travel to City of Athens and Τρόφιμα" loading="lazy">
     <ol class="fold-list">
       <li><b>Stock Market</b> 2020 · Ioannou Drosopoulou 89, Athens</li>
       <li><b>N. Basilakos</b> 2022 · Kleisthenous 7, Athens</li>
