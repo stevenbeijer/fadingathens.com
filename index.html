@@ -710,6 +710,25 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 /* ---- colour scheme: Periptero, dark mode ---- */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--plaster:#141513;--plaster-2:#1d1e1b;--line:#33342f;--ink:#efe9dc;--muted:#a8a294;--sign-red:#ff6b57;--rust:#ff6b57;--sign-yellow:#f2bf3a;--ochre:#f2bf3a;--on-yellow:#1c1a14;--green:#123826;--night:#123826;--green-2:#5fb388;--aegean:#5fb388;--on-green:#f1ecdf;--night-fg:#f1ecdf;--grain-o:.06;color-scheme:dark}}
 :root[data-theme="dark"]{--plaster:#141513;--plaster-2:#1d1e1b;--line:#33342f;--ink:#efe9dc;--muted:#a8a294;--sign-red:#ff6b57;--rust:#ff6b57;--sign-yellow:#f2bf3a;--ochre:#f2bf3a;--on-yellow:#1c1a14;--green:#123826;--night:#123826;--green-2:#5fb388;--aegean:#5fb388;--on-green:#f1ecdf;--night-fg:#f1ecdf;--grain-o:.06;color-scheme:dark}
+/* walk section, with details from the Airbnb listing (16 Nov 2026) */
+.walk2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,.9fr);gap:32px 48px;align-items:start}
+.walk-intro h3{margin:0 0 6px;font-size:clamp(22px,2.4vw,30px);line-height:1.15;color:var(--sign-red)}
+.walk-tag{margin:0 0 14px;font-style:italic;color:var(--muted)}
+.walk-intro>p{margin:0 0 14px;line-height:1.55}
+.walk-facts{list-style:none;margin:4px 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.walk-facts li{border:1.5px solid var(--line);padding:4px 10px;font-size:13.5px;line-height:1.3}
+.walk-meet{font-size:14.5px;color:var(--muted)}.walk-meet b{display:block;color:var(--ink);font-size:12.5px;text-transform:uppercase;letter-spacing:.08em}
+.walk-intro .cta{margin-top:6px}
+.walk-route{margin:0;padding:0;list-style:none;counter-reset:stop;border-left:3px solid var(--sign-yellow);padding-left:20px}
+.walk-route li{counter-increment:stop;position:relative;margin:0 0 14px;font-size:15px;line-height:1.4;color:var(--muted)}
+.walk-route li::before{content:counter(stop);position:absolute;left:-34px;top:0;width:24px;height:24px;border-radius:50%;background:var(--sign-yellow);color:var(--on-yellow);font:700 12.5px/24px var(--brand);text-align:center}
+.walk-route b{display:block;color:var(--ink);font-family:var(--brand);font-weight:700;font-size:16px}
+.walk-reviews blockquote{margin:0 0 18px;padding:0}
+.walk-reviews blockquote p{margin:0 0 4px;font-size:18px;line-height:1.4;color:var(--ink)}
+.walk-reviews footer{font-size:13px;color:var(--muted)}
+.walk-stars{margin:0 0 14px;font-weight:700}.walk-stars span{color:var(--sign-yellow);letter-spacing:.08em;margin-right:4px}
+.walk-host{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin:0}
+@media (max-width:900px){.walk2{grid-template-columns:1fr}.walk-route{margin-left:12px}}
 </style>
 
 </head>
@@ -911,10 +930,34 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 </div></section>
 
 <section id="walk"><div class="wrap">
-  <div class="section-head"><h2>Join the walk</h2><p>Book through Airbnb Experiences</p></div>
-  <div class="walk">
-    <p class="walk-lede">Walk the streets behind the photographs with Steven: the old shopfronts, signs and corners of Athens, seen on foot before they disappear.</p>
-    <a class="cta" href="https://www.airbnb.com/experiences/5975704" target="_blank" rel="noopener">Book the walk on Airbnb →</a>
+  <div class="section-head"><h2>Join the walk</h2><p>A 2-hour walking tour · Airbnb Original</p></div>
+  <div class="walk2">
+    <div class="walk-intro">
+      <h3>A Journey Through Athens’ Fading Beauty</h3>
+      <p class="walk-tag">Forgotten alleys, old bars, faded signs, human stories and overlooked architecture.</p>
+      <p>Walk the streets behind the photographs with Steven, from the National Archaeological Museum through Omonia’s arcades to Monastiraki and the Central Market: the old shopfronts, hand-painted signs and abandoned hotels, seen on foot before they disappear.</p>
+      <ul class="walk-facts">
+        <li>2 hours on foot</li><li>Mostly flat, moderate pace</li><li>Up to 6 guests</li><li>Ages 15 and up</li><li>Private groups welcome</li><li>Free cancellation up to a day before</li>
+      </ul>
+      <p class="walk-meet"><b>Meeting point</b> National Archaeological Museum, Athens</p>
+      <a class="cta" href="https://www.airbnb.com/experiences/5975704" target="_blank" rel="noopener">Book the walk on Airbnb →</a>
+    </div>
+    <ol class="walk-route" aria-label="The route">
+      <li><b>National Archaeological Museum</b> The meeting point.</li>
+      <li><b>An abandoned school</b> Once home to refugee families.</li>
+      <li><b>Omonia’s arcades</b> Hand-painted product signs, old shops and cafés.</li>
+      <li><b>Omonia Square</b> Its history and its disputed reputation.</li>
+      <li><b>Hotel Sans Rival</b> Faded design and architecture.</li>
+      <li><b>Old and new Athens</b> The changing, multicultural city, and Steven’s own decades-long story with it.</li>
+      <li><b>Monastiraki</b> Record stores and the flea market.</li>
+      <li><b>Central Market</b> The Athens Municipal Market, where the walk ends.</li>
+    </ol>
+    <div class="walk-reviews">
+      <p class="walk-stars" aria-label="Rated 5.0 out of 5 on Airbnb"><span aria-hidden="true">★★★★★</span> 5.0 on Airbnb</p>
+      <blockquote><p>“Fascinating! A fabulous dive into the magic of old Athens…”</p><footer>Leonie, New York · May 2025</footer></blockquote>
+      <blockquote><p>“Steven is an excellent guide who reveals the older layers of Athens.”</p><footer>Kerstin, Düsseldorf · March 2025</footer></blockquote>
+      <p class="walk-host">Your guide: Steven A.J. Beijer, with a degree in history, a master’s in European studies and a diploma in photography.</p>
+    </div>
   </div>
 </div></section>
 
