@@ -422,7 +422,7 @@ footer .logo .logo-mark{height:52px}
 .pc-stamp svg{display:block;width:100%;height:auto}
 .pc-stamp.armed{opacity:0;transform:translate(-30%,-40%) rotate(-14deg) scale(1.5)}
 .pc-stamp.on{opacity:1;transform:rotate(3deg);transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
-.pc-postmark{position:absolute;left:85.6%;top:11%;width:22%;color:rgba(28,26,23,.62);transform:rotate(-12deg);pointer-events:none;mix-blend-mode:multiply}
+.pc-postmark{position:absolute;left:85.6%;top:11%;width:22%;color:rgba(28,26,23,.62);transform:rotate(-12deg);pointer-events:none}
 .pc-postmark.armed{opacity:0;transform:rotate(-12deg) scale(1.15)}
 .pc-postmark.on{opacity:1;transform:rotate(-12deg);transition:opacity .15s,transform .2s ease-out}
 
@@ -650,6 +650,14 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .p-date,.f-date,.series-title .count,.then-pic figcaption,.reel-cap,.about-src,.pile-head p,.fold-list,.f-outlet{letter-spacing:.03em}
 
 .about figure .main-cap{display:block;margin-top:8px;font-size:13px;letter-spacing:.03em;color:var(--muted)}
+/* «Έκλεισε / Closed» rubber stamp on photos of places that have closed */
+.shot button{position:relative}
+.closed-stamp{position:absolute;top:14px;right:12px;transform:rotate(-8deg);display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 9px 4px;border:2px solid var(--sign-red);outline:1px solid var(--sign-red);outline-offset:2px;border-radius:3px;background:rgba(243,234,210,.93);color:var(--sign-red);box-shadow:0 1px 4px rgba(0,0,0,.18);font-family:var(--display);font-weight:600;text-transform:uppercase;line-height:1;pointer-events:none}
+.closed-stamp span:first-child{font-size:13px;letter-spacing:.14em}
+.closed-stamp span:last-child{font-size:10px;letter-spacing:.2em;opacity:.85}
+.viewer .closed-tag{display:inline-block;margin:4px 0 6px;padding:2px 8px;border:1.5px solid var(--sign-red);color:var(--sign-red);font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:12px;transform:rotate(-2deg)}
+.viewer .closed-tag[hidden]{display:none}
+@media (max-width:600px){.closed-stamp{top:10px;right:8px;padding:4px 7px 3px}.closed-stamp span:first-child{font-size:11px}.closed-stamp span:last-child{font-size:9px}}
 </style>
 
 </head>
@@ -987,7 +995,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
-  <div class="cap"><div class="gr" id="vGr"></div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a></div>
+  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a></div>
   <div class="bar" style="justify-content:center;margin-top:10px"><div class="nav"><button id="vPrev" type="button">← Previous</button><button id="vNext" type="button">Next →</button></div></div>
 </div>
 <div class="viewer filmview" id="fviewer" hidden role="dialog" aria-modal="true" aria-label="Film viewer">
@@ -1021,12 +1029,12 @@ var PHOTOS=[
  ["film-posters", 785, "Η Ταξιτζού", "Old Greek film posters clipped to a board outside a shop.", "Vintage Greek film posters, Η Ταξιτζού on top, held by clips on a wooden board against a pink wall"],
  ["curved-balcony", 785, "", "A curved modernist balcony against a neoclassical facade with plaster garlands.", "A curved concrete balcony with a looping iron railing in front of a weathered neoclassical facade decorated with garlands"],
  ["pyramides", 784, "Εστιατόριο «Πυραμίδες»", "A taverna's lightbox sign and a hand-painted list of the day's dishes.", "A lightbox sign reading ΕΣΤΙΑΤΟΡΙΟ ΠΥΡΑΜΙΔΕΣ over a yellow and green taverna front with a hand-painted menu board"],
- ["hotel-sra", 785, "Hotel S·RA", "A vertical hotel sign with most of its letters gone, only empty frames left between them.", "A tall hotel sign down a peeling facade with only the letters S, R and A left and empty frames in between"],
+ ["hotel-sra", 785, "Hotel Sans Rival", "The vertical sign of Hotel Sans Rival with most of its letters gone, only S, R and A left between empty frames.", "A tall hotel sign down a peeling facade with only the letters S, R and A of Sans Rival left and empty frames in between"],
  ["acropolis-road", 785, "", "A dirt road along a wall topped with barbed wire, the Acropolis in the distance.", "A muddy dirt road beside a long wall with barbed wire and a small church, the Acropolis and Mount Hymettus in the background"],
  ["poleitai", 2496, "Πωλείται", "A single-storey house on Efkalypton Street with «for sale» sprayed across its walls.", "A small whitewashed house with shuttered windows and ΠΩΛΕΙΤΑΙ and a phone number sprayed in red across the walls"],
  ["shuttered-block", 868, "", "A shuttered apartment block with a bay window and iron balconies, two cars parked in front.", "A grey apartment block with all its roller shutters down, a projecting bay window, graffiti at street level and two parked cars"],
  ["warehouse", 785, "", "An abandoned warehouse floor covered in torn sheeting, numbered pillars receding into the distance.", "The inside of an abandoned warehouse with numbered yellow and grey pillars and a floor covered in crumpled sheeting"],
- ["cinema-seats", 784, "", "Rows of empty seats in a dark, abandoned cinema below a red balcony.", "Rows of empty purple cinema seats in a dark auditorium with a red balcony at the back"],
+ ["cinema-seats", 784, "Θέατρο Καλιφόρνια", "Rows of empty seats in the dark, abandoned Theatro Kalifornia, below a red balcony.", "Rows of empty purple seats in the dark auditorium of the abandoned Theatro Kalifornia, with a red balcony at the back"],
  ["ruin-cat", 784, "", "A ginger cat in the debris of a roofless, abandoned house.", "A ginger and white cat sitting among rubbish and broken furniture in a ruined house with exposed brick walls"],
  ["kipseli-mercedes", 946, "Kipseli", "An old blue Mercedes with a flat tyre under KIPSELI graffiti.", "An old blue Mercedes saloon with a flat tyre parked in front of a peeling house with KIPSELI sprayed in yellow"],
  ["choris-esena", 858, "Χωρίς Εσένα Δεν υπάρχω", "«Without you I don't exist» sprayed below the shutters of an old single-storey house.", "An old white single-storey house with shuttered windows and the words Χωρίς Εσένα Δεν υπάρχω and a heart sprayed in red"],
@@ -1084,6 +1092,9 @@ var SERIES=[
  {gr:'Δρόμοι και στοές',en:'Streets and arcades',ids:['golden-street','window-chat','crumbling-corner','kipseli-mercedes','acropolis-road','arcade-descent','exodos-panepistimiou','arcade-plants','mari-bel-arcade']},
  {gr:'Στους τοίχους',en:'On the walls',ids:['crisis-mural','kubrick-mural','statue-wire','courtyard-kiss','victims-dance','ath-hoarding','peeling-entrance']}
 ];
+/* places that have closed: get an «Έκλεισε / Closed» stamp */
+var CLOSED=['la-mirage','hotel-oneiro','hotel','hotel-sra','zitsa','koureion','alettra','giouras','travel-service','rebound','rex-videorama','cinema-seats','estiatorio-marble','fridge-repairs','mediterranee','hotel-erechthion'];
+function isClosed(n){return CLOSED.indexOf(n)>-1}
 /* photos shown full width between sections, by container id */
 var BREAKS={breakCarina:['carina'],photoBreak:['pink-house','stairwell','kypseli-1993']};
 (function(){var by={};PHOTOS.forEach(function(p){by[p[0]]=p});var out=[];
@@ -1094,10 +1105,10 @@ var BREAKS={breakCarina:['carina'],photoBreak:['pink-house','stairwell','kypseli
 var idxOf={};PHOTOS.forEach(function(p,i){idxOf[p[0]]=i});
 function shot(i){var p=PHOTOS[i];
   var f=document.createElement('figure');f.className='shot';
-  var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3]));
+  var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3])+(isClosed(p[0])?' (closed)':''));
   var im=document.createElement('img');im.src='img/'+p[0]+'.jpg';im.alt=p[4];im.loading='lazy';
   var HH={'hotel-erechthion':1324,'arcade-descent':1800};if(HH[p[0]]){im.width=p[1];im.height=HH[p[0]]}else if(p[1]>1400){im.width=p[1];im.height=Math.round(p[1]*1346/2400)}else{im.width=p[1];im.height=1400}
-  b.appendChild(im);b.addEventListener('click',function(){openV(i)});f.appendChild(b);
+  b.appendChild(im);if(isClosed(p[0])){var st=document.createElement('span');st.className='closed-stamp';st.setAttribute('aria-hidden','true');st.innerHTML='<span lang="el">ΕΚΛΕΙΣΕ</span><span>Closed</span>';b.appendChild(st)}b.addEventListener('click',function(){openV(i)});f.appendChild(b);
   var c=document.createElement('figcaption');if(p[2]){c.lang=/[Α-Ωα-ω]/.test(p[2])?'el':'en';c.textContent=p[2]}f.appendChild(c);
   return f}
 var holder=document.getElementById('series');
@@ -1134,7 +1145,7 @@ Object.keys(BREAKS).forEach(function(k){var box=document.getElementById(k);if(!b
 var V=document.getElementById('viewer'),cur=0,lastFocus=null;
 function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   var im=document.getElementById('vImg');im.src='img/'+p[0]+'.jpg';im.alt=p[4];
-  document.getElementById('vGr').textContent=p[2];document.getElementById('vEn').textContent=p[3];
+  document.getElementById('vGr').textContent=p[2];var vc=document.getElementById('vClosed');vc.hidden=!isClosed(p[0]);document.getElementById('vEn').textContent=p[3];
   document.getElementById('vCount').textContent=(cur+1)+' / '+PHOTOS.length;
   var vm=document.getElementById('vMap');if(p[5]){vm.href=p[5];vm.textContent=p[6]+' · Map →';vm.hidden=false}else{vm.hidden=true}}
 function openV(i){lastFocus=document.activeElement;show(i);V.hidden=false;document.body.style.overflow='hidden';document.getElementById('vClose').focus()}
