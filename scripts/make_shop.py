@@ -78,7 +78,7 @@ def main():
 
     cards = []
     for it in items:
-        stamp = ('<span class="stamp"><span lang="el">Έκλεισε</span> · Closed</span>' if it["closed"] else "")
+        stamp = ""  # no Closed stamps in the shop: buyers could read them as "unavailable" (Steven, 16 Nov)
         sizes = "up to 50 × 70 cm" if it["max"] == "l" else "up to 30 × 40 cm"
         cards.append(
             '<li class="card"><button type="button" class="card-btn" data-id="{id}">'
@@ -202,7 +202,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
   </ul>
   <section class="how" aria-label="About the prints">
     <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
-    <div><h2>Places that are gone</h2><p>Prints marked <span lang="el">Έκλεισε</span> · Closed show places that no longer exist. The photograph is all that is left.</p></div>
+    <div><h2>Places that are gone</h2><p>Several of the shops, hotels and stations in these prints have since closed for good. The photograph is what is left of them.</p></div>
     <div><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Orders go through the Fading Athens shop on Etsy, where you choose the size; shipping is shown before you pay.</p></div>
   </section>
 </main>
@@ -244,7 +244,7 @@ function update(){var s=find(D.sizes,sel('size')),f=find(D.frames,sel('frame')),
 function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
   document.getElementById('pImg').src='../'+cur.img;document.getElementById('pImg').alt=cur.alt;
   document.getElementById('pSeries').textContent='Fine art print'+(cur.max==='l'?'':' · up to 30 × 40 cm');document.getElementById('pName').textContent=cur.name;
-  document.getElementById('pCap').textContent=cur.cap;document.getElementById('pClosed').hidden=!cur.closed;
+  document.getElementById('pCap').textContent=cur.cap;document.getElementById('pClosed').hidden=true;
   document.getElementById('pSizes').innerHTML=opt('size',D.sizes,cur.land);document.getElementById('pFrames').innerHTML=opt('frame',D.frames);
   update();P.hidden=false;document.body.style.overflow='hidden';document.getElementById('pClose').focus();
   if(push!==false)try{history.replaceState(null,'','#'+id)}catch(e){}}
