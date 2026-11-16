@@ -677,6 +677,20 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .viewer .vshare button{padding:4px 10px;font-size:12px}
 .viewer .vshare button:hover,.viewer .vshare button:focus-visible{border-color:var(--ochre);color:var(--ochre)}
 .viewer .vshare-note{min-height:1.2em;margin:6px auto 0;max-width:520px;font-family:var(--mono);font-size:12px;opacity:.85}
+/* I ♥ merch mockups */
+.ih-scene{overflow:visible}
+.ih-tote{position:absolute;width:44%;filter:drop-shadow(0 6px 10px rgba(40,30,20,.18));transition:transform .35s}
+.ih-print{position:absolute;left:50%;top:27%;transform:translateX(-50%);width:62%;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;color:var(--ink);font-family:var(--brand);font-weight:800;line-height:1.02;font-variation-settings:"FLAR" 100,"VOLM" 100}
+.ih-print-tote{top:46%;width:78%}
+.ih-i{display:flex;align-items:center;justify-content:center;gap:.25em;font-size:clamp(14px,2.1vw,22px);line-height:1}
+.ih-print .ih-heart{position:static;width:.95em!important;height:.86em!important;max-width:none;flex:none;fill:#c8321f;display:inline-block}
+.ih-word{font-size:clamp(9px,1.35vw,15px);letter-spacing:.01em}
+.ih-tote .ih-logo{position:absolute;left:34%;top:48%;width:32%!important;height:auto!important;max-width:none;transform:none;fill:currentColor}
+.stk-low.avail-soon{color:var(--aegean);border-color:var(--aegean)}
+.ih-scene:hover .t1{transform:rotate(-8deg) translate(-3px,-4px)}
+.ih-scene:hover .t2{transform:rotate(8deg) translate(3px,-4px)}
+.ih-tote svg:first-child{display:block;width:100%;height:auto}
+@media (max-width:600px){.ih-i{font-size:22px}.ih-word{font-size:15px}}
 </style>
 
 </head>
@@ -764,6 +778,14 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
       <p>Every sign from the poster as its own die-cut sticker. Sold individually, so pick your favourites.</p>
       <p class="stk-buy"><span class="stk-price">€2 each</span><span class="stk-low">Low availability</span></p>
       <p class="prod-where">At The Bleed · <button type="button" class="stk-shake" id="stkShake">Shake the pile ↻</button></p>
+    </article>
+    <article class="prod">
+      <div class="prod-img ih-scene" role="img" aria-label="Two tote bags: a natural canvas bag printed with I, a red heart and ΛΑΪΚΗ, and the back of a black bag with the Fading Athens logo"><div class="ih-tote t1" style="--ink:#1c1a14;left:6%;top:4%;transform:rotate(-6deg);z-index:2"><svg viewBox="0 0 270 470" aria-hidden="true"><path d="M80 182 L80 70 C80 22 112 10 135 10 C158 10 190 22 190 70 L190 182" fill="none" stroke="#d8c9ab" stroke-width="13" stroke-linecap="round"/><rect x="15" y="174" width="240" height="290" rx="3" fill="#e8dcc4" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><rect x="15" y="174" width="240" height="14" fill="rgba(0,0,0,.07)"/></svg><span class="ih-print ih-print-tote"><span class="ih-i">I <svg class="ih-heart" viewBox="0 0 32 29" aria-hidden="true"><path d="M16 28 C 6 20 0 14 0 8 C 0 3.5 3.5 0 8 0 C 11.3 0 14 1.8 16 4.6 C 18 1.8 20.7 0 24 0 C 28.5 0 32 3.5 32 8 C 32 14 26 20 16 28 Z"/></svg></span><span class="ih-word" lang="el">ΛΑΪΚΗ</span></span></div><div class="ih-tote t2" style="--ink:#f3ead2;left:50%;top:8%;transform:rotate(6deg);z-index:1"><svg viewBox="0 0 270 470" aria-hidden="true"><path d="M80 182 L80 70 C80 22 112 10 135 10 C158 10 190 22 190 70 L190 182" fill="none" stroke="#141414" stroke-width="13" stroke-linecap="round"/><rect x="15" y="174" width="240" height="290" rx="3" fill="#232323" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><rect x="15" y="174" width="240" height="14" fill="rgba(0,0,0,.07)"/></svg><svg class="ih-logo" viewBox="0 0 1197 1628" aria-hidden="true" style="color:#f3ead2"><use href="#fa-logo"/></svg></div></div>
+      <span class="pc-type">Tote bags</span>
+      <h3 class="pc-title">I ♥ Λαϊκή</h3>
+      <p>The same words on natural or black canvas, with the Fading Athens logo on the back. Made for the Saturday market.</p>
+      <p class="stk-buy"><span class="stk-low avail-soon">Coming soon</span></p>
+      <p class="prod-where">Where to buy: to be announced</p>
     </article>
   </div>
 
