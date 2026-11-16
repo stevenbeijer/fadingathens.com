@@ -18,7 +18,10 @@ import base64
 import io
 import json
 import os
+import re
+import subprocess
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -102,6 +105,48 @@ def ck_caption(asset):
     return ""
 
 
+def ck_video_url(asset, master):
+    """Best video rendition: the largest resVid* file (Apple's web-sized
+    copies, with edits), else the original if it isn't huge."""
+    best, url = 0, None
+    for rec in (asset, master):
+        for f in ((rec or {}).get("fields") or {}):
+            mm = re.match(r"^(resVid\w*)Res$", f)
+            if not mm:
+                continue
+            r = ck_val(rec, f)
+            if not isinstance(r, dict) or not r.get("downloadURL"):
+                continue
+            pre = mm.group(1)
+            size = int(ck_val(rec, pre + "Width") or 0) * int(ck_val(rec, pre + "Height") or 0) or 1
+            if size > best:
+                best, url = size, r["downloadURL"].replace("${f}", "video.mov")
+    if url:
+        return url
+    r = ck_val(master, "resOriginalRes")
+    if isinstance(r, dict) and r.get("downloadURL") and int(r.get("size") or 0) < 400_000_000:
+        return r["downloadURL"].replace("${f}", "video.mov")
+    return None
+
+
+def save_video(raw, dest):
+    """Convert to a silent H.264 MP4, long side at most 1920 px, so the
+    repo stays small. The site versions are made later by Claude."""
+    with tempfile.NamedTemporaryFile(suffix=".mov", delete=False) as t:
+        t.write(raw)
+    vf = "scale='if(gt(iw,ih),min(1920,iw),-2)':'if(gt(iw,ih),-2,min(1920,ih))'"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", t.name, "-an", "-map_metadata", "-1",
+                    "-vf", vf, "-c:v", "libx264", "-preset", "veryfast", "-crf", "22",
+                    "-pix_fmt", "yuv420p", "-movflags", "+faststart", dest], check=True)
+    os.unlink(t.name)
+    probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                            "stream=width,height:format=duration", "-of", "json", dest],
+                           capture_output=True, text=True, check=True)
+    info = json.loads(probe.stdout)
+    st = info["streams"][0]
+    return [st["width"], st["height"]], round(float(info["format"]["duration"]), 1)
+
+
 def cloudkit_photos(key):
     res = ck_post(CK_RESOLVE, {"shortGUIDs": [{"value": key, "shouldFetchRootRecord": True}]})
     item = (res.get("results") or [{}])[0]
@@ -134,7 +179,14 @@ def cloudkit_photos(key):
         if not m:
             continue
         kind = str(ck_val(m, "itemType") or "").lower()
+        date = ck_val(a, "assetDate")
         if "movie" in kind or "video" in kind or "mpeg" in kind:
+            v = ck_video_url(a, m)
+            if v:
+                out.append({"guid": a["recordName"], "url": v, "caption": ck_caption(a),
+                            "dateCreated": date, "type": "video"})
+            else:
+                print("No video rendition for", a["recordName"])
             continue
         url = None
         best = 0
@@ -150,7 +202,6 @@ def cloudkit_photos(key):
                 if size > best:
                     best, url = size, r["downloadURL"].replace("${f}", "photo.jpg")
         if url:
-            date = ck_val(a, "assetDate")
             out.append({"guid": a["recordName"], "url": url, "caption": ck_caption(a),
                         "dateCreated": date})
     return title, out
@@ -197,14 +248,19 @@ def main():
         return 0
     os.makedirs(INBOX, exist_ok=True)
     for p in new:
-        raw = urllib.request.urlopen(p["url"], timeout=120).read()
-        im = ImageOps.exif_transpose(Image.open(io.BytesIO(raw))).convert("RGB")
-        im.save(os.path.join(INBOX, p["guid"] + ".jpg"), quality=92)  # saved without EXIF/GPS
+        raw = urllib.request.urlopen(p["url"], timeout=600).read()
         meta = {"guid": p["guid"], "caption": p["caption"], "dateCreated": p["dateCreated"],
-                "album": name, "size": list(im.size)}
+                "album": name}
+        if p.get("type") == "video":
+            size, dur = save_video(raw, os.path.join(INBOX, p["guid"] + ".mp4"))
+            meta.update(type="video", size=size, duration=dur)
+        else:
+            im = ImageOps.exif_transpose(Image.open(io.BytesIO(raw))).convert("RGB")
+            im.save(os.path.join(INBOX, p["guid"] + ".jpg"), quality=92)  # saved without EXIF/GPS
+            meta.update(type="photo", size=list(im.size))
         json.dump(meta, open(os.path.join(INBOX, p["guid"] + ".json"), "w"), ensure_ascii=False, indent=1)
         seen.append(p["guid"])
-        print("Saved", p["guid"], im.size, "caption:", bool(p["caption"]))
+        print("Saved", meta["type"], p["guid"], meta["size"], "caption:", bool(p["caption"]))
     json.dump(seen, open(SEEN, "w"), indent=0)
     return 0
 

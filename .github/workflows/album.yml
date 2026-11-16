@@ -1,4 +1,4 @@
-name: Fetch new photos from the iPhone album
+name: Fetch new photos and videos from the iPhone album
 
 on:
   schedule:
@@ -18,8 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install image tools
-        run: python3 -m pip install --quiet pillow
+      - name: Install image and video tools
+        run: |
+          python3 -m pip install --quiet pillow
+          command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
 
       - name: Copy new album photos into inbox/
         env:
