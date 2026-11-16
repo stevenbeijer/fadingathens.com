@@ -121,7 +121,8 @@ body{margin:0;background:var(--plaster);color:var(--ink);font:400 16px/1.5 var(-
 img{max-width:100%;display:block}
 a{color:inherit}
 .wrap{max-width:1240px;margin:0 auto;padding:0 max(24px,env(safe-area-inset-left,0px))}
-nav.top{border-bottom:1px solid var(--line)}
+nav.top{border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:var(--plaster)}
+@media (max-width:760px){nav.top .wrap{padding-block:9px}.logo svg{height:34px}.back{font-size:12px;letter-spacing:.1em}}
 nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
 .logo svg{height:46px;width:auto;fill:currentColor;display:block;aspect-ratio:1197/1628}
 .logo{color:var(--ink)}
