@@ -37,7 +37,27 @@ def js_array(src, name, single_quotes=False):
     return json.loads(text)
 
 
+# Shop offline (Steven, 16 Nov) until the Etsy listings are live. While False,
+# shop/index.html is a short "coming soon" page that sends visitors home.
+SHOP_OPEN = False
+
+CLOSED_PAGE = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prints · Fading Athens</title>
+<meta http-equiv="refresh" content="4;url=../">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fbfaf6;color:#1f1d1a;font:17px/1.5 system-ui,sans-serif;text-align:center;padding:24px}a{color:#c8321f;font-weight:700}h1{font-size:28px;margin:0 0 8px}</style>
+</head><body><div><h1>Prints are coming soon</h1><p>The Fading Athens print shop is being set up.<br><a href="../">Back to Fading Athens</a></p></div></body></html>
+"""
+
+
 def main():
+    if not SHOP_OPEN:
+        open(os.path.join(ROOT, "shop", "index.html"), "w", encoding="utf-8").write(CLOSED_PAGE)
+        print("shop/index.html: offline page (SHOP_OPEN = False)")
+        return
+
     src = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     photos = {p[0]: p for p in js_array(src, "PHOTOS")}
     closed = js_array(src, "CLOSED", single_quotes=True)
