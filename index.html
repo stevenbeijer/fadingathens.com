@@ -622,12 +622,14 @@ footer .logo .logo-mark{height:52px}
 @media (max-width:820px){.foldview .fold-body{flex-direction:column;align-items:center;justify-content:flex-start}.foldview .fold-body img{max-height:none;max-width:100%}}
 
 /* Desired Landscapes: cover in front and larger */
-.feature.flip .clip.c1{left:24%;top:2%;height:92%;transform:rotate(-2deg);z-index:3}
-.feature.flip .clip.c2{left:2%;top:12%;height:72%;transform:rotate(-7deg);z-index:2}
-.feature.flip .clip.c3{left:62%;top:14%;height:72%;transform:rotate(6deg);z-index:1}
-.feature.flip .clips:hover .c1{transform:rotate(-1deg) translateY(-6px)}
-.feature.flip .clips:hover .c2{transform:rotate(-9deg) translateX(-10px)}
-.feature.flip .clips:hover .c3{transform:rotate(8deg) translateX(10px)}
+.feature.flip .clips{height:clamp(440px,46vw,580px)}
+.feature.flip .clip.c1{left:6%;top:4%;height:56%;transform:rotate(-4deg);z-index:3}
+.feature.flip .clip.c2{left:3%;top:auto;bottom:3%;height:auto;width:86%;transform:rotate(-2deg);z-index:1}
+.feature.flip .clip.c3{left:50%;top:6%;height:50%;transform:rotate(5deg);z-index:2}
+@media (max-width:820px){.feature.flip .clips{height:min(118vw,560px);max-height:none}}
+.feature.flip .clips:hover .c1{transform:rotate(-5deg) translateY(-6px)}
+.feature.flip .clips:hover .c2{transform:rotate(-1deg) translateY(6px)}
+.feature.flip .clips:hover .c3{transform:rotate(7deg) translateX(8px)}
 
 /* About: photos from twenty years ago */
 .about-pics{display:flex;flex-direction:column;gap:30px;position:relative;z-index:41}
@@ -889,9 +891,9 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   </div>
   <div class="feature flip">
     <div class="clips" aria-hidden="true">
-      <img class="clip c1" src="img/press/dl-cover.jpg" alt="" width="720" height="1130" loading="lazy">
-      <img class="clip c2 zoomable" src="img/press/dl-grid.jpg" alt="" width="840" height="1120" loading="lazy" data-open="foldout">
-      <img class="clip c3" src="img/press/dl-text.jpg" alt="" width="720" height="1240" loading="lazy">
+      <img class="clip c1" src="img/press/dl-cover.jpg" alt="" width="654" height="1004" loading="lazy">
+      <img class="clip c2 zoomable" src="img/press/dl-spread.jpg" alt="" width="1400" height="972" loading="lazy" data-open="foldout">
+      <img class="clip c3" src="img/press/dl-promo.jpg" alt="" width="960" height="1200" loading="lazy">
     </div>
     <div class="feature-text">
       <p class="f-outlet">Desired Landscapes · A magazine reading into cities</p>
@@ -903,7 +905,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
       <p class="f-date">Issue 07 · City's Image · p. 107 · print</p>
       <button type="button" class="stk-shake fold-btn" data-open="foldout">See the fold-out ↗</button>
     </div>
-    <span class="sr-only">Photos of the magazine: the cover of Desired Landscapes issue 07, the fold-out grid of twelve shopfront photographs by Steven A.J. Beijer, and the essay page.</span>
+    <span class="sr-only">Photos of the magazine: the cover of Desired Landscapes issue 07, the issue open at the Fading Athens essay with the fold-out of twelve shopfront photographs by Steven A.J. Beijer, and the magazine's announcement card reading Athens, photos by Steven A.J. Beijer.</span>
   </div>
   <div class="quotes">
     <blockquote>
