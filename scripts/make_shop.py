@@ -47,7 +47,7 @@ def main():
     items = []
     for e in prints:
         p = photos.get(e["id"])
-        it = {"id": e["id"], "land": e["w"] > e["h"], "closed": e["id"] in closed, "max": e.get("max", "l"),
+        it = {"id": e["id"], "land": e["w"] > e["h"], "closed": e["id"] in closed or bool(e.get("closed")), "max": e.get("max", "l"),
               "img": e.get("img") or "img/%s.jpg" % e["id"]}
         it["name"] = e.get("name") or (p[2] if p else e["id"])
         it["cap"] = e.get("cap") or (p[3] if p else "")
