@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /inbox/
 
 Sitemap: https://fadingathens.com/sitemap.xml
