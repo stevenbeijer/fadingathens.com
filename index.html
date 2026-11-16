@@ -729,10 +729,6 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .walk-stars{margin:0 0 14px;font-weight:700}.walk-stars span{color:var(--sign-yellow);letter-spacing:.08em;margin-right:4px}
 .walk-host{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin:0}
 @media (max-width:900px){.walk2{grid-template-columns:1fr}.walk-route{margin-left:12px}}
-/* illustrated route map */
-.walk-map{margin:0 0 22px}
-.walk-map svg{display:block;width:100%;height:auto}
-.walk-map figcaption{font-family:"Caveat",cursive;font-size:17px;color:var(--muted);text-align:right;margin-top:2px}
 .wm-paper{fill:var(--plaster-2);stroke:var(--line);stroke-width:1.5}
 .wm-street path{fill:none;stroke:var(--muted);stroke-opacity:.45;stroke-width:9;stroke-linecap:round}
 .wm-square{fill:var(--plaster);stroke:var(--muted);stroke-opacity:.5;stroke-width:2}
@@ -1006,44 +1002,6 @@ a.av-btn{display:inline-block;text-decoration:none}
       </div>
     </div>
     <div class="walk-mid">
-<figure class="walk-map">
-<svg viewBox="0 0 360 430" role="img" aria-label="Rough illustrated map of the walk: from the National Archaeological Museum south down Patission Street to Omonia Square and its arcades, past Hotel Sans Rival, down Athinas Street to Monastiraki, and back up to the Central Market. The Acropolis is to the south.">
-<defs><filter id="wmRough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter></defs>
-<rect class="wm-paper" x="6" y="6" width="348" height="418" rx="6"/>
-<g filter="url(#wmRough)">
-<g class="wm-street">
-<path d="M164 212 C 185 160, 210 100, 246 22"/>
-<path d="M164 212 C 155 260, 146 320, 132 392"/>
-<path d="M164 212 C 220 236, 280 262, 344 300"/>
-<path d="M164 212 C 120 200, 70 186, 18 176"/>
-<path d="M22 384 C 120 382, 240 378, 340 372"/>
-<path d="M90 120 C 120 150, 140 180, 164 212"/>
-</g>
-<circle class="wm-square" cx="164" cy="212" r="17"/>
-<circle class="wm-square" cx="134" cy="380" r="11"/>
-<path class="wm-museum" d="M206 40 h48 v20 h-48 z M202 40 l28 -14 l28 14 z"/>
-<path class="wm-acro" d="M96 418 C 120 400, 140 396, 170 396 C 200 396, 220 402, 246 418 Z"/>
-<path class="wm-acro-temple" d="M150 396 v-9 h40 v9 M154 387 v9 M162 387 v9 M170 387 v9 M178 387 v9 M186 387 v9 M148 387 l22 -7 l22 7"/>
-<path class="wm-route" d="M228 66 C 215 90, 200 105, 196 116 C 190 140, 182 160, 178 176 C 172 190, 168 200, 166 208 C 185 225, 205 238, 208 246 C 190 258, 160 262, 152 276 C 146 310, 140 340, 136 366 C 142 350, 150 330, 156 312"/>
-</g>
-<g class="wm-pin"><circle cx="232" cy="64" r="11"/><text x="232" y="68.5">1</text></g><g class="wm-pin"><circle cx="198" cy="112" r="11"/><text x="198" y="116.5">2</text></g><g class="wm-pin"><circle cx="184" cy="170" r="11"/><text x="184" y="174.5">3</text></g><g class="wm-pin"><circle cx="164" cy="212" r="11"/><text x="164" y="216.5">4</text></g><g class="wm-pin"><circle cx="214" cy="248" r="11"/><text x="214" y="252.5">5</text></g><g class="wm-pin"><circle cx="140" cy="276" r="11"/><text x="140" y="280.5">6</text></g><g class="wm-pin"><circle cx="118" cy="364" r="11"/><text x="118" y="368.5">7</text></g><g class="wm-pin"><circle cx="170" cy="312" r="11"/><text x="170" y="316.5">8</text></g>
-<g class="wm-label">
-<text x="198" y="38" text-anchor="end">Archaeological</text><text x="198" y="55" text-anchor="end">Museum</text>
-<text x="214" y="132" transform="rotate(-62 214 132)">Patission</text>
-<text x="100" y="240">Omonia</text>
-<text x="128" y="336" transform="rotate(-80 128 336)">Athinas</text>
-<text x="250" y="262" transform="rotate(26 250 262)">Panepistimiou</text>
-<text x="22" y="166" transform="rotate(10 22 166)">Ag. Konstantinou</text>
-<text x="40" y="104" transform="rotate(42 40 104)">to Victoria Sq.</text>
-<text x="26" y="404">Monastiraki</text>
-<text x="190" y="318">Central Market</text>
-<text x="270" y="370">Ermou</text>
-<text x="250" y="414">Acropolis</text>
-</g>
-<g class="wm-north"><path d="M330 30 l8 22 l-8 -6 l-8 6 z"/><text x="330" y="70">N</text></g>
-</svg>
-<figcaption>The route, roughly · not to scale</figcaption>
-</figure>
     <ol class="walk-route" aria-label="The route">
       <li><b>National Archaeological Museum</b> The meeting point.</li>
       <li><b>An abandoned school</b> Once home to refugee families.</li>
