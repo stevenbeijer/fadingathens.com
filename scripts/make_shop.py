@@ -204,7 +204,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
       <a class="buy" id="pBuy" href="#" role="button">Order this print</a>
       <p class="small" id="pShip">Shipping is added at checkout.</p>
       <div class="order" id="pOrder" hidden>
-        Online checkout opens soon. For now, send this order to <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> and Steven will reply with payment details:
+        Framed prints are made to order. Send this order to <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> and Steven will reply with payment details:
         <pre id="pText"></pre>
         <button type="button" class="buy" id="pCopy">Copy order and open Instagram</button>
       </div>
@@ -214,7 +214,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
 
 <script>
 var D={DATA},CHECKOUT={};
-try{fetch('checkout.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{}}).then(function(j){CHECKOUT=j||{}}).catch(function(){})}catch(e){}
+try{fetch('checkout.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{}}).then(function(j){CHECKOUT=j||{};if(typeof P!=='undefined'&&!P.hidden)update()}).catch(function(){})}catch(e){}
 var byId={};D.items.forEach(function(it){byId[it.id]=it});
 var P=document.getElementById('panel'),cur=null,last=null;
 function opt(name,list,land){return list.filter(function(o){return name!=='size'||cur.max==='l'||o[0]!=='l'}).map(function(o,i){var lab=o[1];if(land&&name==='size')lab=lab.replace(/(\d+) × (\d+)/,'$2 × $1');
