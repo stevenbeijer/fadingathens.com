@@ -658,6 +658,18 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .viewer .closed-tag{display:inline-block;margin:4px 0 6px;padding:2px 8px;border:1.5px solid var(--sign-red);color:var(--sign-red);font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:12px;transform:rotate(-2deg)}
 .viewer .closed-tag[hidden]{display:none}
 @media (max-width:600px){.closed-stamp{top:10px;right:8px;padding:4px 7px 3px}.closed-stamp span:first-child{font-size:11px}.closed-stamp span:last-child{font-size:9px}}
+/* «As seen in» press line under the hero */
+.as-seen{border-block:1px solid var(--line)}
+.as-seen .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 34px;padding-block:16px}
+.as-seen-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.as-seen .pub{color:var(--ink);text-decoration:none;opacity:.78;transition:opacity .2s;white-space:nowrap}
+.as-seen .pub:hover,.as-seen .pub:focus-visible{opacity:1}
+.as-seen .pub-k{font-family:Georgia,"Times New Roman",serif;font-size:20px;font-weight:700;letter-spacing:.01em}
+.as-seen .pub-k .k{display:inline-block;background:var(--ink);color:var(--plaster);padding:0 6px;margin-right:4px;font-family:var(--brand);font-weight:800}
+.as-seen .pub-av{font-family:var(--brand);font-weight:800;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
+.as-seen .pub-dl{font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:.14em;text-transform:uppercase}
+@media (max-width:600px){.as-seen .wrap{gap:8px 22px;padding-block:14px}.as-seen-label{flex-basis:100%;text-align:center}.as-seen .pub-k,.as-seen .pub-av,.as-seen .pub-dl{font-size:16px}}
+.viewer .vbtns{display:flex;gap:8px}
 </style>
 
 </head>
@@ -705,6 +717,13 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
     </div>
   </div>
 </header>
+
+<aside class="as-seen" aria-label="Press"><div class="wrap">
+  <span class="as-seen-label">As seen in</span>
+  <a href="#press" class="pub pub-k" lang="el"><span class="k">K</span> Η Καθημερινή</a>
+  <a href="#press" class="pub pub-av">Athens Voice</a>
+  <a href="#press" class="pub pub-dl">Desired Landscapes</a>
+</div></aside>
 
 <section id="photographs"><div class="wrap">
   <div class="section-head"><h2>Photographs</h2><p>In series · tap a photo to see it larger</p></div>
@@ -993,7 +1012,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 </div>
 
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
+  <div class="bar"><span id="vCount"></span><span class="vbtns"><button id="vShare" type="button">Share ↗</button><button id="vClose" type="button">Close</button></span></div>
   <div class="stage"><img id="vImg" alt=""></div>
   <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a></div>
   <div class="bar" style="justify-content:center;margin-top:10px"><div class="nav"><button id="vPrev" type="button">← Previous</button><button id="vNext" type="button">Next →</button></div></div>
@@ -1148,10 +1167,21 @@ function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   var im=document.getElementById('vImg');im.src='img/'+p[0]+'.jpg';im.alt=p[4];
   document.getElementById('vGr').textContent=p[2];var vc=document.getElementById('vClosed');vc.hidden=!isClosed(p[0]);document.getElementById('vEn').textContent=p[3];
   document.getElementById('vCount').textContent=(cur+1)+' / '+PHOTOS.length;
+  try{history.replaceState(null,'','#photo/'+p[0])}catch(e){}var sb=document.getElementById('vShare');sb.textContent='Share ↗';
   var vm=document.getElementById('vMap');if(p[5]){vm.href=p[5];vm.textContent=p[6]+' · Map →';vm.hidden=false}else{vm.hidden=true}}
 function openV(i){lastFocus=document.activeElement;show(i);V.hidden=false;document.body.style.overflow='hidden';document.getElementById('vClose').focus()}
-function closeV(){V.hidden=true;document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+function closeV(){V.hidden=true;document.body.style.overflow='';try{if(/^#photo\//.test(location.hash))history.replaceState(null,'',location.pathname+location.search)}catch(e){}if(lastFocus)lastFocus.focus()}
 document.getElementById('vClose').onclick=closeV;
+/* share one photo: https://fadingathens.com/p/<slug>/ shows that photo as the link preview */
+document.getElementById('vShare').onclick=function(){var p=PHOTOS[cur],b=this;
+  var url='https://fadingathens.com/p/'+p[0]+'/',title=(p[2]||'Fading Athens')+' · Fading Athens';
+  function copied(){b.textContent='Link copied ✓';setTimeout(function(){b.textContent='Share ↗'},2200)}
+  if(navigator.share){navigator.share({title:title,text:p[3],url:url}).catch(function(){})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(copied,function(){prompt('Copy this link:',url)})}
+  else{prompt('Copy this link:',url)}};
+/* open a shared photo link: fadingathens.com/#photo/<slug> */
+(function(){var m=location.hash.match(/^#photo\/([\w-]+)/);if(m&&(m[1] in idxOf)){openV(idxOf[m[1]])}})();
+window.addEventListener('hashchange',function(){var m=location.hash.match(/^#photo\/([\w-]+)/);if(m&&(m[1] in idxOf)&&V.hidden)openV(idxOf[m[1]])});
 document.getElementById('vPrev').onclick=function(){show(cur-1)};
 document.getElementById('vNext').onclick=function(){show(cur+1)};
 V.addEventListener('click',function(e){if(e.target===V||e.target.classList.contains('stage'))closeV()});

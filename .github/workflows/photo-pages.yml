@@ -1,0 +1,41 @@
+name: Update photo share pages
+
+on:
+  push:
+    branches: [main]
+    paths: ["index.html"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: photo-pages
+  cancel-in-progress: false
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make one share page per photo
+        run: python3 scripts/make_photo_pages.py
+
+      - name: Commit if anything changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A p sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Share pages already up to date."
+          else
+            git config user.name "Steven A.J. Beijer"
+            git config user.email "${{ github.repository_owner }}@users.noreply.github.com"
+            git commit -m "Update photo share pages"
+            git pull --rebase
+            git push
+            # pushes made by a workflow don't always start a Pages build, so ask for one
+            gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+          fi
