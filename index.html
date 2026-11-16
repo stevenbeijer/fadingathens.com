@@ -887,7 +887,7 @@ a.av-btn{display:inline-block;text-decoration:none}
         <button type="button" aria-pressed="false" data-w="ΚΑΦΕΝΕΙΑ" data-t="Καφενεία" data-c="b" data-d="the old cafés">ΚΑΦΕΝΕΙΑ</button>
       </div>
       <span class="pc-type">Tote bags · six designs</span>
-      <h3 class="pc-title">I ♥ <span id="toteTitle" lang="el">Λαϊκή</span></h3>
+      <h3 class="pc-title">I ♥ tote bags</h3>
       <p>Six Athenian words, each on natural or black canvas, with the Fading Athens logo on the back. <span id="toteDesc">Λαϊκή: the street market.</span></p>
       <p class="stk-buy"><span class="stk-low avail-soon">Coming soon</span></p>
       <p class="prod-where">Where to buy: to be announced</p>
@@ -1566,7 +1566,6 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
     paint(document.getElementById('toteFront'),f);paint(document.getElementById('toteBack'),k);
     document.getElementById('toteLogo').style.color=k.ink;
     document.getElementById('toteWord').textContent=b.dataset.w;
-    document.getElementById('toteTitle').textContent=b.dataset.t;
     document.getElementById('toteDesc').textContent=b.dataset.t+': '+b.dataset.d+'.';
     document.getElementById('toteScene').setAttribute('aria-label','Two tote bags: a '+f.name+' bag printed with I, a red heart and '+b.dataset.w+', and the back of a '+k.name+' bag with the Fading Athens logo')});
 })();
