@@ -776,20 +776,15 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   nav.top .navlinks{flex-wrap:nowrap;gap:22px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-size:13px;padding:14px 28px 14px max(16px,env(safe-area-inset-left,0px));white-space:nowrap}
   nav.top .navlinks::-webkit-scrollbar{display:none}
 }
-/* press: Athens Voice interview preview card */
-.quotes{align-items:start}
-.av-card{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--plaster-2);overflow:hidden;transition:border-color .2s}
-.av-card:hover{border-color:var(--sign-red)}
-.av-thumb{display:block;aspect-ratio:16/9;overflow:hidden;background:var(--line)}
-.av-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-.av-card:hover .av-thumb img{transform:scale(1.03)}
-.av-body{display:flex;flex-direction:column;gap:7px;padding:14px 16px 16px}
-.av-kicker{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.av-title{font-family:var(--brand);font-weight:800;font-size:19px;line-height:1.2;color:var(--sign-red)}
-.av-en{font-size:14px;color:var(--muted);font-style:italic}
-.av-snip{font-size:15px;line-height:1.5}
-.av-go{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-top:4px}
-.av-card:hover .av-go{color:var(--sign-red)}
+/* press: Athens Voice interview feature */
+.feature.av .av-shot{display:block;text-decoration:none;position:relative;max-width:560px;margin:0 auto;background:var(--plaster-2);border:1px solid var(--line);box-shadow:0 2px 4px rgba(30,25,20,.2),0 14px 28px -12px rgba(30,25,20,.45);transform:rotate(-2deg);transition:transform .35s ease}
+.feature.av .av-shot:hover{transform:rotate(-1deg) translateY(-4px)}
+.av-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted);letter-spacing:.03em}
+.av-bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.av-bar span{margin-left:8px}
+.av-shot img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+a.av-btn{display:inline-block;text-decoration:none}
+.quotes blockquote:only-child{grid-column:1/-1;max-width:760px}
 </style>
 
 </head>
@@ -1106,22 +1101,25 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
     </div>
     <span class="sr-only">Photos of the magazine: the cover of Desired Landscapes issue 07, the issue open at the Fading Athens essay with the fold-out of twelve shopfront photographs by Steven A.J. Beijer, and the magazine's announcement card reading Athens, photos by Steven A.J. Beijer.</span>
   </div>
+  <div class="feature av">
+    <a class="av-shot" href="https://www.athensvoice.gr/life/life-in-athens/692339/fading-athens-eikones-kai-stigmes-tis-athinas-poy-hanoyme/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+      <span class="av-bar"><i></i><i></i><i></i><span>athensvoice.gr</span></span>
+      <img src="img/zitsa.jpg" alt="" loading="lazy">
+    </a>
+    <div class="feature-text">
+      <p class="f-outlet">Athens Voice · Interview</p>
+      <h3 lang="el">Ένα ερωτικό γράμμα για την Αθήνα</h3>
+      <p class="f-sub">A love letter to Athens in photographs: Manos Nomikos talks to Steven about arriving in Athens in 1996 to study, DJing in the city’s indie scene, why a city that never stops changing keeps pulling him back from Barcelona, and the neighbourhoods he loves most: Kypseli, Exarchia and Pnyka.</p>
+      <p class="f-date">28 November 2020 · online</p>
+      <a class="stk-shake fold-btn av-btn" href="https://www.athensvoice.gr/life/life-in-athens/692339/fading-athens-eikones-kai-stigmes-tis-athinas-poy-hanoyme/" target="_blank" rel="noopener">Read the interview ↗</a>
+    </div>
+  </div>
   <div class="quotes">
     <blockquote>
       <p lang="el">«Μία Αθήνα που χάνεται και ξεθωριάζει, αλλά υπάρχουν άνθρωποι σαν τον Beijer που απαθανατίζουν αυτά τα μοναδικά ντοκουμέντα.»</p>
       <p class="q-en">An Athens that is disappearing and fading, but there are people like Beijer who capture these unique documents.</p>
       <footer>Athens Voice · 2021</footer>
     </blockquote>
-    <a class="av-card" href="https://www.athensvoice.gr/life/life-in-athens/692339/fading-athens-eikones-kai-stigmes-tis-athinas-poy-hanoyme/" target="_blank" rel="noopener">
-      <span class="av-thumb"><img src="img/zitsa.jpg" alt="" loading="lazy"></span>
-      <span class="av-body">
-        <span class="av-kicker">Interview · Athens Voice · 28 Nov 2020</span>
-        <span class="av-title" lang="el">Fading Athens: Ένα ερωτικό γράμμα για την Αθήνα σε φωτογραφίες</span>
-        <span class="av-en">A love letter to Athens in photographs</span>
-        <span class="av-snip">Manos Nomikos talks to Steven about arriving in Athens in 1996 to study, DJing in the city’s indie scene, why a city that never stops changing keeps pulling him back from Barcelona, and the neighbourhoods he loves most: Kypseli, Exarchia and Pnyka.</span>
-        <span class="av-go">Read the interview on athensvoice.gr →</span>
-      </span>
-    </a>
   </div>
   <ul class="press">
     <li><div class="p-row">
