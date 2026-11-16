@@ -776,6 +776,20 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   nav.top .navlinks{flex-wrap:nowrap;gap:22px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-size:13px;padding:14px 28px 14px max(16px,env(safe-area-inset-left,0px));white-space:nowrap}
   nav.top .navlinks::-webkit-scrollbar{display:none}
 }
+/* press: Athens Voice interview preview card */
+.quotes{align-items:start}
+.av-card{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--plaster-2);overflow:hidden;transition:border-color .2s}
+.av-card:hover{border-color:var(--sign-red)}
+.av-thumb{display:block;aspect-ratio:16/9;overflow:hidden;background:var(--line)}
+.av-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.av-card:hover .av-thumb img{transform:scale(1.03)}
+.av-body{display:flex;flex-direction:column;gap:7px;padding:14px 16px 16px}
+.av-kicker{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.av-title{font-family:var(--brand);font-weight:800;font-size:19px;line-height:1.2;color:var(--sign-red)}
+.av-en{font-size:14px;color:var(--muted);font-style:italic}
+.av-snip{font-size:15px;line-height:1.5}
+.av-go{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-top:4px}
+.av-card:hover .av-go{color:var(--sign-red)}
 </style>
 
 </head>
@@ -1098,11 +1112,16 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
       <p class="q-en">An Athens that is disappearing and fading, but there are people like Beijer who capture these unique documents.</p>
       <footer>Athens Voice · 2021</footer>
     </blockquote>
-    <blockquote>
-      <p lang="el">«Ένα ερωτικό γράμμα για την Αθήνα σε φωτογραφίες»</p>
-      <p class="q-en">A love letter to Athens in photographs.</p>
-      <footer>Athens Voice · 2020</footer>
-    </blockquote>
+    <a class="av-card" href="https://www.athensvoice.gr/life/life-in-athens/692339/fading-athens-eikones-kai-stigmes-tis-athinas-poy-hanoyme/" target="_blank" rel="noopener">
+      <span class="av-thumb"><img src="img/zitsa.jpg" alt="" loading="lazy"></span>
+      <span class="av-body">
+        <span class="av-kicker">Interview · Athens Voice · 28 Nov 2020</span>
+        <span class="av-title" lang="el">Fading Athens: Ένα ερωτικό γράμμα για την Αθήνα σε φωτογραφίες</span>
+        <span class="av-en">A love letter to Athens in photographs</span>
+        <span class="av-snip">Manos Nomikos talks to Steven about arriving in Athens in 1996 to study, DJing in the city’s indie scene, why a city that never stops changing keeps pulling him back from Barcelona, and the neighbourhoods he loves most: Kypseli, Exarchia and Pnyka.</span>
+        <span class="av-go">Read the interview on athensvoice.gr →</span>
+      </span>
+    </a>
   </div>
   <ul class="press">
     <li><div class="p-row">
