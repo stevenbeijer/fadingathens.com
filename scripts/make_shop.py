@@ -5,11 +5,12 @@ full-resolution files). Names and captions come from PHOTOS in index.html
 for photos on the site, or from prints.json for new ones. "max" is the
 biggest size the original file allows ("m" = 30x40, "l" = 50x70).
 
-Checkout: until the Shopify shop exists, "Order this print" opens an order
-summary that the visitor copies into an Instagram message. When Shopify buy
-links exist, put them in shop/checkout.json as
+Checkout: every print is a Gelato product in the Shopify store. Buy links
+are in shop/checkout.json as
   {"<slug>|<size id>|<frame id>": "https://...", "*|a4|none": "..."}
-and the button goes straight to checkout for those combinations.
+and "Order this print" goes straight to Shopify checkout. No Instagram
+ordering (Steven, 16 Nov): a combination without a link shows as
+"Not available online" and can't be clicked.
 
 Run from the repo root: python3 scripts/make_shop.py
 (the photo-pages workflow runs it on every push that changes index.html).
@@ -157,10 +158,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
 .buy{font:600 14px var(--f);letter-spacing:.14em;text-transform:uppercase;background:var(--yellow);color:var(--on-yellow);border:0;padding:15px 18px;cursor:pointer;text-align:center;text-decoration:none}
 .buy:hover{filter:brightness(1.05)}
 .small{margin:0;font-size:13px;color:var(--muted)}
-.order{border:1.5px dashed var(--red);padding:12px 14px;font-size:14px}
-.order[hidden]{display:none}
-.order pre{white-space:pre-wrap;font:inherit;margin:6px 0 10px;background:var(--plaster-2);padding:10px}
-.order a{font-weight:700}
+.buy.off{opacity:.45;cursor:default;pointer-events:none}
 .x{position:absolute;top:8px;right:10px;font:400 30px/1 var(--f);background:none;border:0;color:var(--ink);cursor:pointer;width:40px;height:40px;z-index:2}
 @media (max-width:760px){.panel{padding:0;align-items:flex-end}.sheet{grid-template-columns:1fr;max-height:100vh}.sheet .pic{min-height:0;padding:18px}.sheet .pic img{max-height:42vh}.info{padding:20px 18px 28px}}
 </style>
@@ -184,7 +182,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
   <section class="how" aria-label="About the prints">
     <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
     <div><h2>Places that are gone</h2><p>Prints marked <span lang="el">Έκλεισε</span> · Closed show places that no longer exist. The photograph is all that is left.</p></div>
-    <div><h2>Questions?</h2><p>Message <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> about prints for hotels, cafés and offices.</p></div>
+    <div><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Pay by card at checkout; shipping is shown before you pay.</p></div>
   </section>
 </main>
 <footer class="foot"><div class="wrap">© Steven A.J. Beijer · Fading Athens · <a href="../">fadingathens.com</a></div></footer>
@@ -203,11 +201,6 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
       <div class="total"><span>Price</span><b id="pTotal"></b></div>
       <a class="buy" id="pBuy" href="#" role="button">Order this print</a>
       <p class="small" id="pShip">Shipping is added at checkout.</p>
-      <div class="order" id="pOrder" hidden>
-        This one can't be ordered online yet. Send this order to <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> and Steven will reply with payment details:
-        <pre id="pText"></pre>
-        <button type="button" class="buy" id="pCopy">Copy order and open Instagram</button>
-      </div>
     </div>
   </div>
 </div>
@@ -227,8 +220,7 @@ function update(){var s=find(D.sizes,sel('size')),f=find(D.frames,sel('frame')),
   var url=CHECKOUT[cur.id+'|'+s[0]+'|'+f[0]]||CHECKOUT['*|'+s[0]+'|'+f[0]],b=document.getElementById('pBuy');
   b.dataset.url=url||'';b.href=url||'#';if(url){b.target='_blank';b.rel='noopener'}else{b.removeAttribute('target')}
   var size=s[1];if(cur.land)size=size.replace(/(\d+) × (\d+)/,'$2 × $1');
-  document.getElementById('pText').textContent='Print order, Fading Athens\nPhoto: '+cur.name+' ('+cur.id+')\nSize: '+size+'\nFrame: '+f[1]+'\nPrice: €'+tot+' + shipping\nShip to (city, country): ';
-  document.getElementById('pOrder').hidden=true}
+  b.textContent=url?'Order this print':'Not available online';b.classList.toggle('off',!url);if(url)b.removeAttribute('aria-disabled');else b.setAttribute('aria-disabled','true')}
 function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
   document.getElementById('pImg').src='../'+cur.img;document.getElementById('pImg').alt=cur.alt;
   document.getElementById('pSeries').textContent='Fine art print'+(cur.max==='l'?'':' · up to 30 × 40 cm');document.getElementById('pName').textContent=cur.name;
@@ -242,10 +234,7 @@ P.addEventListener('change',update);
 P.addEventListener('click',function(e){if(e.target===P)closeP()});
 document.getElementById('pClose').addEventListener('click',closeP);
 document.addEventListener('keydown',function(e){if(!P.hidden&&e.key==='Escape')closeP()});
-document.getElementById('pBuy').addEventListener('click',function(e){if(this.dataset.url)return;e.preventDefault();var o=document.getElementById('pOrder');o.hidden=false;o.scrollIntoView({block:'nearest',behavior:'smooth'})});
-document.getElementById('pCopy').addEventListener('click',function(){var t=document.getElementById('pText').textContent,b=this;
-  function go(){b.textContent='Copied, opening Instagram…';window.open('https://ig.me/u/fadingathens','_blank','noopener')}
-  if(navigator.clipboard)navigator.clipboard.writeText(t).then(go,go);else go()});
+document.getElementById('pBuy').addEventListener('click',function(e){if(!this.dataset.url)e.preventDefault()});
 if(location.hash.length>1)openP(decodeURIComponent(location.hash.slice(1)),false);
 </script>
 </body>
