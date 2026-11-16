@@ -669,7 +669,11 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .as-seen .pub-av{font-family:var(--brand);font-weight:800;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
 .as-seen .pub-dl{font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:.14em;text-transform:uppercase}
 @media (max-width:600px){.as-seen .wrap{gap:8px 22px;padding-block:14px}.as-seen-label{flex-basis:100%;text-align:center}.as-seen .pub-k,.as-seen .pub-av,.as-seen .pub-dl{font-size:16px}}
-.viewer .vbtns{display:flex;gap:8px}
+.viewer .vshare{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 8px;margin-top:10px;font-family:var(--mono);font-size:12px}
+.viewer .vshare-label{opacity:.6;text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.viewer .vshare button{padding:4px 10px;font-size:12px}
+.viewer .vshare button:hover,.viewer .vshare button:focus-visible{border-color:var(--ochre);color:var(--ochre)}
+.viewer .vshare-note{min-height:1.2em;margin:6px auto 0;max-width:520px;font-family:var(--mono);font-size:12px;opacity:.85}
 </style>
 
 </head>
@@ -1012,9 +1016,9 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 </div>
 
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <div class="bar"><span id="vCount"></span><span class="vbtns"><button id="vShare" type="button">Share ↗</button><button id="vClose" type="button">Close</button></span></div>
+  <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
-  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a></div>
+  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a><div class="vshare" role="group" aria-label="Share this photo"><span class="vshare-label">Share</span><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="x">X / Twitter</button><button type="button" data-share="instagram">Instagram</button><button type="button" data-share="copy">Copy link</button><button type="button" data-share="more" hidden>More…</button></div><p class="vshare-note" id="vShareNote" aria-live="polite"></p></div>
   <div class="bar" style="justify-content:center;margin-top:10px"><div class="nav"><button id="vPrev" type="button">← Previous</button><button id="vNext" type="button">Next →</button></div></div>
 </div>
 <div class="viewer filmview" id="fviewer" hidden role="dialog" aria-modal="true" aria-label="Film viewer">
@@ -1167,18 +1171,32 @@ function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   var im=document.getElementById('vImg');im.src='img/'+p[0]+'.jpg';im.alt=p[4];
   document.getElementById('vGr').textContent=p[2];var vc=document.getElementById('vClosed');vc.hidden=!isClosed(p[0]);document.getElementById('vEn').textContent=p[3];
   document.getElementById('vCount').textContent=(cur+1)+' / '+PHOTOS.length;
-  try{history.replaceState(null,'','#photo/'+p[0])}catch(e){}var sb=document.getElementById('vShare');sb.textContent='Share ↗';
+  try{history.replaceState(null,'','#photo/'+p[0])}catch(e){}document.getElementById('vShareNote').textContent='';
   var vm=document.getElementById('vMap');if(p[5]){vm.href=p[5];vm.textContent=p[6]+' · Map →';vm.hidden=false}else{vm.hidden=true}}
 function openV(i){lastFocus=document.activeElement;show(i);V.hidden=false;document.body.style.overflow='hidden';document.getElementById('vClose').focus()}
 function closeV(){V.hidden=true;document.body.style.overflow='';try{if(/^#photo\//.test(location.hash))history.replaceState(null,'',location.pathname+location.search)}catch(e){}if(lastFocus)lastFocus.focus()}
 document.getElementById('vClose').onclick=closeV;
 /* share one photo: https://fadingathens.com/p/<slug>/ shows that photo as the link preview */
-document.getElementById('vShare').onclick=function(){var p=PHOTOS[cur],b=this;
-  var url='https://fadingathens.com/p/'+p[0]+'/',title=(p[2]||'Fading Athens')+' · Fading Athens';
-  function copied(){b.textContent='Link copied ✓';setTimeout(function(){b.textContent='Share ↗'},2200)}
-  if(navigator.share){navigator.share({title:title,text:p[3],url:url}).catch(function(){})}
-  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(copied,function(){prompt('Copy this link:',url)})}
-  else{prompt('Copy this link:',url)}};
+(function(){
+  function info(){var p=PHOTOS[cur];return {p:p,url:'https://fadingathens.com/p/'+p[0]+'/',title:(p[2]||'Fading Athens')+' · Fading Athens'}}
+  function note(t){var n=document.getElementById('vShareNote');n.textContent=t;clearTimeout(note.t);note.t=setTimeout(function(){n.textContent=''},5000)}
+  function copy(url,msg){if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){note(msg)},function(){prompt('Copy this link:',url)})}else{prompt('Copy this link:',url)}}
+  function pop(u){window.open(u,'share','width=620,height=560,noopener')}
+  var more=document.querySelector('.vshare [data-share="more"]');if(navigator.share)more.hidden=false;
+  document.querySelector('.vshare').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=info(),k=b.dataset.share;
+    if(k==='facebook')pop('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(d.url));
+    else if(k==='x')pop('https://twitter.com/intent/tweet?url='+encodeURIComponent(d.url)+'&text='+encodeURIComponent(d.title));
+    else if(k==='copy')copy(d.url,'Link copied ✓');
+    else if(k==='more')navigator.share({title:d.title,text:d.p[3],url:d.url}).catch(function(){});
+    else if(k==='instagram'){
+      /* Instagram has no web share link: on phones, share the photo itself (pick Instagram in the list); elsewhere copy the link */
+      fetch('img/'+d.p[0]+'.jpg').then(function(r){return r.blob()}).then(function(bl){
+        var f=new File([bl],d.p[0]+'.jpg',{type:'image/jpeg'});
+        if(navigator.canShare&&navigator.canShare({files:[f]})){return navigator.share({files:[f],title:d.title,text:d.title+' · fadingathens.com'}).catch(function(){})}
+        copy(d.url,'Link copied ✓ Instagram has no share button for websites: paste it into a story (link sticker) or a message.')
+      }).catch(function(){copy(d.url,'Link copied ✓ Paste it into Instagram.')})}
+  });
+})();
 /* open a shared photo link: fadingathens.com/#photo/<slug> */
 (function(){var m=location.hash.match(/^#photo\/([\w-]+)/);if(m&&(m[1] in idxOf)){openV(idxOf[m[1]])}})();
 window.addEventListener('hashchange',function(){var m=location.hash.match(/^#photo\/([\w-]+)/);if(m&&(m[1] in idxOf)&&V.hidden)openV(idxOf[m[1]])});
