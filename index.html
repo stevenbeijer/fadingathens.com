@@ -753,7 +753,13 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .walk-bespoke b{display:block;font-family:var(--brand);font-size:16px;color:var(--sign-red)}
 .walk-bespoke a{font-size:14.5px;font-weight:600;color:var(--ink)}
 /* hero photo a bit smaller on computers */
-@media (min-width:721px){.hero-img img{max-height:70vh;object-position:center 88%}.hero-img .hero-logo{top:9%}}
+@media (min-width:721px){
+  /* photo ~70% of screen height, but always tall enough to show from the awning's bottom edge (y≈420 of 1346) to the car's wheels (y≈1300); crop comes off the top first */
+  .hero-img{container-type:inline-size;--crop:calc(56.083cqw - min(56.083cqw, max(70vh, 41cqw)));--top-crop:min(var(--crop), 13.33cqw)}
+  .hero-img img{max-height:none;height:calc(56.083cqw - var(--crop));object-position:50% calc(0px - var(--top-crop))}
+  /* logo pinned to the wall above the leaning basement door (photo y≈350–676) */
+  .hero-img .hero-logo{width:10%;left:8.9%;top:calc(14.58cqw - var(--top-crop))}
+}
 </style>
 
 </head>
