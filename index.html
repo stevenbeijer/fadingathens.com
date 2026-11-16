@@ -760,6 +760,12 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   /* logo pinned to the wall above the leaning basement door (photo y≈350–676) */
   .hero-img .hero-logo{width:10%;left:8.9%;top:calc(14.58cqw - var(--top-crop))}
 }
+/* phones: logo painted on the wall too (left of the awning, above the basement door) */
+@media (max-width:720px){
+  .hero-img{overflow:hidden;background:#d8b27a}
+  .hero-img .hero-logo{position:absolute;left:6.2%;top:19.3%;width:14%;margin:0;color:#211a14;mix-blend-mode:multiply;opacity:.97}
+  .hero-img .hero-logo .logo-mark{filter:url(#wallpaint)}
+}
 </style>
 
 </head>
