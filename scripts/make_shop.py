@@ -1,8 +1,9 @@
 """Make the print shop page: shop/index.html.
 
-Reads PHOTOS, SERIES and CLOSED from index.html (same as make_photo_pages.py),
-so every photo on the site is automatically for sale as a print, grouped by
-series. Prices and sizes live in PRICES / FRAMES below.
+Lists the prints in data/prints.json (Steven's selection, made from his
+full-resolution files). Names and captions come from PHOTOS in index.html
+for photos on the site, or from prints.json for new ones. "max" is the
+biggest size the original file allows ("m" = 30x40, "l" = 50x70).
 
 Checkout: until the Shopify shop exists, "Order this print" opens an order
 summary that the visitor copies into an Instagram message. When Shopify buy
@@ -38,37 +39,35 @@ def js_array(src, name, single_quotes=False):
 def main():
     src = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     photos = {p[0]: p for p in js_array(src, "PHOTOS")}
-    series = js_array(src, "SERIES", single_quotes=True)
     closed = js_array(src, "CLOSED", single_quotes=True)
     a = src.index('<symbol id="fa-logo"')
     logo = src[a:src.index("</symbol>", a) + len("</symbol>")]
+    prints = json.load(open(os.path.join(ROOT, "data", "prints.json"), encoding="utf-8"))
 
-    items, chips = [], []
-    for s in series:
-        key = re.sub(r"[^a-z]+", "-", s["en"].lower()).strip("-")
-        chips.append('<button type="button" data-f="%s">%s</button>' % (key, html.escape(s["en"])))
-        for sid in s["ids"]:
-            p = photos.get(sid)
-            if not p:
-                continue
-            land = p[1] > 1400
-            items.append({"id": sid, "name": p[2], "cap": p[3], "alt": p[4], "s": key,
-                          "sgr": s["gr"], "sen": s["en"], "land": land, "closed": sid in closed})
+    items = []
+    for e in prints:
+        p = photos.get(e["id"])
+        it = {"id": e["id"], "land": e["w"] > e["h"], "closed": e["id"] in closed, "max": e.get("max", "l"),
+              "img": e.get("img") or "img/%s.jpg" % e["id"]}
+        it["name"] = e.get("name") or (p[2] if p else e["id"])
+        it["cap"] = e.get("cap") or (p[3] if p else "")
+        it["alt"] = e.get("alt") or (p[4] if p else "")
+        items.append(it)
 
     cards = []
     for it in items:
         stamp = ('<span class="stamp"><span lang="el">Έκλεισε</span> · Closed</span>' if it["closed"] else "")
+        sizes = "up to 50 × 70 cm" if it["max"] == "l" else "up to 30 × 40 cm"
         cards.append(
-            '<li class="card" data-s="{s}"><button type="button" class="card-btn" data-id="{id}">'
-            '<span class="thumb{land}"><img src="../img/{id}.jpg" alt="{alt}" loading="lazy">{stamp}</span>'
-            '<span class="c-name">{name}</span><span class="c-meta">{sen} · from €{low}</span></button></li>'.format(
-                s=it["s"], id=it["id"], land=" land" if it["land"] else "", alt=html.escape(it["alt"]),
-                stamp=stamp, name=html.escape(it["name"]), sen=html.escape(it["sen"]), low=SIZES[0][2]))
+            '<li class="card"><button type="button" class="card-btn" data-id="{id}">'
+            '<span class="thumb"><img src="../{img}" alt="{alt}" loading="lazy">{stamp}</span>'
+            '<span class="c-name">{name}</span><span class="c-meta">From €{low} · {sizes}</span></button></li>'.format(
+                id=it["id"], img=it["img"], alt=html.escape(it["alt"]), stamp=stamp,
+                name=html.escape(it["name"]), low=SIZES[0][2], sizes=sizes))
 
     data = json.dumps({"items": items, "sizes": SIZES, "frames": FRAMES}, ensure_ascii=False)
-    page = PAGE.replace("{LOGO}", logo).replace("{CHIPS}", "".join(chips)).replace(
-        "{CARDS}", "\n".join(cards)).replace("{DATA}", data).replace("{COUNT}", str(len(items))).replace(
-        "{LOW}", str(SIZES[0][2]))
+    page = PAGE.replace("{LOGO}", logo).replace("{CARDS}", "\n".join(cards)).replace("{DATA}", data).replace(
+        "{COUNT}", str(len(items))).replace("{LOW}", str(SIZES[0][2]))
     os.makedirs(os.path.join(ROOT, "shop"), exist_ok=True)
     open(os.path.join(ROOT, "shop", "index.html"), "w", encoding="utf-8").write(page)
     print("shop/index.html:", len(items), "prints")
@@ -176,15 +175,14 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
   <header class="intro">
     <p class="kicker" lang="el">Τυπώματα</p>
     <h1>Prints</h1>
-    <p class="lede">Every photograph in Fading Athens is available as a fine art print: old shop signs, cinemas, hotels and cafés of Athens, many of them already gone. Printed to order on museum-quality matte paper, with a white border so nothing of the photo is cropped.</p>
-    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed or framed</li><li>Printed in Europe, shipped worldwide</li></ul>
+    <p class="lede">A first selection of Fading Athens photographs, available as fine art prints: shopfronts, cafés, hotels and corners of an Athens that is disappearing. Printed to order with a white border, so nothing of the photo is cropped. More prints will follow.</p>
+    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed or in a wood or black frame</li><li>Printed in Europe, shipped worldwide</li></ul>
   </header>
-  <div class="chips" role="group" aria-label="Filter by series"><button type="button" data-f="all" aria-pressed="true">All</button>{CHIPS}</div>
   <ul class="grid" id="grid">
 {CARDS}
   </ul>
   <section class="how" aria-label="About the prints">
-    <div><h2>Museum-quality paper</h2><p>Giclée prints on heavy matte fine art paper, with a white border around the full photograph.</p></div>
+    <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper. Framed prints use museum-quality matte paper behind plexiglass, ready to hang.</p></div>
     <div><h2>Places that are gone</h2><p>Prints marked <span lang="el">Έκλεισε</span> · Closed show places that no longer exist. The photograph is all that is left.</p></div>
     <div><h2>Questions or a bigger size?</h2><p>Message <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> for other sizes, hotels, cafés and offices.</p></div>
   </section>
@@ -218,10 +216,8 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
 var D={DATA},CHECKOUT={};
 try{fetch('checkout.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{}}).then(function(j){CHECKOUT=j||{}}).catch(function(){})}catch(e){}
 var byId={};D.items.forEach(function(it){byId[it.id]=it});
-var chips=document.querySelectorAll('.chips button'),cards=document.querySelectorAll('.card');
-chips.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;chips.forEach(function(c){c.setAttribute('aria-pressed',c===b)});cards.forEach(function(c){c.hidden=!(f==='all'||c.dataset.s===f)})})});
 var P=document.getElementById('panel'),cur=null,last=null;
-function opt(name,list,land){return list.map(function(o,i){var lab=o[1];if(land&&name==='size')lab=lab.replace(/(\d+) × (\d+)/,'$2 × $1');
+function opt(name,list,land){return list.filter(function(o){return name!=='size'||cur.max==='l'||o[0]!=='l'}).map(function(o,i){var lab=o[1];if(land&&name==='size')lab=lab.replace(/(\d+) × (\d+)/,'$2 × $1');
   return '<label><span><input type="radio" name="'+name+'" value="'+o[0]+'"'+(i===0?' checked':'')+'> '+lab+'</span><span class="pr">'+(name==='frame'?(o[2]?'+ €'+o[2]:'included'):'€'+o[2])+'</span></label>'}).join('')}
 function sel(n){return document.querySelector('input[name="'+n+'"]:checked').value}
 function find(list,id){for(var i=0;i<list.length;i++)if(list[i][0]===id)return list[i]}
@@ -234,8 +230,8 @@ function update(){var s=find(D.sizes,sel('size')),f=find(D.frames,sel('frame')),
   document.getElementById('pText').textContent='Print order, Fading Athens\nPhoto: '+cur.name+' ('+cur.id+')\nSize: '+size+'\nFrame: '+f[1]+'\nPrice: €'+tot+' + shipping\nShip to (city, country): ';
   document.getElementById('pOrder').hidden=true}
 function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
-  document.getElementById('pImg').src='../img/'+id+'.jpg';document.getElementById('pImg').alt=cur.alt;
-  document.getElementById('pSeries').textContent=cur.sgr+' · '+cur.sen;document.getElementById('pName').textContent=cur.name;
+  document.getElementById('pImg').src='../'+cur.img;document.getElementById('pImg').alt=cur.alt;
+  document.getElementById('pSeries').textContent='Fine art print'+(cur.max==='l'?'':' · up to 30 × 40 cm');document.getElementById('pName').textContent=cur.name;
   document.getElementById('pCap').textContent=cur.cap;document.getElementById('pClosed').hidden=!cur.closed;
   document.getElementById('pSizes').innerHTML=opt('size',D.sizes,cur.land);document.getElementById('pFrames').innerHTML=opt('frame',D.frames);
   update();P.hidden=false;document.body.style.overflow='hidden';document.getElementById('pClose').focus();

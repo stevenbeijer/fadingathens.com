@@ -1225,7 +1225,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
-  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a><a class="vprint" id="vPrint" href="shop/">Order this photo as a print →</a><div class="vshare" role="group" aria-label="Share this photo"><span class="vshare-label">Share</span><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="x">X / Twitter</button><button type="button" data-share="instagram">Instagram</button><button type="button" data-share="copy">Copy link</button><button type="button" data-share="more" hidden>More…</button></div><p class="vshare-note" id="vShareNote" aria-live="polite"></p></div>
+  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a><a class="vprint" id="vPrint" href="shop/" hidden>Order this photo as a print →</a><div class="vshare" role="group" aria-label="Share this photo"><span class="vshare-label">Share</span><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="x">X / Twitter</button><button type="button" data-share="instagram">Instagram</button><button type="button" data-share="copy">Copy link</button><button type="button" data-share="more" hidden>More…</button></div><p class="vshare-note" id="vShareNote" aria-live="polite"></p></div>
   <div class="bar" style="justify-content:center;margin-top:10px"><div class="nav"><button id="vPrev" type="button">← Previous</button><button id="vNext" type="button">Next →</button></div></div>
 </div>
 <div class="viewer filmview" id="fviewer" hidden role="dialog" aria-modal="true" aria-label="Film viewer">
@@ -1379,7 +1379,8 @@ function show(i){cur=(i+PHOTOS.length)%PHOTOS.length;var p=PHOTOS[cur];
   document.getElementById('vGr').textContent=p[2];var vc=document.getElementById('vClosed');vc.hidden=!isClosed(p[0]);document.getElementById('vEn').textContent=p[3];
   document.getElementById('vCount').textContent=(cur+1)+' / '+PHOTOS.length;
   try{history.replaceState(null,'','#photo/'+p[0])}catch(e){}document.getElementById('vShareNote').textContent='';
-  var vm=document.getElementById('vMap');if(p[5]){vm.href=p[5];vm.textContent=p[6]+' · Map →';vm.hidden=false}else{vm.hidden=true}document.getElementById('vPrint').href='shop/#'+p[0]}
+  var vm=document.getElementById('vMap');if(p[5]){vm.href=p[5];vm.textContent=p[6]+' · Map →';vm.hidden=false}else{vm.hidden=true}var vp=document.getElementById('vPrint');vp.href='shop/#'+p[0];vp.hidden=!PRINT_IDS[p[0]]}
+var PRINT_IDS={};try{fetch('data/prints.json').then(function(r){return r.json()}).then(function(l){l.forEach(function(e){PRINT_IDS[e.id]=1});if(!V.hidden){var vp=document.getElementById('vPrint');vp.hidden=!PRINT_IDS[PHOTOS[cur][0]]}}).catch(function(){})}catch(e){}
 function openV(i){lastFocus=document.activeElement;show(i);V.hidden=false;document.body.style.overflow='hidden';document.getElementById('vClose').focus()}
 function closeV(){V.hidden=true;document.body.style.overflow='';try{if(/^#photo\//.test(location.hash))history.replaceState(null,'',location.pathname+location.search)}catch(e){}if(lastFocus)lastFocus.focus()}
 document.getElementById('vClose').onclick=closeV;
