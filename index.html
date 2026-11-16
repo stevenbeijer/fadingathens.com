@@ -767,7 +767,15 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
   .hero-img .hero-logo .logo-mark{filter:url(#wallpaint)}
 }
 /* phones: no small logo in the top bar (the wall logo is right below it) */
-@media (max-width:720px){nav.top .logo{display:none}}
+/* phones: no small logo in the top bar (the wall logo is right below it); menu on one swipeable line */
+@media (max-width:720px){
+  nav.top .logo,nav.top .handle{display:none}
+  nav.top .wrap{display:block;padding:0;max-width:none}
+  nav.top .navright{display:block;gap:0;position:relative}
+  nav.top .navright::after{content:"";position:absolute;top:0;right:0;bottom:0;width:28px;pointer-events:none;background:linear-gradient(to right,transparent,var(--plaster))}
+  nav.top .navlinks{flex-wrap:nowrap;gap:22px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-size:13px;padding:14px 28px 14px max(16px,env(safe-area-inset-left,0px));white-space:nowrap}
+  nav.top .navlinks::-webkit-scrollbar{display:none}
+}
 </style>
 
 </head>
