@@ -24,7 +24,7 @@ SITE = "https://fadingathens.com"
 
 # id, label (portrait orientation, cm), price in euros
 SIZES = [("a4", "21 × 30 cm (A4)", 35), ("m", "30 × 40 cm", 55), ("l", "50 × 70 cm", 95)]
-FRAMES = [("none", "Unframed", 0), ("wood", "Natural wood frame", 45), ("black", "Black metal frame", 45)]
+FRAMES = [("none", "Unframed", 0)]
 
 
 def js_array(src, name, single_quotes=False):
@@ -176,15 +176,15 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
     <p class="kicker" lang="el">Τυπώματα</p>
     <h1>Prints</h1>
     <p class="lede">A first selection of Fading Athens photographs, available as fine art prints: shopfronts, cafés, hotels and corners of an Athens that is disappearing. Printed to order with a white border, so nothing of the photo is cropped. More prints will follow.</p>
-    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed or in a wood or black frame</li><li>Printed in Europe, shipped worldwide</li></ul>
+    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed fine art prints</li><li>Printed in Europe, shipped across the EU</li></ul>
   </header>
   <ul class="grid" id="grid">
 {CARDS}
   </ul>
   <section class="how" aria-label="About the prints">
-    <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper. Framed prints use museum-quality matte paper behind plexiglass, ready to hang.</p></div>
+    <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
     <div><h2>Places that are gone</h2><p>Prints marked <span lang="el">Έκλεισε</span> · Closed show places that no longer exist. The photograph is all that is left.</p></div>
-    <div><h2>Questions or a bigger size?</h2><p>Message <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> for other sizes, hotels, cafés and offices.</p></div>
+    <div><h2>Questions?</h2><p>Message <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> about prints for hotels, cafés and offices.</p></div>
   </section>
 </main>
 <footer class="foot"><div class="wrap">© Steven A.J. Beijer · Fading Athens · <a href="../">fadingathens.com</a></div></footer>
@@ -199,12 +199,12 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
       <p class="p-cap" id="pCap"></p>
       <p class="p-closed" id="pClosed" hidden><span lang="el">Έκλεισε</span> · This place has closed</p>
       <fieldset><legend>Size</legend><div class="opts" id="pSizes"></div></fieldset>
-      <fieldset><legend>Frame</legend><div class="opts" id="pFrames"></div></fieldset>
+      <fieldset hidden><legend>Frame</legend><div class="opts" id="pFrames"></div></fieldset>
       <div class="total"><span>Price</span><b id="pTotal"></b></div>
       <a class="buy" id="pBuy" href="#" role="button">Order this print</a>
       <p class="small" id="pShip">Shipping is added at checkout.</p>
       <div class="order" id="pOrder" hidden>
-        Framed prints are made to order. Send this order to <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> and Steven will reply with payment details:
+        This one can't be ordered online yet. Send this order to <a href="https://ig.me/u/fadingathens" target="_blank" rel="noopener">@fadingathens on Instagram</a> and Steven will reply with payment details:
         <pre id="pText"></pre>
         <button type="button" class="buy" id="pCopy">Copy order and open Instagram</button>
       </div>
