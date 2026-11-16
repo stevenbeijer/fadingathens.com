@@ -5,7 +5,8 @@
   "w": 3276,
   "h": 4095,
   "max": "l",
-  "img": "img/prints/arcade-plants.jpg"
+  "img": "img/prints/arcade-plants.jpg",
+  "etsy": "https://www.etsy.com/listing/4618778462"
  },
  {
   "id": "caryatid-house",
@@ -38,7 +39,8 @@
   "name": "Ακρόπολη",
   "cap": "The Acropolis under a heavy grey sky, above an endless sea of apartment blocks.",
   "alt": "View over dense Athens apartment blocks towards the Acropolis under a dark grey sky",
-  "img": "img/prints/acropolis-sky.jpg"
+  "img": "img/prints/acropolis-sky.jpg",
+  "etsy": "https://www.etsy.com/listing/4618765904"
  },
  {
   "id": "golden-street",
@@ -60,7 +62,8 @@
   "cap": "The closed Peloponnese railway station in Athens, ΑΘΗΝΑΙ still written above the door.",
   "alt": "Faded yellow station building with a curved grey roof, the word ΑΘΗΝΑΙ above a clock and an arched iron door",
   "img": "img/prints/peloponnese-station.jpg",
-  "closed": true
+  "closed": true,
+  "etsy": "https://www.etsy.com/listing/4618776626"
  },
  {
   "id": "blue-seats",
@@ -71,7 +74,8 @@
   "name": "Σταθμός Χαλκίδας",
   "cap": "Rows of blue seats in the waiting hall of Halkida train station, the arrivals board still on the wall.",
   "alt": "Empty waiting hall with rows of blue plastic seats and a departures board on a cream wall",
-  "img": "img/prints/blue-seats.jpg"
+  "img": "img/prints/blue-seats.jpg",
+  "etsy": "https://www.etsy.com/listing/4618768854"
  },
  {
   "id": "kafeneio-treasures",
@@ -82,7 +86,8 @@
   "name": "Καφενείο, Αμοργός",
   "cap": "An old kafeneio on Amorgos, crammed with ship paintings, clocks, bottles and a turquoise table.",
   "alt": "Cluttered old cafe interior with framed ship paintings, bottles on shelves, chest freezers and a turquoise table",
-  "img": "img/prints/kafeneio-treasures.jpg"
+  "img": "img/prints/kafeneio-treasures.jpg",
+  "etsy": "https://www.etsy.com/listing/4618768311"
  },
  {
   "id": "stereo-shop",
@@ -90,7 +95,8 @@
   "w": 3510,
   "h": 4388,
   "max": "l",
-  "img": "img/prints/stereo-shop.jpg"
+  "img": "img/prints/stereo-shop.jpg",
+  "etsy": "https://www.etsy.com/listing/4618760599"
  },
  {
   "id": "bust-and-cat",
@@ -102,7 +108,8 @@
   "cap": "A black cat waits at the door of a chandelier shop in Psyrri, watched by a marble bust. The shop has since closed for good.",
   "alt": "Black cat sitting on the step of an old shop doorway, a white marble bust and chandeliers in the window",
   "img": "img/prints/bust-and-cat.jpg",
-  "closed": true
+  "closed": true,
+  "etsy": "https://www.etsy.com/listing/4618769485"
  },
  {
   "id": "hotel",
@@ -144,7 +151,8 @@
   "name": "Κίτρινη πόρτα",
   "cap": "A yellow door, a radiator and bare floorboards in an empty flat in an apartment building in Attiki.",
   "alt": "Pale yellow door left ajar next to a cream radiator in an empty room with worn wooden floor",
-  "img": "img/prints/yellow-door.jpg"
+  "img": "img/prints/yellow-door.jpg",
+  "etsy": "https://www.etsy.com/listing/4618778280"
  },
  {
   "id": "kafeneio-counter",
@@ -156,5 +164,57 @@
   "name": "Καφενείο, πρωί",
   "cap": "A marble table with a sugar shaker in an old kafeneio, copper coffee pots on the counter behind.",
   "alt": "Worn marble cafe table with a glass sugar shaker, a green counter with copper coffee pots and a framed portrait behind"
+ },
+ {
+  "id": "kipseli-mercedes",
+  "file": "kipseli-mercedes (sent in chat 16 Nov)",
+  "w": 1740,
+  "h": 2576,
+  "max": "m",
+  "img": "img/prints/kipseli-mercedes.jpg",
+  "etsy": "https://www.etsy.com/listing/4618853011"
+ },
+ {
+  "id": "arhotel-pigeons",
+  "file": "arhotel-pigeons (sent in chat 16 Nov)",
+  "w": 1577,
+  "h": 2576,
+  "max": "m",
+  "img": "img/prints/arhotel-pigeons.jpg",
+  "name": "Περιστέρια",
+  "cap": "Two pigeons fly past the red-on-blue letters of an old vertical hotel sign, against a deep blue summer sky.",
+  "alt": "A tall vertical hotel sign of blue panels with red letters, two pigeons flying against a blue sky with white clouds",
+  "etsy": "https://www.etsy.com/listing/4618853406"
+ },
+ {
+  "id": "hotel-sra",
+  "file": "hotel-sans-rival (sent in chat 16 Nov)",
+  "w": 1445,
+  "h": 2576,
+  "max": "m",
+  "img": "img/prints/hotel-sra.jpg",
+  "etsy": "https://www.etsy.com/listing/4618856220"
+ },
+ {
+  "id": "marble-staircase",
+  "file": "marble-staircase (sent in chat 16 Nov)",
+  "w": 1449,
+  "h": 2576,
+  "max": "m",
+  "img": "img/prints/marble-staircase.jpg",
+  "name": "Μαρμάρινη σκάλα",
+  "etsy": "https://www.etsy.com/listing/4618859852"
+ },
+ {
+  "id": "red-car",
+  "file": "red-car (sent in chat 16 Nov)",
+  "w": 2576,
+  "h": 1445,
+  "max": "m",
+  "img": "img/prints/red-car.jpg",
+  "name": "Κόκκινο αυτοκίνητο",
+  "cap": "An old red saloon car parked under a green awning on a quiet Athens side street.",
+  "alt": "A vintage red four-door saloon car parked in front of an ochre building with a green awning, a white door and a marble-clad entrance",
+  "etsy": "https://www.etsy.com/listing/4618863896"
  }
 ]

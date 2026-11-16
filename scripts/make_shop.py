@@ -5,12 +5,11 @@ full-resolution files). Names and captions come from PHOTOS in index.html
 for photos on the site, or from prints.json for new ones. "max" is the
 biggest size the original file allows ("m" = 30x40, "l" = 50x70).
 
-Checkout: every print is a Gelato product in the Shopify store. Buy links
-are in shop/checkout.json as
-  {"<slug>|<size id>|<frame id>": "https://...", "*|a4|none": "..."}
-and "Order this print" goes straight to Shopify checkout. No Instagram
-ordering (Steven, 16 Nov): a combination without a link shows as
-"Not available online" and can't be clicked.
+Checkout (16 Nov, evening): prints are sold through the Etsy shop FadingAthens.
+Only prints with an "etsy" listing URL in data/prints.json appear in the shop,
+and "Order on Etsy" opens that listing (the buyer picks the size on Etsy).
+Gelato prints and ships Etsy orders automatically. shop/checkout.json holds the
+old Shopify cart links and is no longer used. No Instagram ordering.
 
 Run from the repo root: python3 scripts/make_shop.py
 (the photo-pages workflow runs it on every push that changes index.html).
@@ -39,7 +38,7 @@ def js_array(src, name, single_quotes=False):
 
 # Shop offline (Steven, 16 Nov) until the Etsy listings are live. While False,
 # shop/index.html is a short "coming soon" page that sends visitors home.
-SHOP_OPEN = False
+SHOP_OPEN = True
 
 CLOSED_PAGE = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -55,7 +54,7 @@ CLOSED_PAGE = """<!DOCTYPE html>
 def main():
     if not SHOP_OPEN:
         open(os.path.join(ROOT, "shop", "index.html"), "w", encoding="utf-8").write(CLOSED_PAGE)
-        print("shop/index.html: offline page (SHOP_OPEN = False)")
+        print("shop/index.html: offline page (SHOP_OPEN = True)")
         return
 
     src = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
@@ -67,9 +66,11 @@ def main():
 
     items = []
     for e in prints:
+        if not e.get("etsy"):
+            continue  # only prints that are live on Etsy
         p = photos.get(e["id"])
         it = {"id": e["id"], "land": e["w"] > e["h"], "closed": e["id"] in closed or bool(e.get("closed")), "max": e.get("max", "l"),
-              "img": e.get("img") or "img/%s.jpg" % e["id"]}
+              "img": e.get("img") or "img/%s.jpg" % e["id"], "etsy": e["etsy"]}
         it["name"] = e.get("name") or (p[2] if p else e["id"])
         it["cap"] = e.get("cap") or (p[3] if p else "")
         it["alt"] = e.get("alt") or (p[4] if p else "")
@@ -194,7 +195,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
     <p class="kicker" lang="el">Τυπώματα</p>
     <h1>Prints</h1>
     <p class="lede">A first selection of Fading Athens photographs, available as fine art prints: shopfronts, cafés, hotels and corners of an Athens that is disappearing. Printed to order with a white border, so nothing of the photo is cropped. More prints will follow.</p>
-    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed fine art prints</li><li>Printed in Europe, shipped across the EU</li></ul>
+    <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed fine art prints</li><li>Printed in Europe, ordered through Etsy</li></ul>
   </header>
   <ul class="grid" id="grid">
 {CARDS}
@@ -202,7 +203,7 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
   <section class="how" aria-label="About the prints">
     <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
     <div><h2>Places that are gone</h2><p>Prints marked <span lang="el">Έκλεισε</span> · Closed show places that no longer exist. The photograph is all that is left.</p></div>
-    <div><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Pay by card at checkout; shipping is shown before you pay.</p></div>
+    <div><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Orders go through the Fading Athens shop on Etsy, where you choose the size; shipping is shown before you pay.</p></div>
   </section>
 </main>
 <footer class="foot"><div class="wrap">© Steven A.J. Beijer · Fading Athens · <a href="../">fadingathens.com</a></div></footer>
@@ -227,7 +228,6 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
 
 <script>
 var D={DATA},CHECKOUT={};
-try{fetch('checkout.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{}}).then(function(j){CHECKOUT=j||{};if(typeof P!=='undefined'&&!P.hidden)update()}).catch(function(){})}catch(e){}
 var byId={};D.items.forEach(function(it){byId[it.id]=it});
 var P=document.getElementById('panel'),cur=null,last=null;
 function opt(name,list,land){return list.filter(function(o){return name!=='size'||cur.max==='l'||o[0]!=='l'}).map(function(o,i){var lab=o[1];if(land&&name==='size')lab=lab.replace(/(\d+) × (\d+)/,'$2 × $1');
@@ -237,10 +237,10 @@ function find(list,id){for(var i=0;i<list.length;i++)if(list[i][0]===id)return l
 function update(){var s=find(D.sizes,sel('size')),f=find(D.frames,sel('frame')),tot=s[2]+f[2];
   document.getElementById('pTotal').textContent='€'+tot;
   var pic=document.getElementById('pPic');pic.className='pic'+(f[0]==='none'?'':' framed-'+f[0]);
-  var url=CHECKOUT[cur.id+'|'+s[0]+'|'+f[0]]||CHECKOUT['*|'+s[0]+'|'+f[0]],b=document.getElementById('pBuy');
+  var url=cur.etsy||CHECKOUT[cur.id+'|'+s[0]+'|'+f[0]],b=document.getElementById('pBuy');
   b.dataset.url=url||'';b.href=url||'#';if(url){b.target='_blank';b.rel='noopener'}else{b.removeAttribute('target')}
   var size=s[1];if(cur.land)size=size.replace(/(\d+) × (\d+)/,'$2 × $1');
-  b.textContent=url?'Order this print':'Not available online';b.classList.toggle('off',!url);if(url)b.removeAttribute('aria-disabled');else b.setAttribute('aria-disabled','true')}
+  b.textContent=url?(cur.etsy?'Order on Etsy':'Order this print'):'Not available online';b.classList.toggle('off',!url);if(url)b.removeAttribute('aria-disabled');else b.setAttribute('aria-disabled','true')}
 function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
   document.getElementById('pImg').src='../'+cur.img;document.getElementById('pImg').alt=cur.alt;
   document.getElementById('pSeries').textContent='Fine art print'+(cur.max==='l'?'':' · up to 30 × 40 cm');document.getElementById('pName').textContent=cur.name;
