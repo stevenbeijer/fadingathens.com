@@ -744,6 +744,10 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .wm-label text{font-family:"Caveat",cursive;font-size:17px;fill:var(--ink)}
 .wm-north path{fill:var(--ink)}.wm-north text{font:700 13px var(--brand);fill:var(--ink);text-anchor:middle}
 .walk-route{counter-reset:stop}
+.walk-photo{margin:0 0 20px}
+.walk-photo img{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 40%}
+.walk-photo figcaption{font-family:"Caveat",cursive;font-size:17px;color:var(--muted);margin-top:4px}
+@media (max-width:900px){.walk-photo img{max-width:100%}}
 </style>
 
 </head>
@@ -1008,6 +1012,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
     </ol>
     </div>
     <div class="walk-reviews">
+      <figure class="walk-photo"><img src="img/walk-steven.jpg" width="960" height="1440" loading="lazy" alt="Steven, in a green jacket, talking with his hands to two guests on a sunny Athens pavement lined with apartment blocks and parked cars"><figcaption>Steven on the walk</figcaption></figure>
       <p class="walk-stars" aria-label="Rated 5.0 out of 5 on Airbnb"><span aria-hidden="true">★★★★★</span> 5.0 on Airbnb</p>
       <blockquote><p>“Fascinating! A fabulous dive into the magic of old Athens…”</p><footer>Leonie, New York · May 2025</footer></blockquote>
       <blockquote><p>“Steven is an excellent guide who reveals the older layers of Athens.”</p><footer>Kerstin, Düsseldorf · March 2025</footer></blockquote>
