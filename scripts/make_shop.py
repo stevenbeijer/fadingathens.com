@@ -81,14 +81,23 @@ def main():
         stamp = ""  # no Closed stamps in the shop: buyers could read them as "unavailable" (Steven, 16 Nov)
         sizes = "up to 50 × 70 cm" if it["max"] == "l" else "up to 30 × 40 cm"
         cards.append(
-            '<li class="card"><button type="button" class="card-btn" data-id="{id}">'
+            '<li class="card{land}"><button type="button" class="card-btn" data-id="{id}">'
             '<span class="thumb"><img src="../{img}" alt="{alt}" loading="lazy">{stamp}</span>'
-            '<span class="c-name">{name}</span><span class="c-meta">From €{low} · {sizes}</span></button></li>'.format(
-                id=it["id"], img=it["img"], alt=html.escape(it["alt"]), stamp=stamp,
+            '<span class="c-row"><span class="c-name">{name}</span><span class="c-go" aria-hidden="true">View →</span></span>'
+            '<span class="c-meta"><b>From €{low}</b> · {sizes}</span></button></li>'.format(
+                id=it["id"], img=it["img"], alt=html.escape(it["alt"]), stamp=stamp, land=" land" if it["land"] else "",
                 name=html.escape(it["name"]), low=SIZES[0][2], sizes=sizes))
 
+    byid = {it["id"]: it for it in items}
+    wall = []
+    for cls, pid in (("w1", "yellow-door"), ("w2", "red-car"), ("w3", "bust-and-cat")):
+        it = byid.get(pid)
+        if it:
+            wall.append('<button type="button" class="hang {c}" data-id="{id}" aria-label="{n}"><img src="../{img}" alt=""></button>'.format(
+                c=cls, id=it["id"], n=html.escape(it["name"]), img=it["img"]))
+
     data = json.dumps({"items": items, "sizes": SIZES, "frames": FRAMES}, ensure_ascii=False)
-    page = PAGE.replace("{LOGO}", logo).replace("{CARDS}", "\n".join(cards)).replace("{DATA}", data).replace(
+    page = PAGE.replace("{LOGO}", logo).replace("{CARDS}", "\n".join(cards)).replace("{DATA}", data).replace("{WALL}", "".join(wall)).replace(
         "{COUNT}", str(len(items))).replace("{LOW}", str(SIZES[0][2]))
     os.makedirs(os.path.join(ROOT, "shop"), exist_ok=True)
     open(os.path.join(ROOT, "shop", "index.html"), "w", encoding="utf-8").write(page)
@@ -128,32 +137,56 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:
 .logo{color:var(--ink)}
 .back{font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500}
 .back:hover{color:var(--red)}
-header.intro{padding:48px 0 28px}
+header.intro{padding:52px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.wall{--h:min(250px,19vw);height:var(--h);display:flex;align-items:flex-start;justify-content:center;gap:clamp(12px,1.8vw,22px)}
+.hang{all:unset;cursor:pointer;flex:none;background:#fff;padding:6px;box-shadow:0 2px 3px rgba(0,0,0,.12),0 22px 36px -18px rgba(0,0,0,.55);transition:transform .25s}
+.hang img{display:block;height:100%;width:auto}
+.hang:hover,.hang:focus-visible{transform:translateY(-6px)}
+.hang:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.hang.w1{height:calc(var(--h)*.72);margin-top:calc(var(--h)*.1)}
+.hang.w2{height:calc(var(--h)*.5);margin-top:calc(var(--h)*.3)}
+.hang.w3{height:calc(var(--h)*.84)}
 .kicker{margin:0;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--green)}
 @media (prefers-color-scheme:dark){.kicker{color:#5fb388}}
 h1{margin:8px 0 12px;font-weight:800;font-size:clamp(34px,5vw,58px);line-height:.95;letter-spacing:-.02em;color:var(--red);font-variation-settings:"FLAR" 100,"VOLM" 100}
 .intro p.lede{max-width:40em;margin:0;color:var(--muted)}
-.facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
-.facts li{border:1px solid var(--line);padding:5px 10px;font-size:13px}
+.facts{display:flex;flex-wrap:wrap;gap:4px 22px;margin:22px 0 0;padding:9px 14px;list-style:none;background:var(--yellow);color:var(--on-yellow);width:fit-content;max-width:100%}
+.facts li{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 0 18px;position:sticky;top:0;background:var(--plaster);z-index:5}
 .chips::-webkit-scrollbar{display:none}
 .chips button{flex:none;font:500 13px var(--f);letter-spacing:.06em;color:var(--ink);background:none;border:1.5px solid var(--line);padding:7px 12px;cursor:pointer}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--plaster);border-color:var(--ink)}
-.grid{list-style:none;margin:0 0 64px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:28px 22px}
+.grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:22px 0 18px}
+.grid-head h2{margin:0;font-size:13px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--green)}
+@media (prefers-color-scheme:dark){.grid-head h2{color:#5fb388}}
+.grid-head span{font-size:13px;color:var(--muted)}
+.grid{list-style:none;margin:0 0 72px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));grid-auto-flow:dense;gap:34px 22px}
+.card.land{grid-column:span 2}
+.card.land .thumb{aspect-ratio:auto;height:100%;min-height:0}
+.card.land .card-btn{height:100%}
 .card[hidden]{display:none}
 .card-btn{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:6px;width:100%}
-.thumb{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;min-height:0;overflow:hidden;background:var(--plaster-2);padding:16px;transition:background .2s}
-.thumb img{max-height:100%;width:auto;height:auto;max-width:100%;object-fit:contain;box-shadow:0 1px 2px rgba(0,0,0,.12),0 10px 20px -10px rgba(0,0,0,.4);background:#fff;padding:5px}
-.card-btn:hover .thumb,.card-btn:focus-visible .thumb{background:var(--line)}
+.thumb{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;min-height:0;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,var(--plaster) 0%,var(--plaster-2) 75%);padding:22px;transition:background .2s}
+.card.land .thumb{flex:1}
+.thumb img{max-height:100%;width:auto;height:auto;max-width:100%;object-fit:contain;box-shadow:0 1px 2px rgba(0,0,0,.12),0 12px 22px -12px rgba(0,0,0,.45);background:#fff;padding:6px;transition:transform .3s ease,box-shadow .3s ease}
+.card-btn:hover .thumb img,.card-btn:focus-visible .thumb img{transform:translateY(-5px) scale(1.015);box-shadow:0 2px 3px rgba(0,0,0,.12),0 26px 34px -16px rgba(0,0,0,.5)}
+.c-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:6px}
+.c-go{flex:none;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.card-btn:hover .c-go,.card-btn:focus-visible .c-go{opacity:1;transform:none}
+.c-meta b{color:var(--ink);font-weight:700}
 .card-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .stamp{position:absolute;top:10px;right:10px;transform:rotate(6deg);border:2px solid var(--red);color:var(--red);background:#f6f1e3;font:800 10px/1 var(--f);letter-spacing:.12em;text-transform:uppercase;padding:4px 6px}
 .c-name{font-weight:700;font-size:15px;line-height:1.25}
 .c-meta{font-size:13px;color:var(--muted)}
-.how{border-top:1px solid var(--line);padding:36px 0 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-.how h2{margin:0 0 6px;font-size:17px;font-weight:800}
-.how p{margin:0;color:var(--muted);font-size:15px}
-@media (max-width:760px){.how{grid-template-columns:1fr;gap:18px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px}.thumb{padding:10px}header.intro{padding:32px 0 20px}}
-footer.foot{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
+.how-band{background:var(--green);color:var(--on-green)}
+.how{padding:52px 0 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px}
+.how .n{display:block;font-weight:800;font-size:34px;line-height:1;color:var(--yellow);margin-bottom:12px;font-variation-settings:"FLAR" 100,"VOLM" 100}
+.how h2{margin:0 0 6px;font-size:18px;font-weight:800}
+.how p{margin:0;opacity:.85;font-size:15px}
+.how a{color:var(--yellow);font-weight:700}
+@media (max-width:900px){header.intro{grid-template-columns:1fr;gap:8px}.wall{--h:230px;order:-1;margin-bottom:12px}}
+@media (max-width:760px){.how{grid-template-columns:1fr;gap:26px;padding:40px 0 44px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px}.thumb{padding:12px}header.intro{padding:24px 0 24px}.wall{--h:min(36vw,190px)}.hang{padding:4px}.c-go{display:none}.facts{gap:3px 16px}.facts li{font-size:11.5px}}
+footer.foot{padding:22px 0 40px;font-size:13px;color:var(--muted)}
 /* product panel */
 .panel{position:fixed;inset:0;z-index:50;background:rgba(15,14,12,.6);display:flex;align-items:center;justify-content:center;padding:20px}
 .panel[hidden]{display:none}
@@ -193,20 +226,24 @@ legend{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bot
 </div></nav>
 <main class="wrap">
   <header class="intro">
+    <div>
     <p class="kicker" lang="el">Τυπώματα</p>
     <h1>Prints</h1>
     <p class="lede">A first selection of Fading Athens photographs, available as fine art prints: shopfronts, cafés, hotels and corners of an Athens that is disappearing. Printed to order with a white border, so nothing of the photo is cropped. More prints will follow.</p>
     <ul class="facts"><li>{COUNT} photographs</li><li>3 sizes, from €{LOW}</li><li>Unframed fine art prints</li><li>Printed in Europe, ordered through Etsy</li></ul>
+    </div>
+    <div class="wall" aria-label="Featured prints">{WALL}</div>
   </header>
+  <div class="grid-head"><h2>All prints</h2><span>Click a print to see sizes</span></div>
   <ul class="grid" id="grid">
 {CARDS}
   </ul>
-  <section class="how" aria-label="About the prints">
-    <div><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
-    <div><h2>Places that are gone</h2><p>Several of the shops, hotels and stations in these prints have since closed for good. The photograph is what is left of them.</p></div>
-    <div><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Orders go through the Fading Athens shop on Etsy, where you choose the size; shipping is shown before you pay.</p></div>
-  </section>
 </main>
+<section class="how-band" aria-label="About the prints"><div class="wrap how">
+    <div><span class="n">01</span><h2>Fine art paper</h2><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
+    <div><span class="n">02</span><h2>Places that are gone</h2><p>Several of the shops, hotels and stations in these prints have since closed for good. The photograph is what is left of them.</p></div>
+    <div><span class="n">03</span><h2>Printed for you</h2><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Orders go through the <a href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Fading Athens shop on Etsy</a>, where you choose the size; shipping is shown before you pay.</p></div>
+</div></section>
 <footer class="foot"><div class="wrap">© Steven A.J. Beijer · Fading Athens · <a href="../">fadingathens.com</a></div></footer>
 
 <div class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="pName">
@@ -250,7 +287,7 @@ function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
   update();P.hidden=false;document.body.style.overflow='hidden';document.getElementById('pClose').focus();
   if(push!==false)try{history.replaceState(null,'','#'+id)}catch(e){}}
 function closeP(){P.hidden=true;document.body.style.overflow='';try{history.replaceState(null,'',location.pathname)}catch(e){}if(last)last.focus()}
-document.getElementById('grid').addEventListener('click',function(e){var b=e.target.closest('.card-btn');if(b)openP(b.dataset.id)});
+document.addEventListener('click',function(e){var b=e.target.closest('.card-btn,.hang');if(b)openP(b.dataset.id)});
 P.addEventListener('change',update);
 P.addEventListener('click',function(e){if(e.target===P)closeP()});
 document.getElementById('pClose').addEventListener('click',closeP);
