@@ -836,6 +836,23 @@ a.av-btn{display:inline-block;text-decoration:none}
 .ig-pill:hover,.ig-pill:focus-visible{background:var(--sign-red);color:#fbf3e4;transform:translateY(-1px);box-shadow:0 8px 18px -10px rgba(0,0,0,.45)}
 .ig-pill:hover .ig-n{opacity:.9}
 @media (max-width:720px){.ig-pill{font-size:14.5px}}
+
+/* photographs: gallery index (option C, 17 Nov): no titles under photos (still in the viewer), numbered small-caps series lines */
+.strip .shot figcaption{display:none!important}
+#series{counter-reset:ser}
+.series{counter-increment:ser;margin-top:34px}
+.series-head{align-items:baseline;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.series-title{gap:12px;align-items:baseline}
+.series-title h3{font-family:var(--display)!important;font-size:12.5px!important;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-variation-settings:normal}
+.series-title h3::before{content:counter(ser,decimal-leading-zero) "  ";white-space:pre;color:var(--sign-red)}
+.series-title .gr{order:2;font-size:12.5px;letter-spacing:.2em;font-weight:400}
+.series-title .count{display:none}
+.series-nav{gap:14px}
+.series-nav button{width:auto;height:auto;border:0;padding:0;font-size:16px;color:var(--muted);background:none!important}
+.series-nav button:hover:not(:disabled){color:var(--sign-red)}
+.strip{gap:6px}
+.strip .shot:hover img{transform:none!important}
+.strip .shot img{transition:opacity .3s}.strip:hover .shot img{opacity:.82}.strip .shot:hover img{opacity:1}
 </style>
 
 </head>
