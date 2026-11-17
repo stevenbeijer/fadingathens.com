@@ -784,6 +784,27 @@ a.av-btn{display:inline-block;text-decoration:none}
 /* prints shop link in the photo viewer */
 .viewer .vprint{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--sign-yellow);text-decoration:none;border-bottom:1px solid currentColor}
 .viewer .vprint:hover{color:#fff}
+
+/* polish preview 17 Nov */
+.hero.hero-photo .wrap.hero-text{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-areas:"en gr" "cta .";align-items:end;row-gap:28px}
+.hero-en{grid-area:en}.hero-gr{grid-area:gr;align-self:end;border-left:2px solid var(--line);padding-left:28px}
+.hero-cta{grid-area:cta;justify-self:start;margin:0!important}
+@media (max-width:720px){.hero.hero-photo .wrap.hero-text{grid-template-columns:1fr;grid-template-areas:"en" "gr" "cta";row-gap:20px}.hero-gr{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:16px}}
+/* merch: four in a row on wide screens */
+@media (min-width:1180px){.products{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 28px}.products .prod-img{min-height:0}}
+/* instagram: profile beside the photos */
+@media (min-width:900px){
+ .ig{max-width:none;display:grid;grid-template-columns:minmax(260px,330px) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"head grid" "bio grid"}
+ .ig-head{grid-area:head;padding:22px 22px 10px;flex-wrap:wrap}
+ .ig-bio{grid-area:bio;padding:4px 22px 22px}
+ .ig-grid{grid-area:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start}
+}
+/* Greek kicker above every section title, as in the photo series */
+.section-head .sh-gr{flex-basis:100%;order:-1;margin:0 0 -10px;font-family:var(--display);font-weight:400;font-size:12.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--green-2)}
+/* photo strips: gentle lift on hover */
+@media (hover:hover){.strip .shot img{transition:transform .35s ease,filter .3s}.strip .shot:hover img{transform:translateY(-4px)}}
+/* tote card: word picker below the text so all four cards line up */
+.prod .tote-pick{margin:6px 0 8px}
 </style>
 
 </head>
@@ -821,14 +842,14 @@ a.av-btn{display:inline-block;text-decoration:none}
     <h1 class="lockup hero-logo"><svg class="logo-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
   </div>
   <div class="wrap hero-text">
-    <div>
+    <div class="hero-en">
       <p class="greek">Η Αθήνα που σβήνει</p>
       <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
-      <a class="cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
     </div>
-    <div>
+    <div class="hero-gr">
       <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Ταμπέλες ζωγραφισμένες στο χέρι, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
     </div>
+    <a class="cta hero-cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
   </div>
 </header>
 
@@ -840,14 +861,14 @@ a.av-btn{display:inline-block;text-decoration:none}
 </div></aside>
 
 <section id="photographs"><div class="wrap">
-  <div class="section-head"><h2>Photographs</h2><p>In series · tap a photo to see it larger</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Φωτογραφίες</p><h2>Photographs</h2><p>In series · tap a photo to see it larger</p></div>
   <div id="series"></div>
 </div></section>
 
 <section class="photo-break single" id="breakCarina" aria-label="Photograph" style="padding-block:0"></section>
 
 <section id="merch"><div class="wrap">
-  <div class="section-head"><h2>Merch</h2><p>On sale in Kypseli, Athens</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Αναμνηστικά</p><h2>Merch</h2><p>On sale in Kypseli, Athens</p></div>
   <div class="products">
     <article class="prod">
       <div class="prod-img pc-fan"><img class="f1" src="img/postcard-front.jpg" width="1400" height="995" loading="lazy" alt="Postcard front: hand-drawn signs of Athens cinemas including Rex in red neon, Riviera, Cine Dexameni, Sine Flery, Sine Titania, Alma, Olympia, Ekran and Palace"><img class="f2" src="img/postcard-signs-front.jpg" width="1400" height="999" loading="lazy" alt="Postcard front: hand-drawn Athens shop signs including Zacharoplasteion Ariston, Casa Romantica, Hotel Orion, Rocky Video, Kafe Bar, a video club and Viktoria"></div>
@@ -874,6 +895,9 @@ a.av-btn{display:inline-block;text-decoration:none}
     </article>
     <article class="prod">
       <div class="prod-img ih-scene" role="img" id="toteScene" aria-label="Two tote bags: a natural canvas bag printed with I, a red heart and ΛΑΪΚΗ, and the back of a black bag with the Fading Athens logo"><div class="ih-tote t1" id="toteFront" style="--ink:#1c1a14;left:6%;top:4%;transform:rotate(-6deg);z-index:2"><svg viewBox="0 0 270 470" aria-hidden="true"><path d="M80 182 L80 70 C80 22 112 10 135 10 C158 10 190 22 190 70 L190 182" fill="none" class="tote-strap" stroke="#d8c9ab" stroke-width="13" stroke-linecap="round"/><rect class="tote-body" x="15" y="174" width="240" height="290" rx="3" fill="#e8dcc4" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><rect x="15" y="174" width="240" height="14" fill="rgba(0,0,0,.07)"/></svg><span class="ih-print ih-print-tote"><span class="ih-i">I <svg class="ih-heart" viewBox="0 0 32 29" aria-hidden="true"><path d="M16 28 C 6 20 0 14 0 8 C 0 3.5 3.5 0 8 0 C 11.3 0 14 1.8 16 4.6 C 18 1.8 20.7 0 24 0 C 28.5 0 32 3.5 32 8 C 32 14 26 20 16 28 Z"/></svg></span><span class="ih-word" lang="el" id="toteWord">ΛΑΪΚΗ</span></span></div><div class="ih-tote t2" id="toteBack" style="--ink:#f3ead2;left:50%;top:8%;transform:rotate(6deg);z-index:1"><svg viewBox="0 0 270 470" aria-hidden="true"><path d="M80 182 L80 70 C80 22 112 10 135 10 C158 10 190 22 190 70 L190 182" fill="none" class="tote-strap" stroke="#141414" stroke-width="13" stroke-linecap="round"/><rect class="tote-body" x="15" y="174" width="240" height="290" rx="3" fill="#232323" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><rect x="15" y="174" width="240" height="14" fill="rgba(0,0,0,.07)"/></svg><svg class="ih-logo" id="toteLogo" viewBox="0 0 1197 1628" aria-hidden="true" style="color:#f3ead2"><use href="#fa-logo"/></svg></div></div>
+      <span class="pc-type">Tote bags · six designs</span>
+      <h3 class="pc-title">I ♥ tote bags</h3>
+      <p>Six Athenian words, each on natural or black canvas, with the Fading Athens logo on the back. <span id="toteDesc">Λαϊκή: the street market.</span></p>
       <div class="tote-pick" role="group" aria-label="Choose a tote bag design">
         <button type="button" aria-pressed="true" data-w="ΛΑΪΚΗ" data-t="Λαϊκή" data-c="n" data-d="the street market">ΛΑΪΚΗ</button>
         <button type="button" aria-pressed="false" data-w="ΤΑΡΑΤΣΑ" data-t="Ταράτσα" data-c="b" data-d="the rooftop terrace">ΤΑΡΑΤΣΑ</button>
@@ -882,9 +906,6 @@ a.av-btn{display:inline-block;text-decoration:none}
         <button type="button" aria-pressed="false" data-w="ΚΟΥΛΟΥΡΙ" data-t="Κουλούρι" data-c="n" data-d="the sesame bread ring">ΚΟΥΛΟΥΡΙ</button>
         <button type="button" aria-pressed="false" data-w="ΚΑΦΕΝΕΙΑ" data-t="Καφενεία" data-c="b" data-d="the old cafés">ΚΑΦΕΝΕΙΑ</button>
       </div>
-      <span class="pc-type">Tote bags · six designs</span>
-      <h3 class="pc-title">I ♥ tote bags</h3>
-      <p>Six Athenian words, each on natural or black canvas, with the Fading Athens logo on the back. <span id="toteDesc">Λαϊκή: the street market.</span></p>
       <p class="stk-buy"><span class="stk-low avail-soon">Coming soon</span></p>
       <p class="prod-where">Where to buy: to be announced</p>
     </article>
@@ -985,7 +1006,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 </div></section>
 
 <section id="walk"><div class="wrap">
-  <div class="section-head"><h2>Join the walk</h2><p>A 2-hour walking tour · Airbnb Original</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Περίπατος στην πόλη</p><h2>Join the walk</h2><p>A 2-hour walking tour · Airbnb Original</p></div>
   <div class="walk2">
     <div class="walk-intro">
       <h3>A Journey Through Athens’ Fading Beauty</h3>
@@ -1024,7 +1045,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 </div></section>
 
 <section id="press"><div class="wrap">
-  <div class="section-head"><h2>In the press</h2><p>Print and online</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Στον Τύπο</p><h2>In the press</h2><p>Print and online</p></div>
   <div class="feature">
     <div class="clips" aria-hidden="true">
       <img class="clip c4" src="img/press/k-spread.jpg" alt="" width="1174" height="762" loading="lazy">
@@ -1112,7 +1133,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 </div></section>
 
 <section id="instagram"><div class="wrap">
-  <div class="section-head"><h2>On Instagram</h2><p>Latest posts · see all of them on Instagram</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Στο Instagram</p><h2>On Instagram</h2><p>Latest posts · see all of them on Instagram</p></div>
   <div class="ig">
     <div class="ig-head">
       <a class="ig-avatar" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener" aria-label="Fading Athens on Instagram"><!-- IG-AVATAR:START --><img src="img/ig-avatar.jpg" alt="" width="168" height="168"><!-- IG-AVATAR:END --></a>
@@ -1138,7 +1159,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 </div></section>
 
 <section id="collaborate"><div class="wrap">
-  <div class="section-head"><h2>Collaborate</h2><p>For brands and businesses</p></div>
+  <div class="section-head"><p class="sh-gr" lang="el">Συνεργασίες</p><h2>Collaborate</h2><p>For brands and businesses</p></div>
   <div class="walk">
     <p class="walk-lede">Brands looking to collaborate with Fading Athens can get in touch through Instagram. Send a message and Steven will get back to you.</p>
     <a class="cta" href="https://ig.me/u/fadingathens/cp/FSsI6WiJ9/" target="_blank" rel="noopener">Message us on Instagram →</a>
