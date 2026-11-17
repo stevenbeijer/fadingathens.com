@@ -653,7 +653,7 @@ blockquote p:first-child,.about-quote p:first-child,.feature-text blockquote p:f
 .p-date,.f-date,.series-title .count,.then-pic figcaption,.reel-cap,.about-src,.pile-head p,.fold-list,.f-outlet{letter-spacing:.03em}
 
 .about figure .main-cap{display:block;margin-top:8px;font-size:13px;letter-spacing:.03em;color:var(--muted)}
-/* «Έκλεισε / Closed» rubber stamp on photos of places that have closed */
+/* places that have closed: marker on the photo (styled as a quiet pill, see 'option D' below) */
 .shot button{position:relative}
 .closed-stamp{position:absolute;top:14px;right:12px;transform:rotate(-8deg);display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 9px 4px;border:2px solid var(--sign-red);outline:1px solid var(--sign-red);outline-offset:2px;border-radius:3px;background:rgba(243,234,210,.93);color:var(--sign-red);box-shadow:0 1px 4px rgba(0,0,0,.18);font-family:var(--display);font-weight:600;text-transform:uppercase;line-height:1;pointer-events:none}
 .closed-stamp span:first-child{font-size:13px;letter-spacing:.14em}
@@ -817,6 +817,15 @@ a.av-btn{display:inline-block;text-decoration:none}
 .statement-gr em{font-style:italic;color:var(--sign-red)}
 .statement-gr+.lede-gr{margin-top:0}
 @media (max-width:720px){.hero.hero-photo .wrap.hero-text{grid-template-areas:"st" "en" "gr" "cta"}.statement{font-size:clamp(32px,9.4vw,44px)}}
+
+/* closed places: quiet pill (option D, 17 Nov) */
+.closed-stamp{top:auto;right:auto;left:10px;bottom:10px;transform:none;flex-direction:row;flex-wrap:wrap;align-items:center;gap:0;max-width:calc(100% - 20px);padding:5px 11px 5px 9px;border:0;outline:0;border-radius:999px;background:rgba(20,18,16,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fbf3e4;box-shadow:none;font-family:var(--body);font-weight:500;text-transform:none;line-height:1.25;font-size:11.5px;letter-spacing:.04em}
+.closed-stamp::before{content:"";flex:none;width:7px;height:7px;margin-right:7px;border-radius:50%;background:#ff5a45;box-shadow:0 0 0 3px rgba(255,90,69,.25)}
+.closed-stamp span:first-child,.closed-stamp span:last-child{font-size:inherit;letter-spacing:inherit;opacity:1}
+.closed-stamp .sep{white-space:pre;opacity:.6}
+.viewer .closed-tag{display:inline-flex;align-items:center;gap:0;white-space:pre;transform:none;border:0;padding:3px 0;font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:.04em;font-size:13px}
+.viewer .closed-tag::before{content:"";margin-right:8px;width:7px;height:7px;border-radius:50%;background:var(--sign-red);box-shadow:0 0 0 3px color-mix(in srgb,var(--sign-red) 25%,transparent)}
+@media (max-width:600px){.closed-stamp{left:8px;bottom:8px;padding:5px 10px 5px 8px;border-radius:10px;font-size:10.5px;display:grid;grid-template-columns:auto auto;column-gap:7px;row-gap:1px}.closed-stamp::before{grid-row:1/3;align-self:center;margin:0}.closed-stamp .sep{display:none}.closed-stamp span:last-child{grid-column:2;opacity:.8}}
 </style>
 
 </head>
@@ -1220,7 +1229,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <div class="bar"><span id="vCount"></span><button id="vClose" type="button">Close</button></div>
   <div class="stage"><img id="vImg" alt=""></div>
-  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε</span> · Closed</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a><a class="vprint" id="vPrint" href="shop/" hidden>Order this photo as a print →</a><div class="vshare" role="group" aria-label="Share this photo"><span class="vshare-label">Share</span><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="x">X / Twitter</button><button type="button" data-share="instagram">Instagram</button><button type="button" data-share="copy">Copy link</button><button type="button" data-share="more" hidden>More…</button></div><p class="vshare-note" id="vShareNote" aria-live="polite"></p></div>
+  <div class="cap"><div class="gr" id="vGr"></div><div class="closed-tag" id="vClosed" hidden><span lang="el">Έκλεισε οριστικά</span> · Closed for good</div><div class="en" id="vEn"></div><a class="maplink" id="vMap" target="_blank" rel="noopener" hidden></a><a class="vprint" id="vPrint" href="shop/" hidden>Order this photo as a print →</a><div class="vshare" role="group" aria-label="Share this photo"><span class="vshare-label">Share</span><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="x">X / Twitter</button><button type="button" data-share="instagram">Instagram</button><button type="button" data-share="copy">Copy link</button><button type="button" data-share="more" hidden>More…</button></div><p class="vshare-note" id="vShareNote" aria-live="polite"></p></div>
   <div class="bar" style="justify-content:center;margin-top:10px"><div class="nav"><button id="vPrev" type="button">← Previous</button><button id="vNext" type="button">Next →</button></div></div>
 </div>
 <div class="viewer filmview" id="fviewer" hidden role="dialog" aria-modal="true" aria-label="Film viewer">
@@ -1340,7 +1349,7 @@ function shot(i){var p=PHOTOS[i];
   var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View larger: '+(p[2]||p[3])+(isClosed(p[0])?' (closed)':''));
   var im=document.createElement('img');im.src='img/'+p[0]+'.jpg';im.alt=p[4];im.loading='lazy';
   var HH={'hotel-erechthion':1324,'arcade-descent':1800};if(HH[p[0]]){im.width=p[1];im.height=HH[p[0]]}else if(p[1]>1400){im.width=p[1];im.height=Math.round(p[1]*1346/2400)}else{im.width=p[1];im.height=1400}
-  b.appendChild(im);if(isClosed(p[0])){var st=document.createElement('span');st.className='closed-stamp';st.setAttribute('aria-hidden','true');st.innerHTML='<span lang="el">ΕΚΛΕΙΣΕ</span><span>Closed</span>';b.appendChild(st)}b.addEventListener('click',function(){openV(i)});f.appendChild(b);
+  b.appendChild(im);if(isClosed(p[0])){var st=document.createElement('span');st.className='closed-stamp';st.setAttribute('aria-hidden','true');st.innerHTML='<span lang="el">Έκλεισε οριστικά</span><span class="sep"> · </span><span>Closed for good</span>';b.appendChild(st)}b.addEventListener('click',function(){openV(i)});f.appendChild(b);
   var c=document.createElement('figcaption');if(p[2]){c.lang=/[Α-Ωα-ω]/.test(p[2])?'el':'en';c.textContent=p[2]}f.appendChild(c);
   return f}
 var holder=document.getElementById('series');
