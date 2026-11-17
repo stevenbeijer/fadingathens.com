@@ -870,7 +870,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 .prod-where .stk-shake,.stk-shake{background:none!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid currentColor!important;padding:0 0 1px!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:13px!important}
 .tote-pick button{border-radius:999px}
 .card .buy-place,.buy-place{color:var(--ink)!important;font-family:var(--body)!important;font-variation-settings:normal!important;font-weight:600!important;font-size:22px!important;letter-spacing:0!important}
-.merch-bottom .shop,.shop{background:none!important;border:1px solid var(--line)!important;box-shadow:none!important}
+.merch-bottom .shop,.shop{background:none!important;border:0!important;box-shadow:none!important}
 .buy-label{color:var(--muted)!important;letter-spacing:.2em!important;font-size:11px!important}
 .buy-sells{color:var(--muted)!important;font-size:11px!important}
 .buy-map{border-bottom-width:1px!important}
@@ -908,6 +908,19 @@ a.av-btn{display:inline-block;text-decoration:none}
 .follow-tip{margin:0 0 14px;font-size:15px}
 .follow-tip a{color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor;font-weight:500}
 .follow-tip a:hover{color:var(--sign-red)}
+
+/* where to buy: gallery-index look, no boxes (17 Nov) */
+.card.merch-bottom .buy{border:0!important;border-top:1px solid var(--ink)!important;background:none!important;padding:14px 0 0!important;gap:6px 40px!important}
+.card .buy .buy-label{font-family:var(--display)!important;font-size:13.5px!important;font-weight:700!important;letter-spacing:.22em!important;color:var(--ink)!important;margin-bottom:14px!important}
+.card .buy-place{font-size:19px!important}
+.card .buy-where{font-family:var(--body)!important;font-size:13.5px}
+.card .buy-where span{color:var(--muted)!important;font-family:var(--body)!important;letter-spacing:.04em!important;text-transform:none!important}
+.card .buy-sells{font-size:11px!important;letter-spacing:.18em!important;margin-top:6px!important}
+.card .buy-hours{font-family:var(--body)!important;font-size:13px!important}
+.card .buy-map{font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:14px!important;font-weight:500!important;border-bottom:1px solid currentColor!important;color:var(--ink)!important}
+.card .buy-map:hover{color:var(--sign-red)!important}
+.card .credit{border-left-color:var(--line)!important}
+@media (max-width:600px){.card.merch-bottom .buy{row-gap:26px!important}.card .buy .shop+.shop{border-top:1px solid var(--line)!important;padding-top:20px}}
 </style>
 
 </head>
