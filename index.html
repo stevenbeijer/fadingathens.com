@@ -924,6 +924,13 @@ a.av-btn{display:inline-block;text-decoration:none}
 
 /* alternating section tint (17 Nov, option A) */
 #merch,#about,#press,#collaborate{background:var(--plaster-2)!important}
+
+/* where to buy: one card per shop with product tags (17 Nov, option C) */
+.card.merch-bottom .buy{gap:16px!important;align-items:stretch!important}
+.card .buy .shop{background:var(--plaster)!important;border:1px solid var(--line)!important;border-top:3px solid var(--ink)!important;padding:18px 22px 22px!important}
+.card .buy .buy-sells{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px!important}
+.card .buy .chip{font-size:12px;letter-spacing:.02em;text-transform:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--plaster-2)}
+@media (max-width:600px){.card .buy .shop+.shop{border-top:3px solid var(--ink)!important;padding-top:18px!important}}
 </style>
 
 </head>
@@ -1056,7 +1063,7 @@ a.av-btn{display:inline-block;text-decoration:none}
       <div class="shop">
         <p class="buy-place">The Bleed</p>
         <p class="buy-where">Gallery · Kypseli <span>Κυψέλη</span></p>
-        <p class="buy-sells">Postcards and stickers</p>
+        <p class="buy-sells"><span class="chip">Postcards</span><span class="chip">Stickers</span></p>
         <p class="buy-addr">Trias 13 · Τρίας 13<br>113 62 Athens</p>
         <dl class="buy-hours">
           <dt>Mon–Fri</dt><dd>17:00–20:00</dd>
@@ -1068,7 +1075,7 @@ a.av-btn{display:inline-block;text-decoration:none}
       <div class="shop">
         <p class="buy-place">Meteoritis</p>
         <p class="buy-where">Bookshop · Kypseli <span>Μετεωρίτης</span></p>
-        <p class="buy-sells">Postcards</p>
+        <p class="buy-sells"><span class="chip">Postcards</span></p>
         <p class="buy-addr">Fokionos Negri 68 · Φωκίωνος Νέγρη 68<br>113 61 Athens</p>
         <dl class="buy-hours">
           <dt>Mon, Wed</dt><dd>10:00–15:00</dd>
