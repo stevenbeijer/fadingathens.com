@@ -853,6 +853,57 @@ a.av-btn{display:inline-block;text-decoration:none}
 .strip{gap:6px}
 .strip .shot:hover img{transform:none!important}
 .strip .shot img{transition:opacity .3s}.strip:hover .shot img{opacity:.82}.strip .shot:hover img{opacity:1}
+
+/* gallery-index look across the page (17 Nov): small-caps section lines, ink pill buttons, quiet labels, light film + follow bands */
+
+/* section heads: index line */
+.section-head{border-top:1px solid var(--ink)!important;padding-top:12px!important;margin-bottom:30px!important;align-items:baseline!important;flex-wrap:nowrap}
+.section-head .sh-gr{order:2;flex-basis:auto!important;margin:0 auto 0 0!important;font-family:var(--display)!important;font-size:12.5px!important;letter-spacing:.2em!important;color:var(--muted)!important;font-weight:400!important}
+.section-head h2{order:1;font-family:var(--display)!important;font-size:13.5px!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase;color:var(--ink)!important;font-variation-settings:normal!important;text-shadow:none!important;opacity:1!important;margin-right:14px!important}
+.section-head>p:last-child{order:3;font-size:12px!important}
+/* merch */
+.prod .pc-title,.pc-title{font-family:var(--body)!important;font-variation-settings:normal!important;font-size:16px!important;font-weight:600!important;color:var(--ink)!important;letter-spacing:0!important;text-shadow:none!important}
+.pc-type{font-size:11px!important;letter-spacing:.2em!important}
+.stk-low{border:0!important;padding:0!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:13px!important;font-weight:500}
+.stk-low::before{background:currentColor}
+.prod-where{font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;color:var(--muted)!important;font-size:13px!important;font-weight:400}
+.prod-where .stk-shake,.stk-shake{background:none!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid currentColor!important;padding:0 0 1px!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:13px!important}
+.tote-pick button{border-radius:999px}
+.card .buy-place,.buy-place{color:var(--ink)!important;font-family:var(--body)!important;font-variation-settings:normal!important;font-weight:600!important;font-size:22px!important;letter-spacing:0!important}
+.merch-bottom .shop,.shop{background:none!important;border:1px solid var(--line)!important;box-shadow:none!important}
+.buy-label{color:var(--muted)!important;letter-spacing:.2em!important;font-size:11px!important}
+.buy-sells{color:var(--muted)!important;font-size:11px!important}
+.buy-map{border-bottom-width:1px!important}
+/* film band */
+.market{background:var(--plaster)!important;color:var(--ink)!important;border-top:1px solid var(--ink)}
+.market .gr{color:var(--muted)!important;font-size:12.5px!important;letter-spacing:.2em!important;font-weight:400!important}
+.market h2{font-family:var(--display)!important;font-variation-settings:normal!important;font-size:13.5px!important;letter-spacing:.22em!important;text-transform:uppercase;color:var(--ink)!important;font-weight:700!important;line-height:1.4!important}
+.market p.body{opacity:1;color:var(--muted)}
+.reel .wrap{padding-block:14px 56px!important}
+.reel-cap{border-top-color:var(--line)!important}
+/* about */
+.about h2{font-family:var(--display)!important;font-variation-settings:normal!important;font-size:13.5px!important;letter-spacing:.22em!important;text-transform:uppercase;color:var(--ink)!important;font-weight:700!important;border-top:1px solid var(--ink)!important;text-shadow:none!important}
+.about-quote{border-left-color:var(--line)!important}
+/* walk */
+.walk-intro h3{color:var(--ink)!important;font-variation-settings:normal!important;font-weight:600!important;font-size:clamp(19px,1.8vw,23px)!important}
+.walk-facts li,.walk-facts span{border:0!important;padding:0!important;background:none!important}
+.walk-facts{gap:2px 16px!important}
+.walk-bespoke{border:1px solid var(--line)!important;background:none!important}
+.walk-bespoke h4,.walk-bespoke strong,.walk-bespoke b{color:var(--ink)!important}
+/* press */
+.feature-text h3{color:var(--ink)!important;font-variation-settings:normal!important;font-weight:600!important;font-size:clamp(22px,2.2vw,28px)!important}
+.feature-text blockquote,.quotes blockquote{border-color:var(--line)!important}
+.p-title{color:var(--ink)!important;font-family:var(--body)!important;font-variation-settings:normal!important;font-weight:600!important;font-size:16px!important;text-shadow:none!important}
+.p-outlet{color:var(--muted)!important;font-size:12px!important;letter-spacing:.18em!important}
+.fold-btn,.av-btn{background:none!important;border:0!important;border-bottom:1px solid currentColor!important;padding:0 0 1px!important;color:var(--ink)!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:14px!important}
+/* buttons: ink pills like the hero */
+.cta,.ig-follow{background:var(--ink)!important;color:var(--plaster)!important;border:0!important;border-radius:999px!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.01em!important;font-weight:600!important;font-size:15px!important;padding:11px 20px!important}
+.cta:hover,.ig-follow:hover{background:var(--sign-red)!important;color:#fbf3e4!important}
+/* follow band */
+.follow{background:var(--plaster)!important;color:var(--ink)!important;border-top:1px solid var(--ink)}
+.follow h2{color:var(--ink)!important;font-family:var(--display)!important;font-variation-settings:normal!important;font-size:13.5px!important;letter-spacing:.22em!important;text-transform:uppercase;font-weight:700!important;line-height:1.4!important}
+.follow .soc{color:var(--ink)!important;font-family:var(--body)!important;text-transform:none!important;letter-spacing:.01em!important;border-bottom-width:1px!important}
+.follow .copy{color:var(--muted)}
 </style>
 
 </head>
@@ -1220,7 +1271,7 @@ a.av-btn{display:inline-block;text-decoration:none}
 
 <section class="follow" style="padding-block:0"><div class="wrap">
   <div>
-    <h2>Follow<br>the walk</h2>
+    <h2>Follow the walk</h2>
     <div class="copy"><span id="h">instagram.com/fadingathens</span><button id="copyBtn" type="button">Copy</button></div>
   </div>
   <div class="socials">
