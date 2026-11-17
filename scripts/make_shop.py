@@ -91,7 +91,7 @@ def main():
             '<span class="thumb"><img src="../{img}" alt="{alt}" loading="lazy">{stamp}</span>'
             '<span class="c-name">{name}</span>'
             '<span class="c-price">From €{low}</span>'
-            '<span class="c-meta">{sizes}</span></button></li>'.format(
+            '<span class="c-meta">{sizes}</span><span class="c-etsy">Order on Etsy</span></button></li>'.format(
                 id=it["id"], img=it["img"], alt=html.escape(it["alt"]), stamp=stamp, i=i, sec=html.escape(it["sec"]),
                 name=html.escape(it["name"]), low=SIZES[0][2], sizes=sizes))
     secs = ['<li><button type="button" class="sec" data-sec="" aria-pressed="true">All prints <span>%d</span></button></li>' % len(items)]
@@ -156,7 +156,8 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:
 .shop-head .meta .ok{color:var(--green-2);font-weight:600}
 .head-cta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .head-cta small{font-size:12.5px;color:var(--muted)}
-.announce{margin:22px 0 0;padding:14px 18px;border-radius:12px;background:var(--plaster-2);font-size:14.5px;color:var(--muted);grid-column:1/-1}
+.announce{margin:22px 0 0;padding:14px 18px;border-radius:12px;background:var(--plaster-2);font-size:15px;color:var(--muted);grid-column:1/-1;display:flex;gap:14px;align-items:center}
+.etsy-dot{flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--plaster);display:grid;place-items:center;font:700 17px/1 var(--f)}
 .announce b{color:var(--ink)}
 /* layout */
 .shop-body{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;padding:30px 0 72px}
@@ -188,16 +189,19 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:
 .c-price{margin-top:4px;font-size:17px;font-weight:700}
 .c-meta{font-size:13px;color:var(--muted)}
 .c-tag{align-self:flex-start;margin-top:7px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--green-2) 16%,transparent);color:var(--green-2)}
+.c-etsy{margin-top:3px;font-size:12.5px;font-weight:600;color:var(--muted)}
 .empty{color:var(--muted)}
-/* about band */
-.how-band{background:var(--green);color:var(--on-green)}
-.how-band h2.t{margin:0;padding:48px 0 0;font-size:22px;font-weight:800}
-.how{padding:24px 0 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px}
-.how .n{display:block;font-weight:800;font-size:30px;line-height:1;color:var(--yellow);margin-bottom:10px;font-variation-settings:"FLAR" 100,"VOLM" 100}
-.how h3{margin:0 0 6px;font-size:17px;font-weight:800}
-.how p{margin:0;opacity:.85;font-size:15px}
-.how a{color:var(--yellow);font-weight:700}
-footer.foot{padding:22px 0 40px;font-size:13px;color:var(--muted)}
+/* ordering */
+.order{padding-bottom:56px}
+.order-box{background:var(--plaster-2);border-radius:18px;padding:34px 34px 36px}
+.order h2{margin:0 0 22px;font-size:22px;font-weight:800}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+.steps .n{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:17px;margin-bottom:12px}
+.order h3{margin:0 0 6px;font-size:17px;font-weight:700}
+.order p{margin:0;color:var(--muted);font-size:15px}
+.order p a{color:var(--ink);font-weight:600}
+.about{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;padding:30px 34px 0}
+footer.foot{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
 /* listing panel */
 .panel{position:fixed;inset:0;z-index:50;background:rgba(15,14,12,.6);display:flex;align-items:center;justify-content:center;padding:20px}
 .panel[hidden]{display:none}
@@ -210,7 +214,13 @@ footer.foot{padding:22px 0 40px;font-size:13px;color:var(--muted)}
 .info h2{margin:0;font-size:19px;line-height:1.35;font-weight:500}
 .info .p-cap{margin:0;font-size:15px;color:var(--muted)}
 .info .p-closed{margin:0;font-size:13px;font-weight:700;color:var(--red)}
-.field label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.field .lab{margin:0 0 6px;font-size:14px;font-weight:600}
+.field .lab span{font-weight:400;color:var(--muted)}
+.sizes{list-style:none;margin:0;padding:0;border:1.5px solid var(--line);border-radius:10px}
+.sizes li{display:flex;justify-content:space-between;padding:10px 14px;font-size:15px}
+.sizes li+li{border-top:1px solid var(--line)}
+.sizes b{font-weight:700}
+.via{margin:-4px 0 0;font-size:13px;color:var(--muted);text-align:center}
 .field select{width:100%;font:500 16px var(--f);color:var(--ink);background:var(--plaster);border:1.5px solid var(--ink);border-radius:10px;padding:12px 40px 12px 14px;appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 22px) 52%,calc(100% - 16px) 52%;background-size:6px 6px;background-repeat:no-repeat}
 fieldset{border:0;margin:0;padding:0}
 .buy{justify-content:center;width:100%;padding:16px 20px;font-size:16px}
@@ -237,7 +247,7 @@ fieldset{border:0;margin:0;padding:0}
  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
  .thumb{padding:10px}
  .list-head h2{font-size:17px}
- .how{grid-template-columns:1fr;gap:24px;padding:20px 0 44px}.how-band h2.t{padding-top:36px}
+ .order-box{padding:24px 20px 26px}.steps,.about{grid-template-columns:1fr;gap:20px}.about{padding:24px 4px 0}
  .panel{padding:0;align-items:flex-end}.sheet{grid-template-columns:1fr;max-height:94vh;border-radius:18px 18px 0 0}.sheet .pic{min-height:0;padding:18px}.sheet .pic img{max-height:40vh}.info{padding:20px 18px 30px}
 }
 </style>
@@ -254,13 +264,12 @@ fieldset{border:0;margin:0;padding:0}
     <div>
       <h1>Fading Athens prints</h1>
       <p class="tag">Fine art prints of an Athens that is disappearing</p>
-      <ul class="meta"><li>Photographs by <b>Steven A.J. Beijer</b></li><li>Athens, Greece</li><li>{COUNT} prints</li><li class="ok">Printed to order in Europe</li></ul>
+      <ul class="meta"><li>Photographs by <b>Steven A.J. Beijer</b></li><li>Athens, Greece</li><li>{COUNT} prints</li><li class="ok">Printed to order in Europe</li><li><b>Sold through Etsy</b></li></ul>
     </div>
     <div class="head-cta">
       <a class="pill" href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Visit the shop on Etsy ↗</a>
-      <small>Orders and payment go through Etsy</small>
     </div>
-    <p class="announce"><b>A first selection.</b> Shopfronts, cafés, hotels and corners of an Athens that is disappearing, printed with a white border so nothing of the photo is cropped. Three sizes, from €{LOW}. More prints will follow.</p>
+    <p class="announce"><span class="etsy-dot" aria-hidden="true">↗</span><span><b>Every order goes through Etsy.</b> Browse the prints here, then click “Order on Etsy” to choose the size, see the shipping cost and pay in the Fading Athens shop on Etsy.</span></p>
   </header>
   <div class="shop-body">
     <aside class="side">
@@ -268,7 +277,7 @@ fieldset{border:0;margin:0;padding:0}
       <ul class="secs" id="secs">
 {SECS}
       </ul>
-      <p class="side-note">Prints are unframed. You choose the size on Etsy; shipping is shown before you pay. <a href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Etsy shop ↗</a></p>
+      <p class="side-note">A first selection; more prints will follow. All prints are unframed. Orders, payment and shipping are handled by Etsy. <a href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Etsy shop ↗</a></p>
     </aside>
     <section aria-labelledby="listTitle">
       <div class="list-head">
@@ -281,14 +290,20 @@ fieldset{border:0;margin:0;padding:0}
     </section>
   </div>
 </main>
-<section class="how-band" aria-labelledby="aboutT"><div class="wrap">
-  <h2 class="t" id="aboutT">About these prints</h2>
-  <div class="how">
-    <div><span class="n">01</span><h3>Fine art paper</h3><p>Unframed prints are 12-colour giclée on 200 gsm matte fine art paper.</p></div>
-    <div><span class="n">02</span><h3>Places that are gone</h3><p>Several of the shops, hotels and stations in these prints have since closed for good. The photograph is what is left of them.</p></div>
-    <div><span class="n">03</span><h3>Printed for you</h3><p>Each print is made when you order it, at a print lab in Europe, and posted straight to your door. Orders go through the <a href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Fading Athens shop on Etsy</a>, where you choose the size; shipping is shown before you pay.</p></div>
+<section class="wrap order" aria-labelledby="orderT">
+  <div class="order-box">
+    <h2 id="orderT">How ordering works</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Pick a print here</h3><p>Click any print to see it larger, with its sizes and prices.</p></li>
+      <li><span class="n">2</span><h3>Order on Etsy</h3><p>“Order on Etsy” opens the print in the <a href="https://www.etsy.com/shop/FadingAthens" target="_blank" rel="noopener">Fading Athens shop on Etsy</a>. Choose the size, see the shipping cost and pay there.</p></li>
+      <li><span class="n">3</span><h3>Printed and posted</h3><p>The print is made to order at a print lab in Europe and sent to your door. Etsy keeps you updated on your order.</p></li>
+    </ol>
   </div>
-</div></section>
+  <div class="about">
+    <div><h3>Fine art paper</h3><p>Unframed prints, 12-colour giclée on 200 gsm matte fine art paper, with a white border so nothing of the photo is cropped.</p></div>
+    <div><h3>Places that are gone</h3><p>Several of the shops, hotels and stations in these prints have since closed for good. The photograph is what is left of them.</p></div>
+  </div>
+</section>
 <footer class="foot"><div class="wrap">© Steven A.J. Beijer · Fading Athens · <a href="../">fadingathens.com</a></div></footer>
 
 <div class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="pName">
@@ -300,10 +315,11 @@ fieldset{border:0;margin:0;padding:0}
       <h2 id="pName"></h2>
       <p class="p-cap" id="pCap"></p>
       <p class="p-closed" id="pClosed" hidden><span lang="el">Έκλεισε</span> · This place has closed</p>
-      <div class="field"><label for="pSize">Size</label><select id="pSize"></select></div>
+      <div class="field"><p class="lab">Sizes and prices <span>· choose on Etsy</span></p><ul class="sizes" id="pSizes"></ul></div>
       <fieldset hidden><div id="pFrames"></div></fieldset>
       <a class="pill solid buy" id="pBuy" href="#" role="button">Order on Etsy</a>
-      <ul class="ticks"><li>Fine art giclée on 200 gsm matte paper</li><li>White border, nothing of the photo cropped</li><li>Printed to order in Europe</li><li id="pShip">Shipping is added at checkout on Etsy</li></ul>
+      <p class="via">Opens this print in the Fading Athens shop on Etsy, where you choose the size, see shipping and pay.</p>
+      <ul class="ticks"><li>Fine art giclée on 200 gsm matte paper</li><li>White border, nothing of the photo cropped</li><li>Printed to order in Europe and posted to you</li><li id="pShip">Payment, shipping and order updates by Etsy</li></ul>
     </div>
   </div>
 </div>
@@ -313,10 +329,10 @@ var D={DATA},CHECKOUT={};
 var byId={};D.items.forEach(function(it){byId[it.id]=it});
 var P=document.getElementById('panel'),cur=null,last=null;
 function sizeLab(o,land){var lab=o[1];return land?lab.replace(/(\d+) × (\d+)/,'$2 × $1'):lab}
-function sizeOpts(){return D.sizes.filter(function(o){return cur.max==='l'||o[0]!=='l'}).map(function(o){return '<option value="'+o[0]+'">'+sizeLab(o,cur.land)+' · €'+o[2]+'</option>'}).join('')}
+function sizeList(){return D.sizes.filter(function(o){return cur.max==='l'||o[0]!=='l'}).map(function(o){return '<li><span>'+sizeLab(o,cur.land)+'</span><b>€'+o[2]+'</b></li>'}).join('')}
 function find(list,id){for(var i=0;i<list.length;i++)if(list[i][0]===id)return list[i]}
-function update(){var s=find(D.sizes,document.getElementById('pSize').value);
-  document.getElementById('pTotal').innerHTML='€'+s[2]+'<small>'+sizeLab(s,cur.land)+'</small>';
+function update(){var s=D.sizes[0];
+  document.getElementById('pTotal').innerHTML='<small style="margin:0 6px 0 0">From</small>€'+s[2]+'<small>plus shipping</small>';
   var url=cur.etsy||CHECKOUT[cur.id+'|'+s[0]+'|none'],b=document.getElementById('pBuy');
   b.dataset.url=url||'';b.href=url||'#';if(url){b.target='_blank';b.rel='noopener'}else{b.removeAttribute('target')}
   b.textContent=url?(cur.etsy?'Order on Etsy ↗':'Order this print'):'Not available online';b.classList.toggle('off',!url);if(url)b.removeAttribute('aria-disabled');else b.setAttribute('aria-disabled','true')}
@@ -324,12 +340,11 @@ function openP(id,push){cur=byId[id];if(!cur)return;last=document.activeElement;
   document.getElementById('pImg').src='../'+cur.img;document.getElementById('pImg').alt=cur.alt;
   document.getElementById('pName').textContent=cur.name+' · Fine art print'+(cur.max==='l'?'':', up to 30 × 40 cm');
   document.getElementById('pCap').textContent=cur.cap;document.getElementById('pClosed').hidden=true;
-  document.getElementById('pSize').innerHTML=sizeOpts();
+  document.getElementById('pSizes').innerHTML=sizeList();
   update();P.hidden=false;document.body.style.overflow='hidden';document.getElementById('pClose').focus();
   if(push!==false)try{history.replaceState(null,'','#'+id)}catch(e){}}
 function closeP(){P.hidden=true;document.body.style.overflow='';try{history.replaceState(null,'',location.pathname)}catch(e){}if(last)last.focus()}
 document.getElementById('grid').addEventListener('click',function(e){var b=e.target.closest('.card-btn');if(b)openP(b.dataset.id)});
-document.getElementById('pSize').addEventListener('change',update);
 P.addEventListener('click',function(e){if(e.target===P)closeP()});
 document.getElementById('pClose').addEventListener('click',closeP);
 document.addEventListener('keydown',function(e){if(!P.hidden&&e.key==='Escape')closeP()});
