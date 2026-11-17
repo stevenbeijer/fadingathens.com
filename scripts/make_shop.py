@@ -76,10 +76,10 @@ def main():
         it["alt"] = e.get("alt") or (p[4] if p else "")
         items.append(it)
 
-    SECTIONS = ["Shops and cafés", "Hotels and stations", "Around the city"]
+    SECTIONS = ["Shops and cafés", "Hotels and stations", "Around Athens", "Elsewhere in Greece"]
     live = [e for e in prints if e.get("etsy")]
     for it, e in zip(items, live):
-        it["sec"] = e.get("section") or "Around the city"
+        it["sec"] = e.get("section") or "Around Athens"
         if it["sec"] not in SECTIONS:
             SECTIONS.append(it["sec"])
     cards = []
