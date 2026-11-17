@@ -78,7 +78,7 @@
 </style>
 <title>Fading Athens | Chipped paint and fading facades of Athens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:slnt,wght,FLAR,VOLM@-12..0,100..900,0..100,0..100&family=Caveat:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:slnt,wght,FLAR,VOLM@-12..0,100..900,0..100,0..100&family=Caveat:wght@500&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,300..700;1,62.5..100,300..700&display=swap">
 <style>
 /* Layout: a walk down one street — sign + photo hero, a contact-sheet wall of photographs, the market at dusk, the streets, the photographer. */
 :root{
@@ -805,6 +805,15 @@ a.av-btn{display:inline-block;text-decoration:none}
 @media (hover:hover){.strip .shot img{transition:transform .35s ease,filter .3s}.strip .shot:hover img{transform:translateY(-4px)}}
 /* tote card: word picker below the text so all four cards line up */
 .prod .tote-pick{margin:6px 0 8px}
+
+/* hero statement line in a serif (17 Nov, idea from vivmgmt.com) */
+:root{--serif:"Noto Serif Display",Georgia,"Times New Roman",serif}
+.hero.hero-photo .wrap.hero-text{grid-template-areas:"st st" "en gr" "cta .";row-gap:24px;align-items:start}
+.hero-st{grid-area:st}
+.hero-gr{align-self:start}
+.statement{margin:6px 0 0;font-family:var(--serif);font-variation-settings:normal;font-stretch:72%;font-weight:400;font-size:clamp(34px,5.2vw,74px);line-height:1;letter-spacing:-.015em;color:var(--ink);max-width:16em}
+.statement em{font-style:italic;color:var(--sign-red)}
+@media (max-width:720px){.hero.hero-photo .wrap.hero-text{grid-template-areas:"st" "en" "gr" "cta"}.statement{font-size:clamp(32px,9.4vw,44px)}}
 </style>
 
 </head>
@@ -842,9 +851,12 @@ a.av-btn{display:inline-block;text-decoration:none}
     <h1 class="lockup hero-logo"><svg class="logo-mark" viewBox="0 0 1197 1628" role="img" aria-label="Fading Athens"><use href="#fa-logo"/></svg></h1>
   </div>
   <div class="wrap hero-text">
-    <div class="hero-en">
+    <div class="hero-st">
       <p class="greek">Η Αθήνα που σβήνει</p>
-      <p class="lede">The small streets, corners and shops of Athens, photographed before they go. Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
+      <p class="statement">The small streets, corners and shops of Athens, <em>photographed</em> before they <em>go</em>.</p>
+    </div>
+    <div class="hero-en">
+      <p class="lede">Hand-painted signs, rolled-down shutters, barbershops and kiosks that kept the same lettering for decades. <em>A photo project by Steven A.J. Beijer.</em></p>
     </div>
     <div class="hero-gr">
       <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας, φωτογραφημένα πριν χαθούν. Ταμπέλες ζωγραφισμένες στο χέρι, κατεβασμένα ρολά, κουρεία και περίπτερα που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
