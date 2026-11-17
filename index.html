@@ -826,6 +826,16 @@ a.av-btn{display:inline-block;text-decoration:none}
 .viewer .closed-tag{display:inline-flex;align-items:center;gap:0;white-space:pre;transform:none;border:0;padding:3px 0;font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:.04em;font-size:13px}
 .viewer .closed-tag::before{content:"";margin-right:8px;width:7px;height:7px;border-radius:50%;background:var(--sign-red);box-shadow:0 0 0 3px color-mix(in srgb,var(--sign-red) 25%,transparent)}
 @media (max-width:600px){.closed-stamp{left:8px;bottom:8px;padding:4px 10px 4px 8px;font-size:10.5px}}
+
+/* hero Instagram button: dark pill with handle and follower count (17 Nov) */
+.ig-pill{grid-area:cta;justify-self:start;display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 15px;border-radius:999px;background:var(--ink);color:var(--plaster);text-decoration:none;font-family:var(--body);font-size:15px;line-height:1.2;transition:background .2s,transform .2s,box-shadow .2s}
+.ig-pill .ig-ico{width:19px;height:19px;flex:none}
+.ig-pill .ig-h{font-weight:600;letter-spacing:.01em}
+.ig-pill .ig-n{padding-left:12px;margin-left:2px;border-left:1px solid color-mix(in srgb,var(--plaster) 28%,transparent);opacity:.72;font-weight:400}
+.ig-pill .ig-n:empty{display:none}
+.ig-pill:hover,.ig-pill:focus-visible{background:var(--sign-red);color:#fbf3e4;transform:translateY(-1px);box-shadow:0 8px 18px -10px rgba(0,0,0,.45)}
+.ig-pill:hover .ig-n{opacity:.9}
+@media (max-width:720px){.ig-pill{font-size:14.5px}}
 </style>
 
 </head>
@@ -874,7 +884,7 @@ a.av-btn{display:inline-block;text-decoration:none}
       <p class="statement-gr" lang="el">Γράμματα ζωγραφισμένα στο χέρι, κατεβασμένα ρολά, ό,τι <em>απέμεινε</em> από την παλιά Αθήνα, πριν <em>σβήσει</em>.</p>
       <p class="lede-gr" lang="el">Τα μικρά δρομάκια, οι γωνιές και τα μαγαζιά της Αθήνας: κουρεία, περίπτερα και καφενεία που κρατούν τα ίδια γράμματα εδώ και δεκαετίες.</p>
     </div>
-    <a class="cta hero-cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener">Follow on Instagram →</a>
+    <a class="ig-pill hero-cta" href="https://www.instagram.com/fadingathens/" target="_blank" rel="noopener"><svg class="ig-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg><span class="ig-h">@fadingathens</span><span class="ig-n" id="heroFollowers"></span></a>
   </div>
 </header>
 
@@ -1586,5 +1596,9 @@ document.querySelectorAll('a.logo').forEach(function(a){a.addEventListener('clic
 })();
 </script>
 
+<script>
+/* hero Instagram pill: follower count from the Instagram block (kept current by instagram.yml) */
+(function(){var n=document.querySelector('.ig-stats strong'),t=document.getElementById('heroFollowers');if(n&&t&&n.textContent.trim())t.textContent=n.textContent.trim()+' followers'})();
+</script>
 </body>
 </html>
